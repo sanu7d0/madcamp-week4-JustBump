@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class PlayerCombat : MonoBehaviour
 {
-    private Player player;
     private PlayerController playerController;
 
     [SerializeField] private float knockbackPower;
@@ -11,7 +10,6 @@ public class PlayerCombat : MonoBehaviour
     [SerializeField] private LayerMask targetLayers;
 
     void Awake() {
-        player = GetComponent<Player>();
         playerController = GetComponent<PlayerController>();
     }
 

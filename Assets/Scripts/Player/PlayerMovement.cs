@@ -4,7 +4,6 @@ using UnityEngine.Events;
 public class PlayerMovement : MonoBehaviour
 {
     private Rigidbody2D rb;
-    private Player player;
     private PlayerController playerController;
     private Vector2 lastMoveDir;
 
@@ -12,20 +11,15 @@ public class PlayerMovement : MonoBehaviour
 
     void Awake() {
         rb = GetComponent<Rigidbody2D>();
-        player = GetComponent<Player>();
         playerController = GetComponent<PlayerController>();
     }
 
     void Update()
     {
-        if (player.isPlaying) {
-        }
     }
 
     void FixedUpdate() {
-        if (player.isPlaying) {
-            HandleMovement();
-        }
+        HandleMovement();
     }
 
     private void HandleMovement() {
