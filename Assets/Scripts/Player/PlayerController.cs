@@ -1,19 +1,18 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Events;
 
 public class PlayerController : MonoBehaviour
 {
-    private PlayerMovement playerMovement;
-
     private Vector2 _moveDir;
+
+    public UnityEvent onAttack;
 
     public Vector2 moveDir { 
         get { return _moveDir; } 
     }
 
     void Start() {
-        playerMovement = GetComponent<PlayerMovement>();
-
 
     }
 
@@ -22,7 +21,7 @@ public class PlayerController : MonoBehaviour
     }
 
     void OnAttack(InputValue value) {
-        Debug.Log(value);
+        onAttack.Invoke();
     }
 
     void OnInventory(InputValue value) {
