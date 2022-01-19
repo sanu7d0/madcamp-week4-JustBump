@@ -3,6 +3,7 @@ using UnityEngine.Events;
 
 public class PlayerMovement : MonoBehaviour
 {
+    private Rigidbody2D rb;
     private Player player;
     private PlayerController playerController;
     private Vector2 lastMoveDir;
@@ -10,6 +11,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float speed;
 
     void Awake() {
+        rb = GetComponent<Rigidbody2D>();
         player = GetComponent<Player>();
         playerController = GetComponent<PlayerController>();
     }
@@ -17,11 +19,26 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         if (player.isPlaying) {
+        }
+    }
+
+    void FixedUpdate() {
+        if (player.isPlaying) {
             HandleMovement();
         }
     }
 
     private void HandleMovement() {
+        Vector2 moveDir = playerController.moveDir;
+        lastMoveDir = moveDir;
+
+        // rb.AddForce(moveDir * speed * Time.deltaTime); // option 1
+        rb.velocity = moveDir * speed * Time.deltaTime; // option 2
+        // rb.MovePosition(rb.position + (moveDir * speed * Time.deltaTime));  // option 3
+        // * MovePosition -> friction을 무시한다
+    }
+
+    /*private void HandleMovement() {
         Vector3 moveDir = playerController.moveDir;
         lastMoveDir = moveDir;
 
@@ -66,7 +83,7 @@ public class PlayerMovement : MonoBehaviour
                 }
             }
         }
-    }
+    }*/
 
     private void TrySomething() {
 
