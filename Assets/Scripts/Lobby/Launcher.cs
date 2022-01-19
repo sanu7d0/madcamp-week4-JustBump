@@ -14,11 +14,15 @@ public class Launcher : MonoBehaviourPunCallbacks
     private GameObject progressLabel;
     [SerializeField]
     private byte maxPlayersPerRoom = 4;
+    private bool isConnecting;
 
     public override void OnConnectedToMaster()
     {
-        Debug.Log("PUN Basics Tutorial/Launcher: OnConnectedToMaster() was called by PUN");
-        PhotonNetwork.JoinRandomRoom();
+        if (isConnecting) {
+            Debug.Log("PUN Basics Tutorial/Launcher: OnConnectedToMaster() was called by PUN");
+            PhotonNetwork.JoinRandomRoom();
+        }
+      
     }
 
 
@@ -44,12 +48,12 @@ public class Launcher : MonoBehaviourPunCallbacks
     // Update is called once per frame
     void Update()
     {
-
     }
 
 
     public void Connect()
     {
+        isConnecting = true;
         progressLabel.SetActive(true);
         controlPanel.SetActive(false);
         if (PhotonNetwork.IsConnected)
@@ -59,6 +63,7 @@ public class Launcher : MonoBehaviourPunCallbacks
         else
         {
             PhotonNetwork.ConnectUsingSettings();
+           
         }
     }
 
@@ -72,8 +77,9 @@ public class Launcher : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         // #Critical: We only load if we are the first player, else we rely on `PhotonNetwork.AutomaticallySyncScene` to sync our instance scene.
-        if (PhotonNetwork.CurrentRoom.PlayerCount == 1)
+        if (PhotonNetwork.CurrentRoom.PlayerCount == 2)
         {
+           
             Debug.Log("We load the 'Room for 1' ");
 
 
@@ -83,6 +89,5 @@ public class Launcher : MonoBehaviourPunCallbacks
         }
         Debug.Log("PUN Basics Tutorial/Launcher: OnJoinedRoom() called by PUN. Now this client is in a room.");
     }
-
 
 }
