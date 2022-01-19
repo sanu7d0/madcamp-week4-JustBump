@@ -17,6 +17,7 @@ sealed public class GameManager : Singleton<GameManager>
     }
 
     private void AttachMainCamera(GameObject target) {
-        GameObject.Find("Main Camera");
+        GameObject camera = GameObject.Find("Main Camera");
+        camera.GetComponent<CameraController>().targetTransform = target.transform;
     }
 }
