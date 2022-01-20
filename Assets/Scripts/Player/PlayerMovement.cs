@@ -7,9 +7,13 @@ public class PlayerMovement : MonoBehaviour
     private PlayerController playerController;
     private Vector2 lastMoveDir;
     private SpriteRenderer spriteRenderer;
+    private Transform transform;
+    private int point_num = 20;
     Animator anim;
+    private Vector2[] waypoints;
+    private int wayPointIndex = 0;
     [SerializeField] public float jumpPower;
-
+    [SerializeField] private float rollingSpeed;
     [SerializeField] private float speed;
 
     void Awake() {
@@ -17,10 +21,15 @@ public class PlayerMovement : MonoBehaviour
         playerController = GetComponent<PlayerController>();
         anim = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        transform = GetComponent<Transform>();
+        waypoints = null;
+        wayPointIndex = 0;
     }
     
     void Start() {
         playerController.onJump.AddListener(jump);
+        playerController.onRoll.AddListener(roll);
+
     }
 
     void Update()
@@ -30,11 +39,38 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate() {
         HandleMovement();
+        HandleRolling();
+    }
+
+    private void HandleRolling() {
+        if (waypoints == null) return;
+        if (wayPointIndex == point_num) {
+            wayPointIndex = 0;
+            waypoints = null;
+            anim.SetBool("isRolling", false);
+        }
+        Vector2 currPos = transform.position;
+
+        
+        transform.position = Vector2.MoveTowards(currPos, waypoints[wayPointIndex++], 10 * Time.deltaTime);
     }
 
     private void jump() {
         Debug.Log("Jump!!!");
         rb.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
+    }
+
+    private void roll() {
+        Debug.Log("Roll@@@");
+        anim.SetBool("isRolling", true);
+        
+        waypoints = new Vector2[point_num];
+        
+        wayPointIndex = 0;
+        for (int i = 0; i < point_num; i++) {
+            Vector2 moveDir = playerController.moveDir;
+            waypoints.SetValue(moveDir * i, i);
+        }
     }
 
     private void HandleMovement() {
@@ -52,9 +88,11 @@ public class PlayerMovement : MonoBehaviour
 
         // spriteRenderer.flipX = true;
         if (moveDir.x < 0) {
-            spriteRenderer.flipX = true;
+            transform.SetPositionAndRotation(transform.position,
+            Quaternion.Euler(0f, 180f, 0f));
         } else if (moveDir.x > 0) {
-            spriteRenderer.flipX = false;
+            transform.SetPositionAndRotation(transform.position,
+            Quaternion.Euler(0f, 0f, 0f));
         }
 
         // if (moveDir.)
