@@ -25,12 +25,12 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        
-    }
-
-    void FixedUpdate() {
         HandleMovement();
     }
+
+    /*void FixedUpdate() {
+        HandleMovement();
+    }*/
 
     private void jump() {
         Debug.Log("Jump!!!");
@@ -74,6 +74,10 @@ public class PlayerMovement : MonoBehaviour
             // ex) animator.playIdleAnimation(moveDir);
         } else {
             Vector3 targetMovePosition = transform.position + moveDir * speed * Time.deltaTime;
+            
+            bool canMove = CanMove(moveDir, speed * Time.deltaTime);
+            // if (!canMove)
+            
             RaycastHit2D raycastHit = Physics2D.Raycast(transform.position, moveDir, speed * Time.deltaTime);
             
             if (raycastHit.collider == null) {
@@ -109,5 +113,9 @@ public class PlayerMovement : MonoBehaviour
                 }
             }
         }
+    }
+
+    private bool CanMove(Vector3 dir, float distance) {
+        return Physics2D.Raycast(transform.position, dir, distance).collider == null;
     }
 }
