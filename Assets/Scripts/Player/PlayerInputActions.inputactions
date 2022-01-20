@@ -24,6 +24,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "Interact",
+                    "type": "Button",
+                    "id": "c9596912-21fa-44e6-a6a8-8099323e0276",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Inventory",
                     "type": "Button",
                     "id": "2e92024f-857f-49fd-b89f-a254f0e6c010",
@@ -188,6 +197,13 @@
                 },
                 {
                     "name": "",
+
+                    "id": "8c8b77e2-3e91-4fb1-bf75-e2f9a43ee600",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard & Mouse",
+                    "action": "Interact",
                     "id": "a03d173c-dd1e-4664-8802-491b4e2b14bd",
                     "path": "<Keyboard>/space",
                     "interactions": "",
