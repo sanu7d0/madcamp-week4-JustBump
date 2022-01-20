@@ -13,6 +13,8 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
     public UnityEvent onJump;
 
+    public UnityEvent onRoll;
+
 
     public Vector2 moveDir { 
         get { return _moveDir; } 
@@ -43,6 +45,10 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
     void OnJump(InputValue value) {
         onJump.Invoke();
+    }
+
+    void OnRoll(InputValue value) {
+        onRoll.Invoke();
     }
 
 }
