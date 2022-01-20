@@ -1,8 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
-using Photon.Pun;
 
-public class PlayerMovement : MonoBehaviourPunCallbacks
+public class PlayerMovement : MonoBehaviour
 {
     private Rigidbody2D rb;
     private PlayerController playerController;
@@ -26,6 +25,7 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
 
     void Update()
     {
+        
     }
 
     void FixedUpdate() {
@@ -56,6 +56,8 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
         } else if (moveDir.x > 0) {
             spriteRenderer.flipX = false;
         }
+
+        // if (moveDir.)
 
         // rb.MovePosition(rb.position + (moveDir * speed * Time.deltaTime));  // option 3
         // * MovePosition -> friction을 무시한다
