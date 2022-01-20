@@ -17,7 +17,7 @@ public class LobbyManager :MonoBehaviourPunCallbacks
         PhotonNetwork.LeaveRoom();
     }
 
-    public void OnPlayerEnteredRoom(Player other)
+    public override void OnPlayerEnteredRoom(Player other)
     {
         Debug.LogFormat("OnPlayerEnteredRoom() {0}", other.NickName); // not seen if you're the player connecting
 
@@ -25,14 +25,12 @@ public class LobbyManager :MonoBehaviourPunCallbacks
         if (PhotonNetwork.IsMasterClient)
         {
             Debug.LogFormat("OnPlayerEnteredRoom IsMasterClient {0}", PhotonNetwork.IsMasterClient); // called before OnPlayerLeftRoom
-
-
             LoadArena();
         }
     }
 
 
-    public void OnPlayerLeftRoom(Player other)
+    public override void OnPlayerLeftRoom(Player other)
     {
         Debug.LogFormat("OnPlayerLeftRoom() {0}", other.NickName); // seen when other disconnects
 
@@ -40,8 +38,6 @@ public class LobbyManager :MonoBehaviourPunCallbacks
         if (PhotonNetwork.IsMasterClient)
         {
             Debug.LogFormat("OnPlayerLeftRoom IsMasterClient {0}", PhotonNetwork.IsMasterClient); // called before OnPlayerLeftRoom
-
-
             LoadArena();
         }
     }
@@ -64,7 +60,7 @@ public class LobbyManager :MonoBehaviourPunCallbacks
         {
             Debug.LogError("PhotonNetwork : Trying to Load a level but we are not the master Client");
         }
-        Debug.LogFormat("PhotonNetwork : Loading Level : {0}", 1);
-        PhotonNetwork.LoadLevel("Room for " + 1);
+        Debug.LogFormat("PhotonNetwork : Loading Level : {0}", PhotonNetwork.CurrentRoom.PlayerCount);
+        PhotonNetwork.LoadLevel("Room for " + PhotonNetwork.CurrentRoom.PlayerCount);
     }
 }
