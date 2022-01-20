@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Launcher : MonoBehaviourPunCallbacks
 {
@@ -11,7 +12,8 @@ public class Launcher : MonoBehaviourPunCallbacks
     [SerializeField]
     private GameObject progressLabel;
     [SerializeField]
-    private byte maxPlayersPerRoom = 4;
+    private byte maxPlayersPerRoom = 8;
+    private byte minStartPalyersSize = 1;
     private bool isConnecting;
 
     public override void OnConnectedToMaster()
@@ -74,18 +76,14 @@ public class Launcher : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
-        // #Critical: We only load if we are the first player, else we rely on `PhotonNetwork.AutomaticallySyncScene` to sync our instance scene.
-        if (PhotonNetwork.CurrentRoom.PlayerCount == 1)
+	    Debug.Log("Join Room...");
+
+        if (PhotonNetwork.CurrentRoom.PlayerCount >= minStartPalyersSize)
         {
-           
-            Debug.Log("We load the 'Room for 1' ");
-
-
-            // #Critical
-            // Load the Room Level.
-            PhotonNetwork.LoadLevel("Room for 1");
-        }
-        Debug.Log("PUN Basics Tutorial/Launcher: OnJoinedRoom() called by PUN. Now this client is in a room.");
+		    if (PhotonNetwork.IsMasterClient) { 
+				PhotonNetwork.LoadLevel("Room");
+	        }
+	    }
     }
 
 }

@@ -13,7 +13,6 @@ public class PlayerManager: MonoBehaviourPunCallbacks
         if(photonView.IsMine) {
             PlayerManager.LocalPlayerInstance = this.gameObject;
 		}
-        DontDestroyOnLoad(this.gameObject);
     }
 
     void Start()
