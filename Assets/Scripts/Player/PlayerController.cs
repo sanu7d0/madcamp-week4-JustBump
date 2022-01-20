@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
     private Vector2 _moveDir;
 
     public UnityEvent onAttack;
+    public UnityEvent onInteract;
 
     public Vector2 moveDir { 
         get { return _moveDir; } 
@@ -22,6 +23,10 @@ public class PlayerController : MonoBehaviour
 
     void OnAttack(InputValue value) {
         onAttack.Invoke();
+    }
+
+    void OnInteract(InputValue value) {
+        onInteract.Invoke();
     }
 
     void OnInventory(InputValue value) {

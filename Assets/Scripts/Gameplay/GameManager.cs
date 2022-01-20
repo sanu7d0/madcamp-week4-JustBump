@@ -18,10 +18,10 @@ sealed public class GameManager : Singleton<GameManager>
         get { return Time.time - gameStartTime; }
     }
 
-    private bool _isPlaying;
-        public bool isPlaying {
-            get { return _isPlaying; }
-        }
+    public bool isPlaying {
+        get;
+        private set;
+    }
 
     protected override void Awake() {
         base.Awake();
@@ -32,8 +32,11 @@ sealed public class GameManager : Singleton<GameManager>
     }
 
     private void StartGame() {
-        _isPlaying = true;
+        isPlaying = true;
         
+        
+        // TODO: Player 오브젝트들 찾고, phothonview.ismine 이면 카메라 붙이기
+        // GameObject.FindGameObjectsWithTag("Player");
         GameObject player = Instantiate(playerPrefab, GameObject.Find("Spawn0").transform.position, Quaternion.identity);
         AttachMainCamera(player);
         
@@ -44,7 +47,7 @@ sealed public class GameManager : Singleton<GameManager>
     }
 
     private void EndGame() {
-        _isPlaying = false;
+        isPlaying = false;
         Debug.Log("Game ended");
     }
 

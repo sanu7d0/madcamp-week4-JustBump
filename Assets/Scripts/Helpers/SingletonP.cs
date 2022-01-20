@@ -2,7 +2,7 @@ using UnityEngine;
 using Photon.Pun;
 
 // This is a singleton for photon mono behaviour
-public class SingletonP<T> : MonoBehaviourPun where T : Component
+public class SingletonP<T> : MonoBehaviourPunCallbacks where T : Component
 {
     private static T _instance;
     public static T Instance {
