@@ -6,20 +6,35 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D rb;
     private PlayerController playerController;
     private Vector2 lastMoveDir;
+    private SpriteRenderer spriteRenderer;
+    Animator anim;
+    [SerializeField] public float jumpPower;
 
     [SerializeField] private float speed;
 
     void Awake() {
         rb = GetComponent<Rigidbody2D>();
         playerController = GetComponent<PlayerController>();
+        anim = GetComponent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+    }
+    
+    void Start() {
+        playerController.onJump.AddListener(jump);
     }
 
     void Update()
     {
+        HandleMovement();
     }
 
     void FixedUpdate() {
-        HandleMovement();
+        
+    }
+
+    private void jump() {
+        Debug.Log("Jump!!!");
+        rb.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
     }
 
     private void HandleMovement() {
@@ -28,6 +43,20 @@ public class PlayerMovement : MonoBehaviour
 
         // rb.AddForce(moveDir * speed * Time.deltaTime); // option 1
         rb.velocity = moveDir * speed * Time.deltaTime; // option 2
+
+        if (rb.velocity.x == 0 && rb.velocity.y == 0) {
+            anim.SetBool("isWalking", false);
+        } else {
+            anim.SetBool("isWalking", true);
+        }
+
+        // spriteRenderer.flipX = true;
+        if (moveDir.x < 0) {
+            spriteRenderer.flipX = true;
+        } else if (moveDir.x > 0) {
+            spriteRenderer.flipX = false;
+        }
+
         // rb.MovePosition(rb.position + (moveDir * speed * Time.deltaTime));  // option 3
         // * MovePosition -> friction을 무시한다
     }

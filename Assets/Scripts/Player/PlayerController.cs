@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
     private Vector2 _moveDir;
 
     public UnityEvent onAttack;
+    public UnityEvent onJump;
 
     public Vector2 moveDir { 
         get { return _moveDir; } 
@@ -26,6 +27,10 @@ public class PlayerController : MonoBehaviour
 
     void OnInventory(InputValue value) {
         Debug.Log(value);
+    }
+
+    void OnJump(InputValue value) {
+        onJump.Invoke();
     }
 
 }
