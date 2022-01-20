@@ -18,6 +18,8 @@ public class PlayerInteraction : MonoBehaviour
         interactables = new List<Tuple<Interactable, int>>();
     }
 
+    // TODO: Update 에서 거리 가장 가까운 interactable을 focus 하기?
+
     private void InteractWith() {
         if (interactables == null || interactables.Count == 0) {
             return;
@@ -48,6 +50,10 @@ public class PlayerInteraction : MonoBehaviour
                 (a, b) => (DistanceToInteratable(a.Item1) <  DistanceToInteratable(b.Item1)) ? -1 : 1
             );
         }
+    }
+
+    private void FocusInteractable() {
+
     }
 
     private float DistanceToInteratable(Interactable interactable) {
