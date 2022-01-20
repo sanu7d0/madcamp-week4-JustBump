@@ -13,6 +13,10 @@ MonoBehaviour:
   m_Name: Fist
   m_EditorClassIdentifier: 
   name: Fist
-  description: It doesnt hurt a lot, but feels not good!
-  sprite: {fileID: 0}
-  damage: 5
+  category: 0
+  power: 300
+  durability: 100000
+  coolTime: 0.5
+  targetLayers:
+    serializedVersion: 2
+    m_Bits: 64

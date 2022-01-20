@@ -1,14 +1,24 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Weapon", menuName = "Weapons")]
-public class Weapon : ScriptableObject
-{
-    public new string name;
-    public string description;
-    public Sprite sprite;
+public abstract class Weapon : MonoBehaviour
+{   
+    [SerializeField] protected WeaponObject weapon;
 
+    protected float lastUseTime = 0;
 
-    public float damage;
+    protected virtual void Start() {
+        weapon = weapon.GetClone();
+    }
+
+    public virtual bool Use() {
+        weapon.durability -= 1;
+        if (weapon.durability <= 0) {
+            AllUsed();
+        }
+        return true;
+    }
+
+    protected virtual void AllUsed() {
+
+    }
 }
