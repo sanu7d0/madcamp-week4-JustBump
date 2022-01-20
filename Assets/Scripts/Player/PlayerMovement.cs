@@ -26,11 +26,10 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
 
     void Update()
     {
-        HandleMovement();
     }
 
     void FixedUpdate() {
-        
+        HandleMovement();
     }
 
     private void jump() {
