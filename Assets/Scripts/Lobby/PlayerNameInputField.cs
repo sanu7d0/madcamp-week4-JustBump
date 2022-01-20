@@ -9,7 +9,6 @@ using Photon.Realtime;
 using System.Collections;
 using TMPro;
 
-   
 [RequireComponent(typeof(TMP_InputField))]
 public class PlayerNameInputField : MonoBehaviour
 {
