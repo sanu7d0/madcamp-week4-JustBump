@@ -14,10 +14,12 @@ GameObject:
   - component: {fileID: -7560875368018852956}
   - component: {fileID: -5976816267749392003}
   - component: {fileID: 4524514406647071241}
-  - component: {fileID: 5810215984707507891}
   - component: {fileID: 7341720443209539031}
+  - component: {fileID: 5011211560445868583}
+  - component: {fileID: 7323937160024080161}
+  - component: {fileID: 8890730937837443390}
   m_Layer: 0
-  m_Name: Player2
+  m_Name: Player_Cha
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -103,7 +105,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jumpPower: 100
-  speed: 1000
+  speed: 300
 --- !u!114 &-7560875368018852956
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -149,6 +151,9 @@ MonoBehaviour:
   onAttack:
     m_PersistentCalls:
       m_Calls: []
+  onInteract:
+    m_PersistentCalls:
+      m_Calls: []
   onJump:
     m_PersistentCalls:
       m_Calls: []
@@ -165,65 +170,14 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 1
-  m_AngularDrag: 10
-  m_GravityScale: 30
+  m_LinearDrag: 0
+  m_AngularDrag: 0
+  m_GravityScale: 1
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!68 &5810215984707507891
-EdgeCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4687371777569612328}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_EdgeRadius: 0
-  m_Points:
-  - {x: -0.29580414, y: 0.11197841}
-  - {x: -0.11257875, y: 0.2527653}
-  - {x: 0.029586554, y: 0.25908732}
-  - {x: 0.22107387, y: 0.2569133}
-  - {x: 0.3613515, y: 0.08945465}
-  - {x: 0.35872006, y: -0.104957104}
-  - {x: 0.35857725, y: -0.11550379}
-  - {x: 0.2489171, y: -0.2358675}
-  - {x: 0.363667, y: -0.30116904}
-  - {x: 0.36366343, y: -0.37776434}
-  - {x: 0.24525237, y: -0.4294883}
-  - {x: 0.20098901, y: -0.4956379}
-  - {x: 0.12787175, y: -0.49237442}
-  - {x: 0.08186984, y: -0.4626844}
-  - {x: 0.088623405, y: -0.41232705}
-  - {x: -0.05657947, y: -0.41400266}
-  - {x: -0.11463022, y: -0.49712574}
-  - {x: -0.18998134, y: -0.5103736}
-  - {x: -0.22914505, y: -0.47303796}
-  - {x: -0.22250915, y: -0.40848684}
-  - {x: -0.28948545, y: -0.4098543}
-  - {x: -0.3130082, y: -0.37932408}
-  - {x: -0.31576014, y: -0.31653082}
-  - {x: -0.25090992, y: -0.26586354}
-  - {x: -0.24991047, y: -0.20621347}
-  - {x: -0.3158039, y: -0.1558317}
-  - {x: -0.32839763, y: -0.073511004}
-  - {x: -0.35967124, y: -0.040426493}
-  - {x: -0.3583176, y: -0.0057555437}
-  - {x: -0.30573666, y: 0.03980434}
-  - {x: -0.2904358, y: 0.11856544}
-  m_AdjacentStartPoint: {x: 0, y: 0}
-  m_AdjacentEndPoint: {x: 0, y: 0}
-  m_UseAdjacentStartPoint: 0
-  m_UseAdjacentEndPoint: 0
 --- !u!95 &7341720443209539031
 Animator:
   serializedVersion: 4
@@ -244,3 +198,58 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!58 &5011211560445868583
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4687371777569612328}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: -0.123550534}
+  serializedVersion: 2
+  m_Radius: 0.37644947
+--- !u!114 &7323937160024080161
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4687371777569612328}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents:
+  - {fileID: 8890730937837443390}
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+--- !u!114 &8890730937837443390
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4687371777569612328}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 0
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
