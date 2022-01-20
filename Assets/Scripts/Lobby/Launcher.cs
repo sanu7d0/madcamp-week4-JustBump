@@ -4,10 +4,8 @@ using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
 
-
 public class Launcher : MonoBehaviourPunCallbacks
 {
-
     [SerializeField]
     private GameObject controlPanel;
     [SerializeField]
@@ -77,7 +75,7 @@ public class Launcher : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         // #Critical: We only load if we are the first player, else we rely on `PhotonNetwork.AutomaticallySyncScene` to sync our instance scene.
-        if (PhotonNetwork.CurrentRoom.PlayerCount == 2)
+        if (PhotonNetwork.CurrentRoom.PlayerCount == 1)
         {
            
             Debug.Log("We load the 'Room for 1' ");

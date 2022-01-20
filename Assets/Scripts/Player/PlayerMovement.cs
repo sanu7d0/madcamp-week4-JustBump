@@ -1,7 +1,8 @@
 using UnityEngine;
 using UnityEngine.Events;
+using Photon.Pun;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : MonoBehaviourPunCallbacks
 {
     private Rigidbody2D rb;
     private PlayerController playerController;
