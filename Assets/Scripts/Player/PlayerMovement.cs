@@ -104,53 +104,34 @@ public class PlayerMovement : MonoBehaviour
     // Movement option 4
     private void HandleMovement() {
         Vector3 moveDir = playerController.moveDir;
+        Vector3 baseMoveDir = moveDir;
         lastMoveDir = moveDir;
 
         bool isIdle = moveDir.x == 0 && moveDir.y == 0;
         if (isIdle) {
             anim.SetBool("isWalking", false);
             // 여기에 idle 애니메이션 call 추가
-            // ex) animator.playIdleAnimation(moveDir);
+            // ex) animator.playIdleAnimation(lastMovedir);
         } else {
-            Vector3 targetMovePosition = transform.position + moveDir * speed * Time.deltaTime;
-            
             bool canMove = CanMove(moveDir, speed * Time.deltaTime);
-            // if (!canMove)
-            
-            RaycastHit2D raycastHit = Physics2D.Raycast(transform.position, moveDir, speed * Time.deltaTime);
-            anim.SetBool("isWalking", true);
-            if (raycastHit.collider == null) {
-                // No hit, can move
-                transform.position = targetMovePosition;
-                // 여기에 move 애니메이션 call 추가
-                
-            } else {
-                // Test moving in vertical direction
-                Vector3 testMoveDir = new Vector3(moveDir.x, 0f).normalized;
-                targetMovePosition = transform.position + testMoveDir * speed * Time.deltaTime;
-                raycastHit = Physics2D.Raycast(transform.position, testMoveDir, speed * Time.deltaTime);
+            if (!canMove) {
+                // Cannot move diagonally
+                moveDir = new Vector3(moveDir.x, 0f).normalized;
+                canMove = moveDir.x != 0f && CanMove(moveDir, speed * Time.deltaTime);
 
-                if (testMoveDir.x != 0f && raycastHit.collider == null) {
-                    // Can move horizontally
-                    lastMoveDir = testMoveDir;
-                    // 여기에 move 애니메이션 call 추가
-                    transform.position = targetMovePosition;
-                } else {
-                    // Test moving in horizontal direction 
-                    testMoveDir = new Vector3(0f, moveDir.y).normalized;
-                    targetMovePosition = transform.position + testMoveDir * speed * Time.deltaTime;
-                    raycastHit = Physics2D.Raycast(transform.position, testMoveDir, speed * Time.deltaTime);
-
-                    if (testMoveDir.y != 0f && raycastHit.collider == null) {
-                        // Can move vertically
-                        lastMoveDir = testMoveDir;
-                        // 여기에 move 애니메이션 call 추가
-                        transform.position = targetMovePosition;
-                    } else {
-                        // Cannot move vertically
-                        // 여기에 idle 애니메이션 call 추가
-                    }
+                if (!canMove) {
+                    // Cannot move horizontally
+                    moveDir = new Vector3(0f, baseMoveDir.y).normalized;
+                    canMove = moveDir.y != 0f && CanMove(moveDir, speed * Time.deltaTime);
                 }
+            }
+
+            if (canMove) {
+                lastMoveDir = moveDir;
+                // playWalkingAnimation(moveDir);
+                transform.position += moveDir * speed * Time.deltaTime;
+            } else {
+                // playIdleAnimation(lastMoveDir);
             }
         }
     }
