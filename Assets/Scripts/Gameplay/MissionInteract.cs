@@ -12,13 +12,13 @@ public class MissionInteract : Interactable
     protected override void OnTriggerEnter2D(Collider2D other)
     {
         base.OnTriggerEnter2D(other);
-        Debug.Log($"{other.name} entered {this.name}");
+        // Debug.Log($"{other.name} entered {this.name}");
     }
 
     protected override void OnTriggerExit2D(Collider2D other)
     {
         base.OnTriggerExit2D(other);
-        Debug.Log($"{other.name} exited {this.name}");
+        // Debug.Log($"{other.name} exited {this.name}");
     }
 
     public override void Interact()

@@ -58,7 +58,7 @@ sealed public class GameManager : Singleton<GameManager>
 
     IEnumerator StartTimer() {
         while (gameElapsedTime < gameLimitTime) {
-            Debug.Log("Time elapsed for " + gameElapsedTime);
+            // Debug.Log("Time elapsed for " + gameElapsedTime);
             yield return new WaitForSeconds(1);
         }
         Debug.Log("Time limit reached!");
