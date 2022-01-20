@@ -37,7 +37,7 @@ public class PlayerMovement : MonoBehaviour
         rb.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
     }
 
-    private void HandleMovement() {
+    /*private void HandleMovement() {
         Vector2 moveDir = playerController.moveDir;
         lastMoveDir = moveDir;
 
@@ -61,9 +61,10 @@ public class PlayerMovement : MonoBehaviour
 
         // rb.MovePosition(rb.position + (moveDir * speed * Time.deltaTime));  // option 3
         // * MovePosition -> friction을 무시한다
-    }
-
-    /*private void HandleMovement() {
+    }*/
+    
+    // Movement option 4
+    private void HandleMovement() {
         Vector3 moveDir = playerController.moveDir;
         lastMoveDir = moveDir;
 
@@ -108,9 +109,5 @@ public class PlayerMovement : MonoBehaviour
                 }
             }
         }
-    }*/
-
-    private void TrySomething() {
-
     }
 }
