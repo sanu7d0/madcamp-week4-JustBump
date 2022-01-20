@@ -34,12 +34,12 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        
+        HandleRolling();
     }
 
     void FixedUpdate() {
         HandleMovement();
-        HandleRolling();
+        
     }
 
     private void HandleRolling() {
@@ -52,7 +52,7 @@ public class PlayerMovement : MonoBehaviour
         Vector2 currPos = transform.position;
 
         
-        transform.position = Vector2.MoveTowards(currPos, waypoints[wayPointIndex++], 10 * Time.deltaTime);
+        transform.position = Vector2.MoveTowards(currPos, waypoints[wayPointIndex++], 5 * Time.deltaTime);
     }
 
     private void jump() {
@@ -73,7 +73,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void HandleMovement() {
+    /*private void HandleMovement() {
         Vector2 moveDir = playerController.moveDir;
         lastMoveDir = moveDir;
 
@@ -99,24 +99,27 @@ public class PlayerMovement : MonoBehaviour
 
         // rb.MovePosition(rb.position + (moveDir * speed * Time.deltaTime));  // option 3
         // * MovePosition -> friction을 무시한다
-    }
-
-    /*private void HandleMovement() {
+    }*/
+    
+    // Movement option 4
+    private void HandleMovement() {
         Vector3 moveDir = playerController.moveDir;
         lastMoveDir = moveDir;
 
         bool isIdle = moveDir.x == 0 && moveDir.y == 0;
         if (isIdle) {
+            anim.SetBool("isWalking", false);
             // 여기에 idle 애니메이션 call 추가
             // ex) animator.playIdleAnimation(moveDir);
         } else {
             Vector3 targetMovePosition = transform.position + moveDir * speed * Time.deltaTime;
             RaycastHit2D raycastHit = Physics2D.Raycast(transform.position, moveDir, speed * Time.deltaTime);
-            
+            anim.SetBool("isWalking", true);
             if (raycastHit.collider == null) {
                 // No hit, can move
                 transform.position = targetMovePosition;
                 // 여기에 move 애니메이션 call 추가
+                
             } else {
                 // Test moving in vertical direction
                 Vector3 testMoveDir = new Vector3(moveDir.x, 0f).normalized;
@@ -146,9 +149,5 @@ public class PlayerMovement : MonoBehaviour
                 }
             }
         }
-    }*/
-
-    private void TrySomething() {
-
     }
 }

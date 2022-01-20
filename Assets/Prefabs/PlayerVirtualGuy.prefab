@@ -138,9 +138,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1d3d5a9d3df2aa4ba20246d8b61cfd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpPower: 99999
+  jumpPower: 1
   rollingSpeed: 3
-  speed: 300
+  speed: 5
 --- !u!114 &-7560875368018852956
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -246,12 +246,12 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.123550534}
+  m_Offset: {x: 0, y: -0.123550475}
   serializedVersion: 2
-  m_Radius: 0.37644947
+  m_Radius: 0.41339988
 --- !u!114 &7323937160024080161
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -363,6 +363,22 @@ PrefabInstance:
     - target: {fileID: 7502285554956187451, guid: 3d3b85da993a9754f8486207c18aa0f4, type: 3}
       propertyPath: m_Name
       value: Axe
+      objectReference: {fileID: 0}
+    - target: {fileID: 8479402204670115471, guid: 3d3b85da993a9754f8486207c18aa0f4, type: 3}
+      propertyPath: m_Size.x
+      value: 1.1032844
+      objectReference: {fileID: 0}
+    - target: {fileID: 8479402204670115471, guid: 3d3b85da993a9754f8486207c18aa0f4, type: 3}
+      propertyPath: m_Size.y
+      value: 0.55766916
+      objectReference: {fileID: 0}
+    - target: {fileID: 8479402204670115471, guid: 3d3b85da993a9754f8486207c18aa0f4, type: 3}
+      propertyPath: m_Offset.x
+      value: 0.05164218
+      objectReference: {fileID: 0}
+    - target: {fileID: 8479402204670115471, guid: 3d3b85da993a9754f8486207c18aa0f4, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.0014872551
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3d3b85da993a9754f8486207c18aa0f4, type: 3}

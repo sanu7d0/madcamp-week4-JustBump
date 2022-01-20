@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: 
   category: 0
-  power: 0
-  durability: 0
-  coolTime: 0
+  power: 500
+  durability: 100000
+  coolTime: 0.5
   targetLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
