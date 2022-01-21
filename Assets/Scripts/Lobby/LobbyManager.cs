@@ -11,8 +11,10 @@ public class LobbyManager : SingletonP<LobbyManager>
     private LobbyUIManager lobbyUIManager;
     private string selectedCharacterName;
 
-    public void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+
         lobbyUIManager = LobbyUIManager.Instance;
         roomManager = RoomManager.Instance;
     }

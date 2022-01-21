@@ -15,6 +15,8 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
     public UnityEvent onShoot;
 
+    public UnityEvent onSwapWeapon;
+
     public Vector2 moveDir { 
         get; private set;
     }
@@ -23,35 +25,35 @@ public class PlayerController : MonoBehaviourPunCallbacks
         get { return Mouse.current.position.ReadValue(); }
     }
 
-    void OnShoot(InputValue value) {
+    void OnShoot(InputValue input) {
         onShoot.Invoke();
     }
 
-    void OnMove(InputValue value) {
+    void OnMove(InputValue input) {
         if(photonView.IsMine == false && PhotonNetwork.IsConnected == true) {
             return;
         }
-		moveDir = value.Get<Vector2>();
+		moveDir = input.Get<Vector2>();
     }
 
 
-    void OnAttack(InputValue value) {
+    void OnAttack(InputValue input) {
         onAttack.Invoke();
     }
 
-    void OnInteract(InputValue value) {
+    void OnInteract(InputValue input) {
         onInteract.Invoke();
     }
 
-    void OnInventory(InputValue value) {
-        Debug.Log(value);
+    void OnSwapWeapon(InputValue input) {
+        onSwapWeapon.Invoke();
     }
 
-    void OnJump(InputValue value) {
+    void OnJump(InputValue input) {
         onJump.Invoke();
     }
 
-    void OnRoll(InputValue value) {
+    void OnRoll(InputValue input) {
         onRoll.Invoke();
     }
 
