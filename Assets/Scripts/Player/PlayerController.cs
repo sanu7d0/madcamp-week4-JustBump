@@ -15,12 +15,18 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
     public UnityEvent onRoll;
 
+    public UnityEvent onShoot;
+
 
     public Vector2 moveDir { 
         get { return _moveDir; } 
     }
 
     void Start() {
+    }
+
+    void OnShoot(InputValue value) {
+        onShoot.Invoke();
     }
 
     void OnMove(InputValue value) {
