@@ -28,9 +28,16 @@ sealed public class GameManager : SingletonP<GameManager>
         private set;
     }
 
+    public bool DEBUG_OfflineMode;
+
     protected override void Awake() {
-        lobbyManager = LobbyManager.Instance;
 	    base.Awake();
+        lobbyManager = LobbyManager.Instance;
+
+        if (DEBUG_OfflineMode) {
+            PhotonNetwork.OfflineMode = DEBUG_OfflineMode;
+            PhotonNetwork.CreateRoom(null);
+        }
     }
 
     void Start() {
@@ -41,7 +48,7 @@ sealed public class GameManager : SingletonP<GameManager>
         isPlaying = true;
 
         GameObject player;
-        if(PhotonNetwork.IsConnected) { 
+        if(PhotonNetwork.IsConnected || DEBUG_OfflineMode) { 
 			player = PhotonNetwork.Instantiate(lobbyManager.selectedCharacterName ?? defaultPlayerPrefab.name, GameObject.Find("Spawn0").transform.position, Quaternion.identity);
 		} else { 
 			player = Instantiate(defaultPlayerPrefab, GameObject.Find("Spawn0").transform.position, Quaternion.identity);

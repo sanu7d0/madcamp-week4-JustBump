@@ -8781,6 +8781,7 @@ MonoBehaviour:
   _gameGoalScore: 50
   _gameLimitTime: 100
   gameStartTime: 0
+  DEBUG_OfflineMode: 1
 --- !u!4 &1353907047 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9073980760607410362, guid: c6f7d965b4ea89442a4b2c1e386977fb, type: 3}

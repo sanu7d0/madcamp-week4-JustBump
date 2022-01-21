@@ -69,6 +69,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     [PunRPC]
     void _OnSwapWeapon() {
         onSwapWeapon.Invoke();
+        Debug.Log("onSwapWeapon invoked");
     }
 
     void OnRoll(InputValue input) {
@@ -79,7 +80,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     }
     
     bool CanControl() { 
-        if (playerDebug.photonOfflineMode)
+        if (GameManager.Instance.DEBUG_OfflineMode)
             return true;
         
         if(photonView.IsMine == false && PhotonNetwork.IsConnected == true) {
