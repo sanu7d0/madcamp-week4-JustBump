@@ -79,13 +79,11 @@ public class PlayerMovement : MonoBehaviour
     IEnumerator RollRoutine() {
         state = State.Rolling;
         anim.SetBool("isRolling", true);
-        Debug.Log("Roll start");
 
         yield return new WaitForSeconds(rollingTime);
 
         state = State.Normal;
         anim.SetBool("isRolling", false);
-        Debug.Log("Roll end");
     }
 
     private void HandleRollSliding() {
@@ -93,6 +91,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     private bool CanMove(Vector3 dir, float distance) {
+        // Debug.DrawLine(transform.position, dir, Color.red, 0.3f);
         return Physics2D.Raycast(transform.position, dir, distance).collider == null;
     }
 
