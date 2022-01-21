@@ -24,6 +24,11 @@ public class Weapon_Fist : Weapon
         Collider2D[] hitTargets = new Collider2D[10];
         ContactFilter2D contactFilter = new ContactFilter2D();
         int hitCount = hitBox.OverlapCollider(contactFilter.NoFilter(), hitTargets);
+
+        if (hitCount == 0) {
+            return false;
+        }
+
         foreach(Collider2D target in hitTargets) {
             // Check the target is not itself
             if (target == null || target.transform.GetInstanceID() == transform.root.GetInstanceID()) {
