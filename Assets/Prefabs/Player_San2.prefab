@@ -278,9 +278,6 @@ MonoBehaviour:
   onInteract:
     m_PersistentCalls:
       m_Calls: []
-  onJump:
-    m_PersistentCalls:
-      m_Calls: []
   onRoll:
     m_PersistentCalls:
       m_Calls: []
@@ -420,6 +417,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17e29fde81fac49a0acf1ee35b19959f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onFall:
+    m_PersistentCalls:
+      m_Calls: []
   shakeRange: 0.05
   duration: 0.5
 --- !u!1001 &2693398472319013397

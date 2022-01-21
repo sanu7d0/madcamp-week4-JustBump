@@ -17,11 +17,15 @@ public class Weapon_Axe : Weapon
     {
         base.Start();
         hitBox = GetComponentInChildren<Collider2D>();
-        originalRotation = transform.rotation;
+        originalRotation = transform.localRotation;
     }
 
     void Update() {
-
+        switch (state) {
+        case State.Motion:
+            HandleMotion();
+            break;
+        }
     }
 
     public override bool Use()
@@ -64,26 +68,29 @@ public class Weapon_Axe : Weapon
         if (attacked) {
             PlayUseMotion();
             PlayUseSound();
+            return base.Use();
+        } else {
+            return false;
         }
-
-        return base.Use();
     }
 
     protected override void PlayUseMotion()
     {
         // base.PlayUseMotion();
 
-        // rotate and back to original rotation
-        transform.Rotate(0, 0, -50f);
+        transform.localRotation = originalRotation;
+        transform.Rotate(0, 0, -70f);
+        state = State.Motion;
     }
 
     private void HandleMotion() {
-        if (transform.rotation.z >= originalRotation.z) {
-            transform.rotation = originalRotation;
+        // Rotate back to original rotation
+        if (transform.localRotation.z >= originalRotation.z) {
+            transform.localRotation = originalRotation;
             state = State.Normal;
         } else {
-            transform.rotation = 
-                Quaternion.Lerp(transform.rotation, originalRotation, 5 * Time.deltaTime);
+            transform.localRotation = 
+                Quaternion.Lerp(transform.localRotation, originalRotation, 5 * Time.deltaTime);
         }
     }
 
