@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7631631268041229694}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Weapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44,16 +44,16 @@ GameObject:
   - component: {fileID: 8433814874281667162}
   - component: {fileID: 4524514406647071241}
   - component: {fileID: 5011211560445868583}
-  - component: {fileID: 7653847611745656730}
-  - component: {fileID: -7560875368018852956}
-  - component: {fileID: -5976816267749392003}
   - component: {fileID: 7341720443209539031}
+  - component: {fileID: 6568662357753152821}
+  - component: {fileID: -5976816267749392003}
+  - component: {fileID: -7560875368018852956}
+  - component: {fileID: 7653847611745656730}
   - component: {fileID: 7323937160024080161}
   - component: {fileID: 8890730937837443390}
   - component: {fileID: 2303089786870550368}
-  - component: {fileID: 6568662357753152821}
   - component: {fileID: 4146039936084219681}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player_San
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -114,8 +114,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1212483085
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 8416797952724722639, guid: 40de9a8703e2e5a47882b0b86451c741, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -165,7 +165,27 @@ CircleCollider2D:
   m_Offset: {x: 0, y: -0.123550534}
   serializedVersion: 2
   m_Radius: 0.37644947
---- !u!114 &7653847611745656730
+--- !u!95 &7341720443209539031
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4687371777569612328}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 6eb2d42a615fcde4a9b238adff869644, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &6568662357753152821
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -174,11 +194,33 @@ MonoBehaviour:
   m_GameObject: {fileID: 4687371777569612328}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b1d3d5a9d3df2aa4ba20246d8b61cfd6, type: 3}
+  m_Script: {fileID: 11500000, guid: 7dcb8b4db043b234b8e9b2af93860a16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpPower: 100
-  speed: 5
+--- !u!114 &-5976816267749392003
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4687371777569612328}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3560466b2acc2a944b085f172e83a37e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onAttack:
+    m_PersistentCalls:
+      m_Calls: []
+  onInteract:
+    m_PersistentCalls:
+      m_Calls: []
+  onJump:
+    m_PersistentCalls:
+      m_Calls: []
+  onRoll:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &-7560875368018852956
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -209,7 +251,7 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &-5976816267749392003
+--- !u!114 &7653847611745656730
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -218,38 +260,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 4687371777569612328}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3560466b2acc2a944b085f172e83a37e, type: 3}
+  m_Script: {fileID: 11500000, guid: b1d3d5a9d3df2aa4ba20246d8b61cfd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onAttack:
-    m_PersistentCalls:
-      m_Calls: []
-  onInteract:
-    m_PersistentCalls:
-      m_Calls: []
-  onJump:
-    m_PersistentCalls:
-      m_Calls: []
---- !u!95 &7341720443209539031
-Animator:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4687371777569612328}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 8727c159da7789847a58d48d2c2e9f2a, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  speed: 5
+  rollingSpeed: 8
+  rollingTime: 0.5
 --- !u!114 &7323937160024080161
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -301,18 +317,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed6cad6227686ac408063f62d2aa8d19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &6568662357753152821
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4687371777569612328}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7dcb8b4db043b234b8e9b2af93860a16, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &4146039936084219681
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -338,6 +342,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7631631268041229694}
     m_Modifications:
+    - target: {fileID: 2431030760933957847, guid: cf5d6f5fd72725b49807080e4baa102c, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 9169585772171680288, guid: cf5d6f5fd72725b49807080e4baa102c, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -385,6 +393,10 @@ PrefabInstance:
     - target: {fileID: 9169585772171680291, guid: cf5d6f5fd72725b49807080e4baa102c, type: 3}
       propertyPath: m_Name
       value: Fist
+      objectReference: {fileID: 0}
+    - target: {fileID: 9169585772171680291, guid: cf5d6f5fd72725b49807080e4baa102c, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cf5d6f5fd72725b49807080e4baa102c, type: 3}
