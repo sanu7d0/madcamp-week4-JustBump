@@ -790,18 +790,34 @@ PrefabInstance:
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 2043994728}
+    - target: {fileID: 7992145676908410473, guid: 0d5667be85b174d349c4f74e7310a574, type: 3}
+      propertyPath: candidateCharacter
+      value: 
+      objectReference: {fileID: 4687371777569612328, guid: 230ba193172c1b94b97ad9150970f533, type: 3}
     - target: {fileID: 7992145676948610842, guid: 0d5667be85b174d349c4f74e7310a574, type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 2043994728}
+    - target: {fileID: 7992145676948610843, guid: 0d5667be85b174d349c4f74e7310a574, type: 3}
+      propertyPath: candidateCharacter
+      value: 
+      objectReference: {fileID: 4687371777569612328, guid: 230ba193172c1b94b97ad9150970f533, type: 3}
     - target: {fileID: 7992145677358009378, guid: 0d5667be85b174d349c4f74e7310a574, type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 2043994728}
+    - target: {fileID: 7992145677358009379, guid: 0d5667be85b174d349c4f74e7310a574, type: 3}
+      propertyPath: candidateCharacter
+      value: 
+      objectReference: {fileID: 4687371777569612328, guid: 230ba193172c1b94b97ad9150970f533, type: 3}
     - target: {fileID: 7992145677554878770, guid: 0d5667be85b174d349c4f74e7310a574, type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 2043994728}
+    - target: {fileID: 7992145677554878771, guid: 0d5667be85b174d349c4f74e7310a574, type: 3}
+      propertyPath: candidateCharacter
+      value: 
+      objectReference: {fileID: 4687371777569612328, guid: 230ba193172c1b94b97ad9150970f533, type: 3}
     - target: {fileID: 7992145678031736968, guid: 0d5667be85b174d349c4f74e7310a574, type: 3}
       propertyPath: m_Name
       value: CharacterSelectPanel

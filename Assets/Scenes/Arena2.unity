@@ -8459,8 +8459,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b22d21c227405a0469e8e9e2d0eca13b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultPlayerPrefab: {fileID: 4687371777569612328, guid: a893c47d36a1c43e59162b278844ea43, type: 3}
-  playerPrefab: {fileID: 4687371777569612328, guid: 4eae07fa02de2e444b59dbb373e569ca, type: 3}
+  defaultPlayerPrefab: {fileID: 4687371777569612328, guid: 230ba193172c1b94b97ad9150970f533, type: 3}
+  playerPrefab: {fileID: 4687371777569612328, guid: 230ba193172c1b94b97ad9150970f533, type: 3}
   _gameGoalScore: 0
   _gameLimitTime: 100
   gameStartTime: 0
