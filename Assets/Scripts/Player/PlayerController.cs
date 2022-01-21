@@ -69,7 +69,6 @@ public class PlayerController : MonoBehaviourPunCallbacks
     [PunRPC]
     void _OnSwapWeapon() {
         onSwapWeapon.Invoke();
-        Debug.Log("onSwapWeapon invoked");
     }
 
     void OnRoll(InputValue input) {

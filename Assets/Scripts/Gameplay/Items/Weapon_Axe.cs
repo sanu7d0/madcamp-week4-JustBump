@@ -100,10 +100,4 @@ public class Weapon_Axe : Weapon
 
         base.AllUsed();
     }
-    
-    /*void OnDrawGizmosSelected() {
-        if (attackPoint == null)
-            return;
-        Gizmos.DrawWireSphere(attackPoint.position, attackRange);
-    }*/
 }

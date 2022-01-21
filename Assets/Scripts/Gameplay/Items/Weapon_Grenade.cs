@@ -18,6 +18,7 @@ public class Weapon_Grenade : Weapon
         }
 
         // 테스트용 즉발 폭발
+        Debug.Log($"Explosion at ({targetPosition.x}, {targetPosition.y})");
         Collider2D[] hitTargets = Physics2D.OverlapCircleAll(targetPosition, explosionRadius);
         foreach (Collider2D target in hitTargets) {
             if (target.TryGetComponent<Rigidbody2D>(out Rigidbody2D targetRb)) {

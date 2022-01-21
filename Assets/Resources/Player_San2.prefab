@@ -435,7 +435,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba3b6a74e1f45a2499657770fdfedb91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  photonOfflineMode: 1
 --- !u!1001 &2693398472319013397
 PrefabInstance:
   m_ObjectHideFlags: 0
