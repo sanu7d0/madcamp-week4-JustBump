@@ -22,6 +22,7 @@ public class PlayerManager: MonoBehaviourPunCallbacks, IBumpable
 
     void Awake()
     {
+        rb = GetComponent<Rigidbody2D>();
         myPhotonViewId = this.photonView.ViewID;
         mainCamera = GameObject.Find(cameraName);
     }
