@@ -4,15 +4,22 @@ using UnityEngine;
 
 public class FallingZone : MonoBehaviour
 {
-    protected virtual void OnTriggerEnter2D(Collider2D other) {
-        if (other.tag == "Player") {
-            // other.GetComponent<PlayerMediator>().AddNewInteractable(this);
-        }
+    private Collider2D col;
+
+    void Awake() {
+        col = GetComponent<Collider2D>();
     }
 
-    protected virtual void OnTriggerExit2D(Collider2D other) {
-        if (other.tag == "Player") {
-            // other.GetComponent<PlayerMediator>().RemoveInteractable(this);
+    private void OnTriggerStay2D(Collider2D other) {
+        if (other.tag != "Player") {
+            return;
+        }
+
+        // NOTE: if position.z != 0 -> Something go wrong!
+        if (col.bounds.Contains(other.bounds.min) && 
+            col.bounds.Contains(other.bounds.max)) {
+            // Debug.Log($"{other.name} entered fully");
+            other.transform.GetComponent<PlayerMediator>().StartFalling();
         }
     }
 }

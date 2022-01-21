@@ -31,6 +31,7 @@ public class Weapon_Fist : Weapon
 		        continue;
             } else {
                 // 데미지 로직
+
                 PlayerManager player = target.GetComponent<PlayerManager>();
                 if(player != null) { 
 					Debug.Log("Player hit " + target.name);
@@ -38,6 +39,7 @@ public class Weapon_Fist : Weapon
 				}
                 //target.GetComponent<Rigidbody2D>().AddForce(
                 //    (target.transform.position - transform.position).normalized * weapon.power);
+
             }
 
         }
