@@ -32,10 +32,11 @@ public class Weapon_Fist : Weapon
                 continue;
             } else {
                 // 데미지 로직
-                Debug.Log("Player hit " + target.name);
-
-                target.GetComponent<Rigidbody2D>().AddForce(
-                    (target.transform.position - transform.position).normalized * weapon.power);
+                Rigidbody2D targetRb = target.GetComponent<Rigidbody2D>();
+                if (targetRb != null) {
+                    Debug.Log("Player hit " + target.name);
+                    targetRb.AddForce((target.transform.position - transform.position).normalized * weapon.power);
+                }
             }
             
         }
