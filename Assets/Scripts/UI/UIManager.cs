@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using TMPro;
+using Photon.Pun;
 
 public class UIManager : Singleton<UIManager>
 {
@@ -16,10 +18,15 @@ public class UIManager : Singleton<UIManager>
         gameManager = GameManager.Instance;
     }
 
+    private void Start()
+    {
+    }
+
     void Update() {
         if (gameManager.isPlaying) {
             text_timer.text = $"TIMER {Mathf.Round(gameManager.gameElapsedTime)} / {gameManager.gameLimitTime}"; 
             text_score.text = $"SCORE {0} / {gameManager.gameGoalScore}"; 
         }
     }
+    
 }

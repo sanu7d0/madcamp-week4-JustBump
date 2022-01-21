@@ -2,13 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using UnityEngine.Events;
+using Players = System.Collections.Generic.SortedDictionary<int, IPlayer>;
 
 sealed public class GameManager : SingletonP<GameManager>
 {
     [SerializeField] private GameObject defaultPlayerPrefab;
-    [SerializeField] private GameObject playerPrefab;
     [SerializeField] private int _gameGoalScore;
     private LobbyManager lobbyManager;
+    private readonly Players players = 
+		new Players();
+
+    public UnityEvent<Players> onChangePlayer;
 
     public int gameGoalScore {
      get { return _gameGoalScore; }
@@ -29,8 +34,8 @@ sealed public class GameManager : SingletonP<GameManager>
     }
 
     protected override void Awake() {
-        lobbyManager = LobbyManager.Instance;
 	    base.Awake();
+        lobbyManager = LobbyManager.Instance;
     }
 
     void Start() {
@@ -71,4 +76,20 @@ sealed public class GameManager : SingletonP<GameManager>
         Debug.Log("Time limit reached!");
         EndGame();
     }
-}
+
+    public void AddPlayer(IPlayer player) {
+        players.Add(player.id, player);
+        onChangePlayer.Invoke(players);
+    }
+
+    public void RemovePlayer(IPlayer player) {
+        players.Remove(player.id);
+        onChangePlayer.Invoke(players);
+    }
+    
+    public void OnChangePlayerState(IPlayer player) {
+        players.Add(player.id, player);
+        onChangePlayer.Invoke(players);
+    }   
+     
+}   

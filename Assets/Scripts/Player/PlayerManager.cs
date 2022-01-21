@@ -1,41 +1,56 @@
 ﻿using UnityEngine;
+using UnityEngine.Events;
 using System.Collections;
 using Photon.Pun;
 using System;
 using System.Threading.Tasks;
-
-public class PlayerManager: MonoBehaviourPunCallbacks, IBumpable
+public class PlayerManager: MonoBehaviourPunCallbacks, IBumpable, IPlayer
 {
     private Rigidbody2D rb;
-    private int myPhotonViewId;
     private GameObject mainCamera;
     private Vector3 beforeCameraPos;
-    private bool isDeaded;
-
+    private PlayerManager lastBumper;
+    private GameManager gameManager;
+       
     [SerializeField] [Range(0.01f, 0.1f)] float shakeRange = 0.05f;
     [SerializeField] [Range(0.1f, 1f)] float duration = 0.5f;
     [SerializeField]
-    private const string cameraName = "Main Camera";
-    
 
-    // Use this for initialization
+    public UnityEvent onFall;
+
+    public int score { get; set; }
+    public bool isDead { get; set; }
+    public int id { get; set; }
 
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        myPhotonViewId = this.photonView.ViewID;
-        mainCamera = GameObject.Find(cameraName);
+        gameManager = GameManager.Instance;
+        isDead = false;
+        score = 0;
+        id = photonView.ViewID;
     }
-    
+
+    private void Start()
+    {
+        onFall.AddListener(Dead);
+        gameManager.AddPlayer(this);
+    }
+
     public void Revive() {
         photonView.RPC("_Revive", RpcTarget.All);
     }
     
     [PunRPC]
     private void _Revive() { 
-        // TODO Revive..
+        if(!isDead) {
+            Debug.Log("Can not Revive Because live");
+            return;
+		}
+        isDead = false;
+        gameObject.SetActive(true);
+        gameManager.OnChangePlayerState(this);
     }
-
 
     public void Dead() { 
         photonView.RPC("_Dead", RpcTarget.All);
@@ -43,20 +58,28 @@ public class PlayerManager: MonoBehaviourPunCallbacks, IBumpable
     
     [PunRPC]
     private void _Dead() {
-        // TODO Dead... 
+        if(isDead) {
+            Debug.Log("Can not Die Because Dead");
+            return;
+		}
+        gameObject.SetActive(false);
+        isDead = true;
+        gameManager.OnChangePlayerState(this);
     }
 
     public void BumpSelf(Vector2 force) {
+        _BumpSelf(force);
         photonView.RPC("_BumpSelf", RpcTarget.All, new object[] { force } );
 
-        if(photonView.IsMine) {
-            ShakePlayerCamera();
-		}
     }
     
     [PunRPC]
     private void _BumpSelf(Vector2 force) {
         rb.AddForce(force);
+
+        if(photonView.IsMine) {
+            ShakePlayerCamera();
+		}
     }
     
     private void ShakePlayerCamera() {
