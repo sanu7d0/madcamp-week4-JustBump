@@ -11,13 +11,21 @@ public class PlayerCombat : MonoBehaviour
     private int currentSelection;
     private Weapon currentWeapon;
 
+    public GameObject appleBullet;
+    [SerializeField] public Transform shootPosition;
+    [SerializeField] public float shootCoolTime;
+    private float lastShootTime;
+
     void Awake() {
         playerController = GetComponent<PlayerController>();
+
         playerController.onAttack.AddListener(TryAttack);
         playerController.onSwapWeapon.AddListener(SwapWeapon);
+        playerController.onShoot.AddListener(TryShoot);
     }
 
     void Start() {
+        // Weapons
         weapons = new Transform[2];
         currentSelection = 0;
 
@@ -27,6 +35,9 @@ public class PlayerCombat : MonoBehaviour
 
         currentWeapon = weapons[currentSelection].GetComponent<Weapon>();
         weapons[1].gameObject.SetActive(false);
+
+        // Shoots
+        lastShootTime = 0;
     }
 
     private void SwapWeapon() {
@@ -51,5 +62,16 @@ public class PlayerCombat : MonoBehaviour
         if (currentWeapon.Use()) {
             // ...
         }
+    }
+
+    private void TryShoot() {
+        if (Time.time < lastShootTime + shootCoolTime) {
+            return;
+        }
+
+        ShootingBullet bullet = Instantiate(appleBullet, shootPosition.position, transform.rotation)
+            .GetComponent<ShootingBullet>();
+        bullet.direction = Camera.main.ScreenToWorldPoint(playerController.mousePos)
+            - shootPosition.position;
     }
 }

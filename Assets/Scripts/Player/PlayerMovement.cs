@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     private Rigidbody2D rb;
+    private PlayerMediator playerMediator;
     private PlayerController playerController;
     private Vector2 lastMoveDir;
     Animator anim;
@@ -22,6 +23,7 @@ public class PlayerMovement : MonoBehaviour
     void Awake() {
         rb = GetComponent<Rigidbody2D>();
         playerController = GetComponent<PlayerController>();
+        playerMediator = GetComponent<PlayerMediator>();
         anim = GetComponent<Animator>();
         state = State.Normal;
     }
@@ -135,9 +137,9 @@ public class PlayerMovement : MonoBehaviour
             return;
         
         state = State.Falling;
-        Debug.Log("Falling started");
+        // Debug.Log("Falling started");
 
-        // TODO: 플레이어 die 호출
+        playerMediator.Dead();
     }
 
     private void HandleFalling() {
