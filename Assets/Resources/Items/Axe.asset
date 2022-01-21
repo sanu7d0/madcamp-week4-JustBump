@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc1464dfa7f61534fa43674d005fecd5, type: 3}
   m_Name: Axe
   m_EditorClassIdentifier: 
-  name: 
+  name: Axe
   category: 0
   power: 500
   durability: 100000

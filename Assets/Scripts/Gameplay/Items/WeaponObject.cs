@@ -12,7 +12,8 @@ public class WeaponObject : ScriptableObject
     public float power;
     public int durability;
     public float coolTime;
-    public LayerMask targetLayers;
+
+    public AudioClip useSound;
 
     public WeaponObject GetClone() {
         return ScriptableObjectExtension.Clone<WeaponObject>(this);

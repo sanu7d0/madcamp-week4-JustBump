@@ -23,7 +23,7 @@ public class PlayerMediator : MonoBehaviour
         playerMovement.StartFalling();
     }
 
-    public void Dead() {
-        playerManager.Dead();
+    public void InvokeOnFall() {
+        playerManager.onFall.Invoke();
     }
 }

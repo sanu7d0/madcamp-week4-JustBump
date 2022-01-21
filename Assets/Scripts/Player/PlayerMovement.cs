@@ -139,7 +139,7 @@ public class PlayerMovement : MonoBehaviour
         state = State.Falling;
         // Debug.Log("Falling started");
 
-        playerMediator.Dead();
+        playerMediator.InvokeOnFall();
     }
 
     private void HandleFalling() {

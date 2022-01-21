@@ -9,8 +9,6 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
     public UnityEvent onInteract;
 
-    public UnityEvent onJump;
-
     public UnityEvent onRoll;
 
     public UnityEvent onShoot;
@@ -65,14 +63,6 @@ public class PlayerController : MonoBehaviourPunCallbacks
     [PunRPC]
     void _OnSwapWeapon() {
         onSwapWeapon.Invoke();
-    }
-    
-
-    void OnJump(InputValue input) {
-        if (!CanControl()) {
-            return;
-		}
-        onJump.Invoke();
     }
 
     void OnRoll(InputValue input) {

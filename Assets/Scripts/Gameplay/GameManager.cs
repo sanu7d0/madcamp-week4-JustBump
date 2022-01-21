@@ -59,8 +59,9 @@ sealed public class GameManager : SingletonP<GameManager>
     }
 
     private void AttachMainCamera(GameObject target) {
-        GameObject camera = GameObject.Find("Main Camera");
-        camera.GetComponent<CameraController>().targetTransform = target.transform;
+        if (Camera.main.TryGetComponent<CameraController>(out CameraController cc)) {
+            cc.targetTransform = target.transform;
+        }
     }
 
     IEnumerator StartTimer() {
