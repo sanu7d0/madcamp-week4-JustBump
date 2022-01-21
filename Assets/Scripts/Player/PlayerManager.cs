@@ -6,7 +6,7 @@ public class PlayerManager: MonoBehaviourPunCallbacks
 {
 
     private GameObject go;
-    private Rigidbody rigidBody;
+    private Rigidbody2D rigidBody;
     private int myPhotonViewId;
 
 
@@ -14,19 +14,25 @@ public class PlayerManager: MonoBehaviourPunCallbacks
 
     void Awake()
     {
-        go = this.gameObject;
-        rigidBody = go.GetComponent<Rigidbody>();
-        myPhotonViewId = photonView.ViewID;
+        Debug.Log("Player Manager Awake");
+        Debug.Log("Player Manager Awake");
+        go = gameObject;
+        rigidBody = go.GetComponent<Rigidbody2D>();
+        myPhotonViewId = this.photonView.ViewID;
+
+        Debug.Log("Player Manager Awake");
+        Debug.Log(photonView.ViewID);
+        Debug.Log(photonView.IsMine);
     }
 
-    public void Hitted(float weaphonPower, Vector3 wephonPos) {
-        photonView.RPC("RCP_Hitted", RpcTarget.All, weaphonPower, wephonPos);
+
+    public void Hitted(float weaphonPower, Vector3 weaponPos) {
+        photonView.RPC("RPC_HITTED", RpcTarget.All, new object[] {weaphonPower, weaponPos} );
     }
     
     [PunRPC]
-    void RPC_Hitted(float weaphonPower, Vector3 weaponPos) {
+    private void RPC_HITTED(float weaphonPower, Vector3 weaponPos) {
         rigidBody.AddForce(
-               (transform.position - weaponPos).normalized * weaphonPower);
+              (transform.position - weaponPos).normalized * weaphonPower);
     }
-
 }
