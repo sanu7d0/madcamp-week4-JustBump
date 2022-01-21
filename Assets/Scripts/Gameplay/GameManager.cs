@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
-sealed public class GameManager : Singleton<GameManager>
+sealed public class GameManager : SingletonP<GameManager>
 {
     [SerializeField] private GameObject defaultPlayerPrefab;
     [SerializeField] private GameObject playerPrefab;
