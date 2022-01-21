@@ -26,35 +26,66 @@ public class PlayerController : MonoBehaviourPunCallbacks
     }
 
     void OnShoot(InputValue input) {
+        if (!CanControl()) {
+            return;
+		}
         onShoot.Invoke();
     }
+    
 
     void OnMove(InputValue input) {
-        if(photonView.IsMine == false && PhotonNetwork.IsConnected == true) {
+        if (!CanControl()) {
             return;
-        }
+		}
 		moveDir = input.Get<Vector2>();
     }
 
 
     void OnAttack(InputValue input) {
+        if (!CanControl()) {
+            return;
+		}
         onAttack.Invoke();
     }
 
     void OnInteract(InputValue input) {
+        if (!CanControl()) {
+            return;
+		}
         onInteract.Invoke();
     }
 
     void OnSwapWeapon(InputValue input) {
-        onSwapWeapon.Invoke();
+        if (!CanControl()) {
+            return;
+		}
+        photonView.RPC("_OnSwapWeapon", RpcTarget.All);
     }
 
+    [PunRPC]
+    void _OnSwapWeapon() {
+        onSwapWeapon.Invoke();
+    }
+    
+
     void OnJump(InputValue input) {
+        if (!CanControl()) {
+            return;
+		}
         onJump.Invoke();
     }
 
     void OnRoll(InputValue input) {
+        if (!CanControl()) {
+            return;
+		}
         onRoll.Invoke();
     }
-
+    
+    bool CanControl() { 
+        if(photonView.IsMine == false && PhotonNetwork.IsConnected == true) {
+            return false;
+        }
+        return true;
+    }
 }
