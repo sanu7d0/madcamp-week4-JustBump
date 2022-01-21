@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 870827818428203123}
   - component: {fileID: 870827818428203122}
   - component: {fileID: 2212745572940688116}
-  - component: {fileID: 2143145118908360221}
+  - component: {fileID: 3767676445158165385}
   m_Layer: 5
   m_Name: Timer
   m_TagString: Untagged
@@ -149,8 +149,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e2a63b3d0aac47fea4d6761418f0540, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LimitTime: 30
---- !u!114 &2143145118908360221
+  arenaName: Arena2
+  LimitTime: 10
+--- !u!114 &3767676445158165385
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -164,12 +165,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ObservedComponentsFoldoutOpen: 1
   Group: 0
-  prefixField: 0
+  prefixField: -1
   Synchronization: 3
   OwnershipTransfer: 0
   observableSearch: 0
   ObservedComponents:
-  - {fileID: 2212745572940688116}
+  - {fileID: 0}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0

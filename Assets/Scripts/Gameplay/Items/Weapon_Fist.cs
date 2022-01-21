@@ -24,21 +24,24 @@ public class Weapon_Fist : Weapon
         Collider2D[] hitTargets = new Collider2D[10];
         ContactFilter2D contactFilter = new ContactFilter2D();
         int hitCount = hitBox.OverlapCollider(contactFilter.NoFilter(), hitTargets);
-        // Debug.Log("Hitcount: " + hitCount);
-        
         foreach(Collider2D target in hitTargets) {
             // Check the target is not itself
             if (target == null || target.transform.GetInstanceID() == transform.root.GetInstanceID()) {
-                continue;
+                Debug.Log("Invalid target");
+		        continue;
             } else {
                 // 데미지 로직
-                Rigidbody2D targetRb = target.GetComponent<Rigidbody2D>();
-                if (targetRb != null) {
-                    Debug.Log("Player hit " + target.name);
-                    targetRb.AddForce((target.transform.position - transform.position).normalized * weapon.power);
-                }
+
+                PlayerManager player = target.GetComponent<PlayerManager>();
+                if(player != null) { 
+					Debug.Log("Player hit " + target.name);
+                    player.Hitted(weapon.power, transform.position);
+				}
+                //target.GetComponent<Rigidbody2D>().AddForce(
+                //    (target.transform.position - transform.position).normalized * weapon.power);
+
             }
-            
+
         }
 
         return base.Use();

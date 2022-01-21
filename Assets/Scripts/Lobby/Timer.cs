@@ -5,12 +5,13 @@ using TMPro;
 using UnityEngine;
 using Photon.Pun;
 
-public class Timer : MonoBehaviour, IPunObservable
+public class Timer : MonoBehaviour
 {
+    [SerializeField]
+    public string arenaName = "Arena2";
     public static Timer Instance;
     public int LimitTime = 5;
     private float startTime = 0f;
-    private float countDownTime = 0f;
     private float elapsedTime {
         get { return LimitTime - (Time.time - startTime); }
     }
@@ -49,26 +50,17 @@ public class Timer : MonoBehaviour, IPunObservable
     public async Task StartTimer() {
         Debug.Log("Start Timer");
         startTime = Time.time;
-        await Task.Delay((LimitTime - 10) * 1000, cancellationTokenSource.Token);
+        await Task.Delay((LimitTime/4) * 1000 * 3, cancellationTokenSource.Token);
         PhotonNetwork.CurrentRoom.IsVisible = false;
-        await Task.Delay(10 * 1000, cancellationTokenSource.Token);
+        await Task.Delay((LimitTime/4) * 1000, cancellationTokenSource.Token);
         if(PhotonNetwork.IsMasterClient) {
-            PhotonNetwork.LoadLevel("Arena");
+            PhotonNetwork.LoadLevel(this.arenaName);
 		}
     }
 
     [PunRPC]
     public void SetText(float time) {
         textView.text = time.ToString();
-    }
-
-    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    {
-        if(stream.IsWriting) {
-            stream.SendNext(this.elapsedTime);
-		} else {
-            countDownTime = (float)stream.ReceiveNext();
-	    }
     }
 
     private void OnDestroy()

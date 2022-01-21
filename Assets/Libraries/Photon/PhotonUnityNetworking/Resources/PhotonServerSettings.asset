@@ -40,6 +40,12 @@ MonoBehaviour:
   - Fire
   - RespawnSpaceship
   - SetText
+  - Hitted
+  - RPC_Hitted
+  - RPCHitted
+  - RPC_HITEED
+  - RPC_HITTEED
+  - RPC_HITTED
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1
