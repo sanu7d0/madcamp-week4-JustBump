@@ -9,7 +9,7 @@ public abstract class Interactable : MonoBehaviour
 
     protected virtual void Awake() {
         cc = GetComponent<CircleCollider2D>();
-        cc.isTrigger = true;
+        // cc.isTrigger = true;
     }
 
     protected virtual void OnTriggerEnter2D(Collider2D other) {
