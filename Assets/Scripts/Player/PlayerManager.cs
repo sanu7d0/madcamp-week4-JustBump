@@ -2,37 +2,23 @@
 using System.Collections;
 using Photon.Pun;
 
-public class PlayerManager: MonoBehaviourPunCallbacks
+public class PlayerManager: MonoBehaviourPunCallbacks, IBumpable
 {
-
-    private GameObject go;
-    private Rigidbody2D rigidBody;
+    private Rigidbody2D rb;
     private int myPhotonViewId;
-
-
-    // Use this for initialization
 
     void Awake()
     {
-        Debug.Log("Player Manager Awake");
-        Debug.Log("Player Manager Awake");
-        go = gameObject;
-        rigidBody = go.GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody2D>();
         myPhotonViewId = this.photonView.ViewID;
-
-        Debug.Log("Player Manager Awake");
-        Debug.Log(photonView.ViewID);
-        Debug.Log(photonView.IsMine);
     }
 
-
-    public void Hitted(float weaphonPower, Vector3 weaponPos) {
-        photonView.RPC("RPC_HITTED", RpcTarget.All, new object[] {weaphonPower, weaponPos} );
+    public void BumpSelf(Vector2 force) {
+        photonView.RPC("RPC_BumpSelf", RpcTarget.All, new object[] { force } );
     }
     
     [PunRPC]
-    private void RPC_HITTED(float weaphonPower, Vector3 weaponPos) {
-        rigidBody.AddForce(
-              (transform.position - weaponPos).normalized * weaphonPower);
+    private void RPC_BumpSelf(Vector2 force) {
+        rb.AddForce(force);
     }
 }

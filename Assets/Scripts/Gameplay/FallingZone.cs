@@ -16,10 +16,16 @@ public class FallingZone : MonoBehaviour
         }
 
         // NOTE: if position.z != 0 -> Something go wrong!
-        if (col.bounds.Contains(other.bounds.min) && 
-            col.bounds.Contains(other.bounds.max)) {
+        if (Contains2D(other.bounds.min) && 
+            Contains2D(other.bounds.max)) {
             // Debug.Log($"{other.name} entered fully");
             other.transform.GetComponent<PlayerMediator>().StartFalling();
         }
+    }
+
+    // Prevent unexpected contain from not zero position.z
+    private bool Contains2D(Vector3 _target) {
+        Vector3 target = new Vector3(_target.x, _target.y, 0);
+        return col.bounds.Contains(target);
     }
 }
