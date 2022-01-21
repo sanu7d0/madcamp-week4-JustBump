@@ -23,9 +23,9 @@ sealed public class GameManager : Singleton<GameManager>
         private set;
     }
 
-    protected override void Awake() {
-        base.Awake();
-    }
+        protected override void Awake() {
+            base.Awake();
+        }
 
     void Start() {
         StartGame();

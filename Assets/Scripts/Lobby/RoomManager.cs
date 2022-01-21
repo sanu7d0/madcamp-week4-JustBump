@@ -7,72 +7,62 @@ enum RoomState{
     Wait, Ready, Start
 }
 
-
-public class RoomManager
+public class RoomManager : SingletonP<RoomManager>
 {
+    public GameObject timer;
+    private LobbyUIManager lobbyUIManager;
 
-    private Room room;
-    private GameObject timerPrefab;
-    private GameObject instancedTimer;
-    private const int MinStartGame = 1;
-    private RoomState roomState = RoomState.Wait;
-
-    public RoomManager(Room room, GameObject timerPrefab)
+    private void Awake()
     {
-        this.room = room;
-        this.timerPrefab = timerPrefab;
+        lobbyUIManager = LobbyUIManager.Instance;       
     }
 
+    private const int MinStartGame = 2;
+    private RoomState roomState = RoomState.Wait;
+
     public void HideRoom() {
-        this.room.IsVisible = false;
+        PhotonNetwork.CurrentRoom.IsVisible = false;
     }
 
     public void ShowRoom() {
-        this.room.IsVisible = true;
+        PhotonNetwork.CurrentRoom.IsVisible = true;
     }
     
     public int GetCurrentUser() {
-        return this.room.PlayerCount;
+        return PhotonNetwork.CurrentRoom.PlayerCount;
     }
 
     public bool CanStartGame() {
-        return this.GetCurrentUser() >= MinStartGame;
+        return GetCurrentUser() >= MinStartGame;
     }
 
 
-    public void Wait() { 
-        if(this.roomState != RoomState.Ready) {
+    public void Wait() {
+        Debug.Log("Wait");
+        if (this.roomState != RoomState.Ready) {
             Debug.Log("Can not Wait");
             return;
 		}
         
-        if(PhotonNetwork.IsMasterClient && instancedTimer is not null) {
-            PhotonNetwork.Destroy(instancedTimer);
-	    }
         this.roomState = RoomState.Wait;
+        Timer.Instance.Destory();
+		PhotonNetwork.CurrentRoom.IsVisible = true;
     }
 
     public void Ready() {
-
+        Debug.Log("Ready");
         if(this.roomState != RoomState.Wait) {
             Debug.Log("Can not Ready");
             return;
 	    }
 
-        if(PhotonNetwork.IsMasterClient) { 
-			instancedTimer = PhotonNetwork.Instantiate(this.timerPrefab.name, new Vector2(0f, 5f), Quaternion.identity, 0);
-		}
+        roomState = RoomState.Ready;
 
-        this.roomState = RoomState.Ready;
+        if(PhotonNetwork.IsMasterClient) {
+            Debug.Log("PhotonNetWork.IsMasterClient");
+
+			PhotonNetwork.Instantiate(timer.name, new Vector3(0, 0, 0), Quaternion.identity);
+		}
     }
 
-    public void Start() {
-        if(this.roomState != RoomState.Ready) {
-            Debug.Log("Can not Start");
-            return;
-		}
-        this.roomState = RoomState.Start;
-    }
-
-
-}
+}   
