@@ -23,7 +23,7 @@ public class Weapon_Fist : Weapon
         // Attack
         Collider2D[] hitTargets = new Collider2D[10];
         ContactFilter2D contactFilter = new ContactFilter2D();
-        int hitCount = hitBox.OverlapCollider(contactFilter, hitTargets);
+        int hitCount = hitBox.OverlapCollider(contactFilter.NoFilter(), hitTargets);
         // Debug.Log("Hitcount: " + hitCount);
         
         foreach(Collider2D target in hitTargets) {

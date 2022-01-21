@@ -9,6 +9,8 @@ public class ShootingBullet : MonoBehaviour
     [SerializeField] private float distance;
     public LayerMask isLayer;
 
+    public Vector2 direction = Vector2.zero;
+
     private void Awake() {
         
     }
@@ -36,6 +38,6 @@ public class ShootingBullet : MonoBehaviour
             // if (ray.collider.tag == "")
             DestroyBullet();
         }
-        transform.Translate(transform.right * speed * Time.deltaTime);
+        transform.Translate(direction * speed * Time.deltaTime);
     }
 }
