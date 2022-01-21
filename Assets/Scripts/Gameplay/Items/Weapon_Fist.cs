@@ -21,30 +21,27 @@ public class Weapon_Fist : Weapon
         }
 
         // Attack
-        Collider2D[] hitTargets = new Collider2D[10];
+        Collider2D[] hitTargets = new Collider2D[16];
         ContactFilter2D contactFilter = new ContactFilter2D();
-        int hitCount = hitBox.OverlapCollider(contactFilter.NoFilter(), hitTargets);
-
-        if (hitCount == 0) {
-            return false;
-        }
+        contactFilter.useTriggers = true;
+        int hitCount = hitBox.OverlapCollider(contactFilter, hitTargets);
 
         foreach(Collider2D target in hitTargets) {
+            if (target == null) break; // if null, all the next is null, so break
+            
             // Check the target is not itself
-            if (target == null || target.transform.GetInstanceID() == transform.root.GetInstanceID()) {
+            if (target.transform.GetInstanceID() == transform.root.GetInstanceID()) {
                 Debug.Log("Invalid target");
 		        continue;
             } else {
-                // 데미지 로직
-
-                PlayerManager player = target.GetComponent<PlayerManager>();
-                if(player != null) { 
+                IBumpable bumpTarget = target.GetComponent<IBumpable>();
+                if(bumpTarget != null) { 
 					Debug.Log("Player hit " + target.name);
-                    player.Hitted(weapon.power, transform.position);
+                    // TODO: Hit origin 지정?
+                    bumpTarget.BumpSelf(
+                        (target.transform.position - transform.position).normalized
+                        * weapon.power);
 				}
-                //target.GetComponent<Rigidbody2D>().AddForce(
-                //    (target.transform.position - transform.position).normalized * weapon.power);
-
             }
 
         }

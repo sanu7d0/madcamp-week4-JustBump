@@ -4,10 +4,9 @@ using Photon.Pun;
 using System;
 using System.Threading.Tasks;
 
-public class PlayerManager: MonoBehaviourPunCallbacks
+public class PlayerManager: MonoBehaviourPunCallbacks, IBumpable
 {
-    private GameObject go;
-    private Rigidbody2D rigidBody;
+    private Rigidbody2D rb;
     private int myPhotonViewId;
     private GameObject mainCamera;
     private Vector3 beforeCameraPos;
@@ -23,24 +22,8 @@ public class PlayerManager: MonoBehaviourPunCallbacks
 
     void Awake()
     {
-        go = gameObject;
-        rigidBody = go.GetComponent<Rigidbody2D>();
         myPhotonViewId = this.photonView.ViewID;
         mainCamera = GameObject.Find(cameraName);
-    }
-
-    public void Hitted(float weaphonPower, Vector3 weaponPos) {
-        photonView.RPC("_Hitted", RpcTarget.All, new object[] {weaphonPower, weaponPos} );
-    }
-    
-    [PunRPC]
-    private void _Hitted(float weaphonPower, Vector3 weaponPos) {
-        rigidBody.AddForce(
-              (transform.position - weaponPos).normalized * weaphonPower);
-    
-        if(photonView.IsMine) {
-            ShakePlayerCamera();
-		}
     }
     
     public void Revive() {
@@ -52,6 +35,7 @@ public class PlayerManager: MonoBehaviourPunCallbacks
         // TODO Revive..
     }
 
+
     public void Dead() { 
         photonView.RPC("_Dead", RpcTarget.All);
     }
@@ -59,6 +43,19 @@ public class PlayerManager: MonoBehaviourPunCallbacks
     [PunRPC]
     private void _Dead() {
         // TODO Dead... 
+    }
+
+    public void BumpSelf(Vector2 force) {
+        photonView.RPC("_BumpSelf", RpcTarget.All, new object[] { force } );
+
+        if(photonView.IsMine) {
+            ShakePlayerCamera();
+		}
+    }
+    
+    [PunRPC]
+    private void _BumpSelf(Vector2 force) {
+        rb.AddForce(force);
     }
     
     private void ShakePlayerCamera() {

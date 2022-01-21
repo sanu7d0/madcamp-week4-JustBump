@@ -130,6 +130,10 @@ public class PlayerMovement : MonoBehaviour
     }
 
     public void StartFalling() {
+        // Already falling
+        if (state == State.Falling)
+            return;
+        
         state = State.Falling;
         Debug.Log("Falling started");
 
@@ -138,5 +142,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleFalling() {
         transform.localScale *= (1 - Time.deltaTime);
+        transform.Rotate(0, 0, Time.deltaTime * 100f); // rotate speed
     }
 }
