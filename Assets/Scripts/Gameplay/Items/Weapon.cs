@@ -21,6 +21,14 @@ public abstract class Weapon : MonoBehaviour
         return true;
     }
 
+    public virtual bool Use(Vector2 targetPosition) {
+        weapon.durability -= 1;
+        if (weapon.durability <= 0) {
+            AllUsed();
+        }
+        return true;
+    }
+
     protected virtual void AllUsed() {
 
     }

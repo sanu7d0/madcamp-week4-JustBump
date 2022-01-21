@@ -56,6 +56,19 @@ public class PlayerManager: MonoBehaviourPunCallbacks, IBumpable
     private void _BumpSelf(Vector2 force) {
         rb.AddForce(force);
     }
+
+    public void BumpExplosionSelf(float explosionForce, Vector2 explosionPosition, float explosionRadius) {
+        photonView.RPC("_BumpExplosionSelf", RpcTarget.All, new object[] { explosionForce, explosionPosition, explosionRadius } );
+
+        if(photonView.IsMine) {
+            ShakePlayerCamera();
+		}
+    }
+
+    [PunRPC]
+    private void _BumpExplosionSelf(float explosionForce, Vector2 explosionPosition, float explosionRadius) {
+        Rigidbody2DExtension.AddExplosionForce(rb, explosionForce, explosionPosition, explosionRadius);
+    }
     
     private void ShakePlayerCamera() {
         beforeCameraPos = Camera.main.transform.position;

@@ -67,7 +67,7 @@ public class Weapon_Axe : Weapon
         // If attacked -> Play attack effect
         if (attacked) {
             PlayUseMotion();
-            PlayUseSound();
+            base.PlayUseSound();
             return base.Use();
         } else {
             return false;
@@ -92,11 +92,6 @@ public class Weapon_Axe : Weapon
             transform.localRotation = 
                 Quaternion.Lerp(transform.localRotation, originalRotation, 5 * Time.deltaTime);
         }
-    }
-
-    protected override void PlayUseSound()
-    {
-        base.PlayUseSound();
     }
 
     protected override void AllUsed()

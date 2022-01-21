@@ -7,6 +7,7 @@ public class PlayerMediator : MonoBehaviour
     private PlayerMovement playerMovement;
 
     void Awake() {
+        playerManager = GetComponent<PlayerManager>();
         playerInteraction = GetComponent<PlayerInteraction>();
         playerMovement = GetComponent<PlayerMovement>();
     }

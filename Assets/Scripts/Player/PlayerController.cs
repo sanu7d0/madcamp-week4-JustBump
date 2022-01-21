@@ -23,6 +23,12 @@ public class PlayerController : MonoBehaviourPunCallbacks
         get { return Mouse.current.position.ReadValue(); }
     }
 
+    private PlayerDebug playerDebug;
+
+    void Awake() {
+        playerDebug = GetComponent<PlayerDebug>();
+    }
+
     void OnShoot(InputValue input) {
         if (!CanControl()) {
             return;
@@ -73,6 +79,9 @@ public class PlayerController : MonoBehaviourPunCallbacks
     }
     
     bool CanControl() { 
+        if (playerDebug.photonOfflineMode)
+            return true;
+        
         if(photonView.IsMine == false && PhotonNetwork.IsConnected == true) {
             return false;
         }
