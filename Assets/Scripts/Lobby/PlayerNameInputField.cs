@@ -48,7 +48,7 @@ public class PlayerNameInputField : MonoBehaviour
 
 
     PlayerPrefs.SetString(playerNamePrefKey, value);
-}
+	}
 
 
 }

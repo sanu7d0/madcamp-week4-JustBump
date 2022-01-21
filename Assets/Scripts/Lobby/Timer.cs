@@ -1,44 +1,79 @@
 ﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
+using Photon.Pun;
 
-public class Timer: MonoBehaviour
+public class Timer : MonoBehaviour, IPunObservable
 {
+    public static Timer Instance;
+    public int LimitTime = 5;
+    private float startTime = 0f;
+    private float countDownTime = 0f;
+    private float elapsedTime {
+        get { return LimitTime - (Time.time - startTime); }
+    }
+    private TMP_Text textView;
+    private CancellationTokenSource cancellationTokenSource;
+    
 
-    public int LimitTime = 30;
-    public float startTime = 0f;
-    public float elapsedTime { 
-        get { return Time.time - startTime; }
-     }
-    private TMP_Text timer;
-
-    public static Timer Instance; 
+    public void Destory() { 
+        PhotonNetwork.Destroy(gameObject);
+    }
 
     private void Awake()
     {
-        this.timer = GetComponent<TMP_Text>();
+        Debug.Log("TIMER AWAKE");
+        textView = GetComponent<TMP_Text>();
+        cancellationTokenSource = new CancellationTokenSource();
+        Instance = this;
     }
 
     private void Start()
     {
-        Timer.Instance = this;
+        LobbyUIManager.Instance.appendChild(gameObject);
+        transform.position += new Vector3(0, 160, 0);
+        StartTimer();
     }
+
 
     private void Update()
     {
-        this.timer.text = Mathf.Floor(LimitTime - elapsedTime).ToString();
+        if(PhotonNetwork.IsMasterClient) { 
+		 var photonView = PhotonView.Get(this);
+		 photonView.RPC("SetText", RpcTarget.All, elapsedTime);
+		}
     }
 
-    async Task StartTimer(Action onEndTime) {
+    public async Task StartTimer() {
+        Debug.Log("Start Timer");
         startTime = Time.time;
-	    await Task.Delay(LimitTime);
-        onEndTime();
+        await Task.Delay((LimitTime - 10) * 1000, cancellationTokenSource.Token);
+        PhotonNetwork.CurrentRoom.IsVisible = false;
+        await Task.Delay(10 * 1000, cancellationTokenSource.Token);
+        if(PhotonNetwork.IsMasterClient) {
+            PhotonNetwork.LoadLevel("Arena");
+		}
     }
 
-    void endTimer() {
-
-        gameObject.SetActive(false);
+    [PunRPC]
+    public void SetText(float time) {
+        textView.text = time.ToString();
     }
 
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if(stream.IsWriting) {
+            stream.SendNext(this.elapsedTime);
+		} else {
+            countDownTime = (float)stream.ReceiveNext();
+	    }
+    }
+
+    private void OnDestroy()
+    {
+        Debug.Log("On Destory And Cancel");
+        cancellationTokenSource.Cancel();
+    }
 }
