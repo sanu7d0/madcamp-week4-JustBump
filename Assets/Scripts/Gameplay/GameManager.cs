@@ -1,14 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 sealed public class GameManager : Singleton<GameManager>
 {
+    [SerializeField] private GameObject defaultPlayerPrefab;
     [SerializeField] private GameObject playerPrefab;
     [SerializeField] private int _gameGoalScore;
-        public int gameGoalScore {
-            get { return _gameGoalScore; }
-        }
+    private LobbyManager lobbyManager;
+
+    public int gameGoalScore {
+     get { return _gameGoalScore; }
+    }
+
     [SerializeField] private int _gameLimitTime;
         public int gameLimitTime {
             get { return _gameLimitTime; }
@@ -23,9 +28,10 @@ sealed public class GameManager : Singleton<GameManager>
         private set;
     }
 
-        protected override void Awake() {
-            base.Awake();
-        }
+    protected override void Awake() {
+        lobbyManager = LobbyManager.Instance;
+	    base.Awake();
+    }
 
     void Start() {
         StartGame();
@@ -33,16 +39,17 @@ sealed public class GameManager : Singleton<GameManager>
 
     private void StartGame() {
         isPlaying = true;
-        
-        
-        // TODO: Player 오브젝트들 찾고, phothonview.ismine 이면 카메라 붙이기
-        // GameObject.FindGameObjectsWithTag("Player");
-        GameObject player = Instantiate(playerPrefab, GameObject.Find("Spawn0").transform.position, Quaternion.identity);
+
+        GameObject player;
+        if(PhotonNetwork.IsConnected) { 
+			player = PhotonNetwork.Instantiate(lobbyManager.selectedCharacterName ?? defaultPlayerPrefab.name, GameObject.Find("Spawn0").transform.position, Quaternion.identity);
+		} else { 
+			player = Instantiate(defaultPlayerPrefab, GameObject.Find("Spawn0").transform.position, Quaternion.identity);
+		}
+
         AttachMainCamera(player);
-        
         gameStartTime = Time.time;
         StartCoroutine(StartTimer());
-
         Debug.Log("Game started");
     }
 

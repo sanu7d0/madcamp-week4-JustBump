@@ -7,6 +7,8 @@ using Photon.Pun;
 
 public class Timer : MonoBehaviour, IPunObservable
 {
+    [SerializeField]
+    public string arenaName = "Arena2";
     public static Timer Instance;
     public int LimitTime = 5;
     private float startTime = 0f;
@@ -49,11 +51,12 @@ public class Timer : MonoBehaviour, IPunObservable
     public async Task StartTimer() {
         Debug.Log("Start Timer");
         startTime = Time.time;
-        await Task.Delay((LimitTime - 10) * 1000, cancellationTokenSource.Token);
+        await Task.Delay((LimitTime/4) * 1000 * 3, cancellationTokenSource.Token);
         PhotonNetwork.CurrentRoom.IsVisible = false;
-        await Task.Delay(10 * 1000, cancellationTokenSource.Token);
+        await Task.Delay((LimitTime/4) * 1000, cancellationTokenSource.Token);
         if(PhotonNetwork.IsMasterClient) {
-            PhotonNetwork.LoadLevel("Arena");
+            RoomManager.Instance.Wait();
+            PhotonNetwork.LoadLevel(this.arenaName);
 		}
     }
 

@@ -9,6 +9,7 @@ enum RoomState{
 
 public class RoomManager : SingletonP<RoomManager>
 {
+    public int MinStartGame = 2;
     public GameObject timer;
     private LobbyUIManager lobbyUIManager;
 
@@ -19,7 +20,6 @@ public class RoomManager : SingletonP<RoomManager>
         lobbyUIManager = LobbyUIManager.Instance;
     }
 
-    private const int MinStartGame = 2;
     private RoomState roomState = RoomState.Wait;
 
     public void HideRoom() {
