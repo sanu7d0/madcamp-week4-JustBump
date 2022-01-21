@@ -12,9 +12,11 @@ public class RoomManager : SingletonP<RoomManager>
     public GameObject timer;
     private LobbyUIManager lobbyUIManager;
 
-    private void Awake()
+    protected override void Awake()
     {
-        lobbyUIManager = LobbyUIManager.Instance;       
+        base.Awake();
+
+        lobbyUIManager = LobbyUIManager.Instance;
     }
 
     private const int MinStartGame = 2;

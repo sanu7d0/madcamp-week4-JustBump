@@ -23,7 +23,11 @@ public class PlayerShooting : MonoBehaviour
     void shoot() {
         if (curTime <= 0)
         {
-            Instantiate(appleBullet, pos.position, transform.rotation);
+            ShootingBullet bullet = Instantiate(appleBullet, pos.position, transform.rotation)
+                .GetComponent<ShootingBullet>();
+            bullet.direction = Camera.main.ScreenToWorldPoint(playerController.mousePos)
+                - transform.position;
+
             curTime = coolTime;
         }
     }
