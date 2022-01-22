@@ -15,6 +15,6 @@ MonoBehaviour:
   name: Grenade
   category: 2
   power: 1000
-  durability: 1
+  durability: 2
   coolTime: 1
   useSound: {fileID: 0}

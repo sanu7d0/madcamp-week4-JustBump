@@ -17,6 +17,7 @@ MonoBehaviour:
   power: 500
   durability: 100000
   coolTime: 0.5
-  targetLayers:
-    serializedVersion: 2
-    m_Bits: 64
+  useSounds:
+  - {fileID: 8300000, guid: da04b515ebb9df34ca4d4bc6512e1664, type: 3}
+  - {fileID: 8300000, guid: f2501a2aed371f9478c4869b4cc8d3a2, type: 3}
+  - {fileID: 8300000, guid: d5df5eb31d8dd6c4fade21c5e384f05d, type: 3}

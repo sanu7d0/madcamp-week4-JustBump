@@ -25,5 +25,9 @@ public class MissionInteract : Interactable
     {
         base.Interact();
         Debug.Log($"??? interacted with {this.name}");
+
+        // interactor.InvokeStartInteract
+
+        // TODO: 몇 초 뒤에 끝난 거 알리기
     }
 }
