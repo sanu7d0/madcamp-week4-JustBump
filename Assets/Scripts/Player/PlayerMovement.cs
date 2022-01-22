@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : MonoBehaviourPunCallbacks
 {
     private Rigidbody2D rb;
     private PlayerMediator playerMediator;
@@ -61,8 +62,9 @@ public class PlayerMovement : MonoBehaviour
             break;
         }
     }
-    
-    private void HandleMovement() {
+
+    [PunRPC]
+    private void _HandleMovement(){
         Vector2 moveDir = playerController.moveDir;
         lastMoveDir = moveDir;
 
@@ -83,6 +85,31 @@ public class PlayerMovement : MonoBehaviour
             transform.SetPositionAndRotation(transform.position,
             Quaternion.Euler(0f, 0f, 0f));
         }
+    }
+    
+    private void HandleMovement() {
+
+        photonView.RPC("_HandleMovement", RpcTarget.All);
+        // Vector2 moveDir = playerController.moveDir;
+        // lastMoveDir = moveDir;
+
+        // // rb.AddForce(moveDir * speed * Time.deltaTime);
+        // rb.velocity = moveDir * speed * Time.deltaTime;
+        // Debug.Log(rb.velocity);
+        // if (moveDir != Vector2.zero) {
+        //     anim.SetBool("isWalking", true);
+        // } else {
+        //     anim.SetBool("isWalking", false);
+        // }
+
+        // // Flip transform
+        // if (moveDir.x < 0) {
+        //     transform.SetPositionAndRotation(transform.position,
+        //     Quaternion.Euler(0f, 180f, 0f));
+        // } else if (moveDir.x > 0) {
+        //     transform.SetPositionAndRotation(transform.position,
+        //     Quaternion.Euler(0f, 0f, 0f));
+        // }
     }
 
     private void TryRoll() {
