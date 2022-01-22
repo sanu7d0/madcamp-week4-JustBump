@@ -31,6 +31,8 @@ public class PlayerMovement : MonoBehaviour
     void OnEnable() {
         state = State.Normal;
         rb.velocity = Vector2.zero;
+        transform.rotation = Quaternion.identity;
+        transform.localScale = Vector3.one;
     }
     
     void Start() {
