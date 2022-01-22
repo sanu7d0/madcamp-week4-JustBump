@@ -23,14 +23,9 @@ public class LauncherUIManager : Singleton<MonoBehaviour>
         progressLabel.SetActive(true);
     }
 
-    public void OnCharacterClicked(BaseEventData data)
-    {
-        OnProgressLabel();
-        PointerEventData ped = (PointerEventData)data;
-        string candidatedCharacterName = ped.pointerCurrentRaycast.gameObject.GetComponent<CandidateCharacter>().candidateCharacter.name;
-    }
 
     public void OnConnnectButtonClicked() {
+        OnProgressLabel();
         onConnectButtonClickedListener.Invoke();
     }
 }

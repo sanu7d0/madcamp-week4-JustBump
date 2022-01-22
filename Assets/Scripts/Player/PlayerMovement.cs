@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -14,7 +15,8 @@ public class PlayerMovement : MonoBehaviour
     private State state;
     private enum State {
         Normal,
-        Rolling
+        Rolling,
+        Falling
     }
 
     void Awake() {
@@ -31,13 +33,17 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         switch (state) {
-            case State.Normal:
-                HandleMovement();
-                break;
-            
-            case State.Rolling:
-                HandleRollSliding();
-                break;
+        case State.Normal:
+            HandleMovement();
+            break;
+        
+        case State.Rolling:
+            HandleRollSliding();
+            break;
+        
+        case State.Falling:
+            HandleFalling();
+            break;
         }
     }
     
@@ -91,8 +97,11 @@ public class PlayerMovement : MonoBehaviour
     }
 
     private bool CanMove(Vector3 dir, float distance) {
-        // Debug.DrawLine(transform.position, dir, Color.red, 0.3f);
-        return Physics2D.Raycast(transform.position, dir, distance).collider == null;
+        ContactFilter2D contactFilter = new ContactFilter2D();
+        List<RaycastHit2D> results = new List<RaycastHit2D>(); 
+        contactFilter.useTriggers = false;
+
+        return Physics2D.Raycast(transform.position, dir, contactFilter, results , distance) == 0;
     }
 
     private bool TryMove(Vector3 baseMoveDir, float distance) {
@@ -118,5 +127,21 @@ public class PlayerMovement : MonoBehaviour
         } else {
             return false;
         }
+    }
+
+    public void StartFalling() {
+        // Already falling
+        if (state == State.Falling)
+            return;
+        
+        state = State.Falling;
+        Debug.Log("Falling started");
+
+        // TODO: 플레이어 die 호출
+    }
+
+    private void HandleFalling() {
+        transform.localScale *= (1 - Time.deltaTime);
+        transform.Rotate(0, 0, Time.deltaTime * 100f); // rotate speed
     }
 }

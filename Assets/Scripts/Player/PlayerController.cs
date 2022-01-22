@@ -5,8 +5,6 @@ using Photon.Pun;
 
 public class PlayerController : MonoBehaviourPunCallbacks
 {
-    private Vector2 _moveDir;
-
     public UnityEvent onAttack;
 
     public UnityEvent onInteract;
@@ -17,44 +15,77 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
     public UnityEvent onShoot;
 
+    public UnityEvent onSwapWeapon;
 
     public Vector2 moveDir { 
-        get { return _moveDir; } 
+        get; private set;
     }
 
-    void Start() {
+    public Vector2 mousePos {
+        get { return Mouse.current.position.ReadValue(); }
     }
 
-    void OnShoot(InputValue value) {
+    void OnShoot(InputValue input) {
+        if (!CanControl()) {
+            return;
+		}
         onShoot.Invoke();
     }
+    
 
-    void OnMove(InputValue value) {
-        if(photonView.IsMine == false && PhotonNetwork.IsConnected == true) {
+    void OnMove(InputValue input) {
+        if (!CanControl()) {
             return;
-        }
-		_moveDir = value.Get<Vector2>();
+		}
+		moveDir = input.Get<Vector2>();
     }
 
 
-    void OnAttack(InputValue value) {
+    void OnAttack(InputValue input) {
+        if (!CanControl()) {
+            return;
+		}
         onAttack.Invoke();
     }
 
-    void OnInteract(InputValue value) {
+    void OnInteract(InputValue input) {
+        if (!CanControl()) {
+            return;
+		}
         onInteract.Invoke();
     }
 
-    void OnInventory(InputValue value) {
-        Debug.Log(value);
+    void OnSwapWeapon(InputValue input) {
+        if (!CanControl()) {
+            return;
+		}
+        photonView.RPC("_OnSwapWeapon", RpcTarget.All);
     }
 
-    void OnJump(InputValue value) {
+    [PunRPC]
+    void _OnSwapWeapon() {
+        onSwapWeapon.Invoke();
+    }
+    
+
+    void OnJump(InputValue input) {
+        if (!CanControl()) {
+            return;
+		}
         onJump.Invoke();
     }
 
-    void OnRoll(InputValue value) {
+    void OnRoll(InputValue input) {
+        if (!CanControl()) {
+            return;
+		}
         onRoll.Invoke();
     }
-
+    
+    bool CanControl() { 
+        if(photonView.IsMine == false && PhotonNetwork.IsConnected == true) {
+            return false;
+        }
+        return true;
+    }
 }

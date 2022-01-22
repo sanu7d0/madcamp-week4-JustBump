@@ -7,12 +7,15 @@ using UnityEngine.SceneManagement;
 
 public class LobbyManager : SingletonP<LobbyManager>
 {
+    [SerializeField]
     private RoomManager roomManager;
     private LobbyUIManager lobbyUIManager;
-    private string selectedCharacterName;
+    public string selectedCharacterName;
 
-    public void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+
         lobbyUIManager = LobbyUIManager.Instance;
         roomManager = RoomManager.Instance;
     }
@@ -20,7 +23,7 @@ public class LobbyManager : SingletonP<LobbyManager>
     void Start()
     {
         Debug.Log("LobbyManager Start");
-
+        DontDestroyOnLoad(gameObject);
         lobbyUIManager.ShowCharacterSelectPanel();
         lobbyUIManager.onClickedLeaveButtonListener.AddListener(() => {
             LeaveRoom();
