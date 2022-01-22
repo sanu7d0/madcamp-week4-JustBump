@@ -32,7 +32,6 @@ sealed public class GameManager : Singleton<GameManager>
     
     public List<GameObject> missions;
     public List<Image> gauges;
-    public Transform pos;
 
     public bool isPlaying {
         get;
