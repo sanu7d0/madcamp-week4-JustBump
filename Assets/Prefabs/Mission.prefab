@@ -13,8 +13,6 @@ GameObject:
   - component: {fileID: 534196961231993651}
   - component: {fileID: 1285357392799685387}
   - component: {fileID: 1500371031090109269}
-  - component: {fileID: 1500371031090109264}
-  - component: {fileID: 1500371031090109274}
   - component: {fileID: 1500371031090109275}
   m_Layer: 31
   m_Name: Mission
@@ -76,8 +74,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1212483085
+  m_SortingLayer: 3
   m_SortingOrder: 3
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -139,36 +137,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!114 &1500371031090109264
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 534196961231993660}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b77498e577767ea439a0359433f2e11a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  prfGaugeBar: {fileID: 0}
-  canvas: {fileID: 0}
-  height: 1.7
---- !u!114 &1500371031090109274
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 534196961231993660}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e639120ba9a98c44786f6d8d58d7afcd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  prfGaugeBar: {fileID: 466090407936486436, guid: 5a31d0286b9a76b47a6217b947bc31af, type: 3}
-  canvas: {fileID: 0}
-  height: 1.7
 --- !u!114 &1500371031090109275
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -181,6 +149,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b77498e577767ea439a0359433f2e11a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  totalTime: 5
   prfGaugeBar: {fileID: 466090407936486436, guid: 5a31d0286b9a76b47a6217b947bc31af, type: 3}
-  canvas: {fileID: 0}
   height: 1.7

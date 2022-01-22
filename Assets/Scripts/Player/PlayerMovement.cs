@@ -137,7 +137,7 @@ public class PlayerMovement : MonoBehaviour
             return;
         
         state = State.Falling;
-        // Debug.Log("Falling started");
+        rb.velocity = Vector2.zero;
 
         playerMediator.InvokeOnFall();
     }

@@ -32,7 +32,6 @@ sealed public class GameManager : Singleton<GameManager>
     
     public List<GameObject> missions;
     public List<Image> gauges;
-    public Transform pos;
 
     public bool isPlaying {
         get;
@@ -106,21 +105,27 @@ sealed public class GameManager : Singleton<GameManager>
 
     public void AddPlayer(IPlayer player) {
         players.Add(player.id, player);
-        onChangePlayer.Invoke(players);
     }
 
     public void RemovePlayer(IPlayer player) {
         players.Remove(player.id);
-        onChangePlayer.Invoke(players);
     }
     
     public void OnChangePlayerState(IPlayer player) {
         players[player.id] = player;
-        onChangePlayer.Invoke(players);
     }   
     
     private void SetPhysics2DSettings() {
         Physics2D.queriesStartInColliders = false;
         // Physics2D.autoSyncTransforms = true;
     }
+
+    public void IncrementScore(IPlayer player, int score) { 
+        players[player.id].score += score;
+    }
+
+    public void InvokeOnchangePlayer() { 
+        onChangePlayer.Invoke(players);
+    }
+     
 }   
