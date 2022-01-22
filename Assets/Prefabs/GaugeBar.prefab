@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 466090407936486439}
   - component: {fileID: 466090407936486440}
   - component: {fileID: 466090407936486441}
-  - component: {fileID: 466090407936486438}
+  - component: {fileID: -223589713742366661}
   m_Layer: 5
   m_Name: GaugeBar
   m_TagString: Untagged
@@ -68,8 +68,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 7482667652216324306, guid: a872127f27ccc2346be08a6a0ee3f685, type: 3}
-  m_Type: 3
+  m_Sprite: {fileID: 7482667652216324306, guid: db750325989564987a34393247d883b4, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 0
@@ -78,7 +78,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &466090407936486438
+--- !u!114 &-223589713742366661
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -90,7 +90,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 282da807e06c55c49a35b0f100d618d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  totalTime: 5
   gaugeBar: {fileID: 466090409097378344}
 --- !u!1 &466090409097378342
 GameObject:
@@ -159,7 +158,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 7482667652216324306, guid: a872127f27ccc2346be08a6a0ee3f685, type: 3}
+  m_Sprite: {fileID: 7482667652216324306, guid: db750325989564987a34393247d883b4, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -181,5 +180,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 282da807e06c55c49a35b0f100d618d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  totalTime: 100
-  gaugeBar: {fileID: 0}
+  gaugeBar: {fileID: 466090409097378344}
