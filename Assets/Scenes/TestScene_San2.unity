@@ -882,7 +882,7 @@ PrefabInstance:
     - target: {fileID: 4750887436583756450, guid: 19e95db4624a9f84fbd8856183b0db08, type: 3}
       propertyPath: playerPrefab
       value: 
-      objectReference: {fileID: 4687371777569612328, guid: dc45779cfd29f50409e2743bc36949dc, type: 3}
+      objectReference: {fileID: 4687371777569612328, guid: c109d7051da8f4a408c08b45e34c2ee5, type: 3}
     - target: {fileID: 4750887436583756450, guid: 19e95db4624a9f84fbd8856183b0db08, type: 3}
       propertyPath: DEBUG_OfflineMode
       value: 1
@@ -890,7 +890,7 @@ PrefabInstance:
     - target: {fileID: 4750887436583756450, guid: 19e95db4624a9f84fbd8856183b0db08, type: 3}
       propertyPath: defaultPlayerPrefab
       value: 
-      objectReference: {fileID: 4687371777569612328, guid: dc45779cfd29f50409e2743bc36949dc, type: 3}
+      objectReference: {fileID: 4687371777569612328, guid: c109d7051da8f4a408c08b45e34c2ee5, type: 3}
     - target: {fileID: 4750887436583756451, guid: 19e95db4624a9f84fbd8856183b0db08, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -2253,6 +2253,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: UIManager
       objectReference: {fileID: 0}
+    - target: {fileID: 7564870923610987119, guid: 8316bf02c272db24fad77a9df587ab07, type: 3}
+      propertyPath: text_score
+      value: 
+      objectReference: {fileID: 1466780395}
+    - target: {fileID: 7564870923610987119, guid: 8316bf02c272db24fad77a9df587ab07, type: 3}
+      propertyPath: text_timer
+      value: 
+      objectReference: {fileID: 1834892493}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8316bf02c272db24fad77a9df587ab07, type: 3}
 --- !u!4 &939851089 stripped
@@ -2449,7 +2457,7 @@ GameObject:
   - component: {fileID: 1314257888}
   - component: {fileID: 1314257887}
   m_Layer: 0
-  m_Name: CliffTileMap
+  m_Name: FallZoneTileMap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9397,8 +9405,8 @@ TilemapRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1212483085
+  m_SortingLayer: 3
   m_SortingOrder: 2
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 1.265625, y: 1.84375, z: 0}

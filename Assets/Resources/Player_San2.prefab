@@ -198,7 +198,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.0129467845, y: -0.12946779}
+  m_Offset: {x: 0.03552091, y: -0.2941094}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -209,7 +209,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.6547525, y: 0.7410644}
+  m_Size: {x: 0.5705439, y: 0.4117812}
   m_EdgeRadius: 0
 --- !u!95 &7341720443209539031
 Animator:
@@ -379,6 +379,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8274b417698b6194a8decb6323616180, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponHolder: {fileID: 7480119121531464510}
   appleBullet: {fileID: 2194892889725062679, guid: 37c6aae4a55769e42b9c9d016aba66ec, type: 3}
   shootPosition: {fileID: 5407413067054279749}
   shootCoolTime: 0.3
@@ -547,6 +548,18 @@ PrefabInstance:
     - target: {fileID: 4880096109504664899, guid: 3ccae9a538e11e347b89ed0b8965cf4c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5004570115868484866, guid: 3ccae9a538e11e347b89ed0b8965cf4c, type: 3}
+      propertyPath: m_SortingLayer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5004570115868484866, guid: 3ccae9a538e11e347b89ed0b8965cf4c, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5004570115868484866, guid: 3ccae9a538e11e347b89ed0b8965cf4c, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -1212483085
       objectReference: {fileID: 0}
     - target: {fileID: 9172026964250369542, guid: 3ccae9a538e11e347b89ed0b8965cf4c, type: 3}
       propertyPath: m_Name

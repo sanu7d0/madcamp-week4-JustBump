@@ -29,6 +29,10 @@ public abstract class Weapon : MonoBehaviour
         return true;
     }
 
+    public virtual WeaponCategory GetWeaponType() {
+        return weapon.category;
+    }
+
     protected virtual void AllUsed() {
 
     }

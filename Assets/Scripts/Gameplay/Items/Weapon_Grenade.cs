@@ -14,16 +14,17 @@ public class Weapon_Grenade : Weapon
     public override bool Use(Vector2 targetPosition)
     {
         if (weapon.durability <= 0) {
+            // Debug.Log($"Durability: {weapon.durability}");
             return false;
         }
 
         // 테스트용 즉발 폭발
-        Debug.Log($"Explosion at ({targetPosition.x}, {targetPosition.y})");
+        // Debug.Log($"Explosion at ({targetPosition.x}, {targetPosition.y})");
         Collider2D[] hitTargets = Physics2D.OverlapCircleAll(targetPosition, explosionRadius);
         foreach (Collider2D target in hitTargets) {
             if (target.TryGetComponent<Rigidbody2D>(out Rigidbody2D targetRb)) {
                 Rigidbody2DExtension.AddExplosionForce(targetRb, weapon.power, targetPosition, explosionRadius);
-                Debug.Log($"Grenade smashed {target.name}");
+                // Debug.Log($"Grenade smashed {target.name}");
             }
         }
 

@@ -5,9 +5,7 @@ using Photon.Pun;
 
 public class PlayerDebug : MonoBehaviour
 {
-    // public bool photonOfflineMode;
-
     void Awake() {
-        // PhotonNetwork.OfflineMode = photonOfflineMode;
+        
     }
 }

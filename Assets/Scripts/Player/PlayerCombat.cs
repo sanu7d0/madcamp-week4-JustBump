@@ -4,7 +4,7 @@ public class PlayerCombat : MonoBehaviour
 {
     private PlayerController playerController;
 
-    private Transform weaponHolder;
+    [SerializeField] private Transform weaponHolder;
     public Transform[] weapons {
         get; private set;
     }
@@ -29,7 +29,6 @@ public class PlayerCombat : MonoBehaviour
         weapons = new Transform[2];
         currentSelection = 0;
 
-        weaponHolder = transform.Find("Weapon Holder");
         weapons[0] = weaponHolder.GetChild(0); // ?? something // null 이면 대체 넣기
         weapons[1] = weaponHolder.GetChild(1);
 
@@ -59,9 +58,24 @@ public class PlayerCombat : MonoBehaviour
             return;
         }
         
-        if (currentWeapon.Use()) {
-            // ...
+        switch (currentWeapon.GetWeaponType()) {
+        case WeaponCategory.Melee:
+            if (currentWeapon.Use()) {
+                // ...
+            }
+            break;
+        
+        case WeaponCategory.Range:
+
+            break;
+        
+        case WeaponCategory.Throwable:
+            if (currentWeapon.Use(Camera.main.ScreenToWorldPoint(playerController.mousePos))) {
+                // ...
+            }
+            break;
         }
+        
     }
 
     private void TryShoot() {
