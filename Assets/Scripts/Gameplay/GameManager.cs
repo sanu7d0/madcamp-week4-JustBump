@@ -9,6 +9,7 @@ using UnityEngine.UI;
 sealed public class GameManager : Singleton<GameManager>
 {
     [SerializeField] private GameObject defaultPlayerPrefab;
+    [SerializeField] private GameObject missionPrefab;
     [SerializeField] private int _gameGoalScore;
     private LobbyManager lobbyManager;
     private readonly Players players = 
