@@ -29,6 +29,10 @@ public abstract class Interactable : MonoBehaviour
 
     }
 
+    public virtual void Interact(PlayerManager interactor) {
+        
+    }
+
     public virtual void StopInteract() {
 
     }

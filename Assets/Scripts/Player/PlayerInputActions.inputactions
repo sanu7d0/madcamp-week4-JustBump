@@ -33,18 +33,18 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Inventory",
+                    "name": "Shoot",
                     "type": "Button",
-                    "id": "2e92024f-857f-49fd-b89f-a254f0e6c010",
+                    "id": "396b9d9b-81c2-41e4-9808-b3c608a1e93e",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Jump",
+                    "name": "SwapWeapon",
                     "type": "Button",
-                    "id": "5b39bd5e-cd0c-4363-ab60-70b2cc7cb4da",
+                    "id": "1e2d2b08-a1ba-49dc-a4c7-b7809c68c087",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -53,16 +53,7 @@
                 {
                     "name": "Roll",
                     "type": "Button",
-                    "id": "6bd4a71a-bf83-4467-b455-eb5c96a4431a",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Shoot",
-                    "type": "Button",
-                    "id": "debb2810-7b85-47a6-8743-c646034f1a94",
+                    "id": "80a4e60f-1e85-4894-b2ce-4bc1a6cf9128",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -182,28 +173,6 @@
                 },
                 {
                     "name": "",
-                    "id": "551636a2-9a5c-4a38-a9e7-f558920714c1",
-                    "path": "<Keyboard>/1",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard & Mouse",
-                    "action": "Inventory",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "db8aecab-5d47-4a7e-aa93-e224bac7ad1c",
-                    "path": "<Keyboard>/2",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard & Mouse",
-                    "action": "Inventory",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "ecd27ff3-ae1d-4701-831e-41129eafae2d",
                     "path": "<Mouse>/leftButton",
                     "interactions": "",
@@ -226,34 +195,34 @@
                 },
                 {
                     "name": "",
-                    "id": "341cbfc7-e2b9-44c2-b7da-4badb40c5980",
-                    "path": "<Keyboard>/space",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Jump",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "a3436c35-9268-4bb3-8f9b-f4b69a97feb8",
-                    "path": "<Keyboard>/shift",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Roll",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "8be6aed6-fed3-482a-8e89-c1fb7a3a586a",
+                    "id": "529adfc2-9d59-4b21-bf50-b2bad54d7e8b",
                     "path": "<Mouse>/rightButton",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Keyboard & Mouse",
                     "action": "Shoot",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "eb501814-6656-4d14-bc5c-1043300b9e55",
+                    "path": "<Keyboard>/tab",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard & Mouse",
+                    "action": "SwapWeapon",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ae7b6cc9-7055-4d8e-ba1e-9a4b71311250",
+                    "path": "<Keyboard>/leftShift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard & Mouse",
+                    "action": "Roll",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
