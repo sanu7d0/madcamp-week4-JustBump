@@ -18,8 +18,15 @@ public class EventTimer : MonoBehaviour
     void Update()
     {
         if (Time.time >= startTime + delayTime) {
-            callback();
-            Destroy(gameObject);
+            try { 
+			    callback();
+		    }
+            catch (Exception e) {
+                Debug.Log(e.Message);
+		    }
+            finally{ 
+			    Destroy(gameObject);
+		    }
         }
     }
 }

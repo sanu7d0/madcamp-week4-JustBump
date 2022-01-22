@@ -422,7 +422,7 @@ MonoBehaviour:
   shakeRange: 0.05
   duration: 0.5
   nameField: {fileID: 6559818071731903151, guid: 16f01ec0065b34b8080fd9fff20723c2, type: 3}
-  onFall:
+  onDead:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &5657404246925965935

@@ -59,7 +59,11 @@ sealed public class GameManager : Singleton<GameManager>
 
         GameObject player;
         if(PhotonNetwork.IsConnected || DEBUG_OfflineMode) { 
-			player = PhotonNetwork.Instantiate(lobbyManager.selectedCharacterName ?? defaultPlayerPrefab.name, GameObject.Find("Spawn0").transform.position, Quaternion.identity);
+            if(string.IsNullOrEmpty(lobbyManager.selectedCharacterName)){ 
+				player = PhotonNetwork.Instantiate(defaultPlayerPrefab.name, GameObject.Find("Spawn0").transform.position, Quaternion.identity);
+		    } else {
+				player = PhotonNetwork.Instantiate(lobbyManager.selectedCharacterName, GameObject.Find("Spawn0").transform.position, Quaternion.identity);
+			}
 		} else { 
 			player = Instantiate(defaultPlayerPrefab, GameObject.Find("Spawn0").transform.position, Quaternion.identity);
 		}
