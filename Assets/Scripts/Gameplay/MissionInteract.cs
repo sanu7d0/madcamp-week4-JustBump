@@ -5,6 +5,7 @@ using UnityEngine;
 public class MissionInteract : Interactable
 {
     public float totalTime;
+    public float coolTime;
     public GameObject prfGaugeBar;
     private GameObject canvas;
     private enum State {
@@ -57,12 +58,8 @@ public class MissionInteract : Interactable
         gaugeBar.GetComponent<GaugeMove>().InitGauge(totalTime);
         
         Debug.Log($"??? interacted with {this.name}");
-
-        // interactor.InvokeStartInteract
-
         
         Invoke("FinishInteract", totalTime);
-        // TODO: 몇 초 뒤에 끝난 거 알리기
     }
 
     public override void StopInteract()
@@ -70,16 +67,23 @@ public class MissionInteract : Interactable
         base.StopInteract();
         if (state == State.progress) {
             Destroy(gaugeBarObject);
+            CancelInvoke("FinishInteract");
             state = State.idle;
         }
-        
     }
 
     public override void FinishInteract()
     {
         if (state == State.progress) {
             base.FinishInteract();
-            Destroy(this.gameObject);
+            // Destroy(this.gameObject);
+            this.gameObject.SetActive(false);
+
+            Invoke("recreate_mission", coolTime);
         }
+    }
+
+    public void recreate_mission() {
+        this.gameObject.SetActive(true);
     }
 }

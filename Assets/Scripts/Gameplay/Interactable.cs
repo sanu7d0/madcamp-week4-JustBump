@@ -5,10 +5,10 @@ using UnityEngine;
 // TODO: interface로 구현?
 public abstract class Interactable : MonoBehaviour
 {
-    private CircleCollider2D cc;
+    [SerializeField] private Collider2D cc;
 
     protected virtual void Awake() {
-        cc = GetComponent<CircleCollider2D>();
+        // cc = GetComponent<Collider2D>();
         // cc.isTrigger = true;
     }
 
@@ -34,6 +34,6 @@ public abstract class Interactable : MonoBehaviour
     }
 
     public virtual void FinishInteract() {
-        
+
     }
 }
