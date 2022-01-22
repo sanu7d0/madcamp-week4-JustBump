@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MissionInteract : Interactable
 {
-
+    public float totalTime;
     public GameObject prfGaugeBar;
     private GameObject canvas;
     private enum State {
@@ -52,6 +52,7 @@ public class MissionInteract : Interactable
         gaugeBar = Instantiate(prfGaugeBar, canvas.transform).GetComponent<RectTransform>();
         Vector3 _gaugeBarPos = Camera.main.WorldToScreenPoint(new Vector3(transform.position.x, transform.position.y + height, 0));
         gaugeBar.position = _gaugeBarPos;
+        gaugeBar.GetComponent<GaugeMove>().InitGauge(totalTime);
         
         Debug.Log($"??? interacted with {this.name}");
 
