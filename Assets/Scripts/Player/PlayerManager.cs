@@ -41,9 +41,8 @@ public class PlayerManager: MonoBehaviourPunCallbacks, IBumpable, IPlayer
         nameInstance.GetComponent<TextMeshProUGUI>().text = nickname;
     }
 
-    private void Update()
-    {
-        nameInstance.transform.position = new Vector3(transform.position.x, transform.position.y + 0.2f, 0);
+    void OnEnable() {
+        // reset
     }
 
     private void Start()
