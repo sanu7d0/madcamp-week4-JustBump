@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 sealed public class GameManager : Singleton<GameManager>
 {
     [SerializeField] private GameObject playerPrefab;
+    [SerializeField] private GameObject missionPrefab;
     [SerializeField] private int _gameGoalScore;
         public int gameGoalScore {
             get { return _gameGoalScore; }
@@ -17,6 +19,10 @@ sealed public class GameManager : Singleton<GameManager>
     public float gameElapsedTime {
         get { return Time.time - gameStartTime; }
     }
+    
+    public List<GameObject> missions;
+    public List<Image> gauges;
+    public Transform pos;
 
     public bool isPlaying {
         get;
@@ -42,6 +48,15 @@ sealed public class GameManager : Singleton<GameManager>
         
         gameStartTime = Time.time;
         StartCoroutine(StartTimer());
+
+        // TODO Mission object create
+        // Mission Prefab에 프리팹넣기
+        float RandomX = UnityEngine.Random.Range(-12, 13);
+        float RandomY = UnityEngine.Random.Range(-16, 14);
+        Vector2 RandomPos = new Vector2(RandomX, RandomY);
+        GameObject box = Instantiate(missionPrefab, RandomPos, Quaternion.identity);
+        // box.transform.position = new Vector3(0,0,0);
+        missions.Add(box);
 
         Debug.Log("Game started");
     }

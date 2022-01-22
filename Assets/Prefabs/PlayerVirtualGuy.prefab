@@ -141,6 +141,8 @@ GameObject:
   - component: {fileID: 8890730937837443390}
   - component: {fileID: 1527859615770454813}
   - component: {fileID: 5471045960497199367}
+  - component: {fileID: 8702894868875042527}
+  - component: {fileID: 2549117651609226877}
   m_Layer: 0
   m_Name: PlayerVirtualGuy
   m_TagString: Player
@@ -419,6 +421,30 @@ MonoBehaviour:
   appleBullet: {fileID: 2194892889725062679, guid: 37c6aae4a55769e42b9c9d016aba66ec, type: 3}
   pos: {fileID: 5407413067054279749}
   coolTime: 0.3
+--- !u!114 &8702894868875042527
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4687371777569612328}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7dcb8b4db043b234b8e9b2af93860a16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2549117651609226877
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4687371777569612328}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed6cad6227686ac408063f62d2aa8d19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7562901783145077537
 GameObject:
   m_ObjectHideFlags: 0
