@@ -14,6 +14,7 @@ sealed public class GameManager : Singleton<GameManager>
     private LobbyManager lobbyManager;
     private readonly Players players = 
 		new Players();
+    [SerializeField] private int missionNum;
 
     public UnityEvent<Players> onChangePlayer;
 
@@ -29,9 +30,6 @@ sealed public class GameManager : Singleton<GameManager>
     public float gameElapsedTime {
         get { return Time.time - gameStartTime; }
     }
-    
-    public List<GameObject> missions;
-    public List<Image> gauges;
 
     public bool isPlaying {
         get;
@@ -73,12 +71,11 @@ sealed public class GameManager : Singleton<GameManager>
 
         // TODO Mission object create
         // Mission Prefab에 프리팹넣기
-        float RandomX = UnityEngine.Random.Range(-12, 13);
-        float RandomY = UnityEngine.Random.Range(-16, 14);
-        Vector2 RandomPos = new Vector2(RandomX, RandomY);
-        GameObject box = Instantiate(missionPrefab, RandomPos, Quaternion.identity);
-        // box.transform.position = new Vector3(0,0,0);
-        missions.Add(box);
+        for (int i = 0; i < missionNum; i++) {
+            GameObject missionLoc = GameObject.Find("MissionLoc" + i);
+            GameObject mission = Instantiate(missionPrefab, missionLoc.transform.position, Quaternion.identity);
+        }
+        
 
         Debug.Log("Game started");
     }
