@@ -14,9 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Fork
   category: 0
-  power: 500
+  power: 15
   durability: 100000
   coolTime: 0.5
-  targetLayers:
-    serializedVersion: 2
-    m_Bits: 64
+  useSounds: []

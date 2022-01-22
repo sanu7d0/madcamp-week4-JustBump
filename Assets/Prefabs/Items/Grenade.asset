@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Grenade
   category: 2
-  power: 1000
+  power: 30
   durability: 10
   coolTime: 1
   useSounds: []

@@ -14,9 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Fist
   category: 0
-  power: 300
+  power: 8
   durability: 100000
   coolTime: 0.5
-  targetLayers:
-    serializedVersion: 2
-    m_Bits: 64
+  useSounds: []

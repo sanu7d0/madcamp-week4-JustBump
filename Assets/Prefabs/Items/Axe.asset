@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Axe
   category: 0
-  power: 500
+  power: 15
   durability: 100000
   coolTime: 0.5
   useSounds:
