@@ -1,4 +1,6 @@
 ﻿using System;
+
+
 public interface IPlayer
 {
     public int id { get; set; }

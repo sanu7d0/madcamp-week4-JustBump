@@ -69,11 +69,10 @@ public abstract class Weapon : MonoBehaviour
                 IBumpable bumpTarget = target.GetComponent<IBumpable>();
                 if(bumpTarget != null) { 
 					Debug.Log("Player hit " + target.name);
-                    // TODO: Hit origin 지정?
                     bumpTarget.BumpSelf(
+                        transform.root.GetComponent<IPlayer>(),
                         (target.transform.position - transform.position).normalized
                         * weapon.power);
-
                         attacked = true;
 				}
             }

@@ -104,17 +104,22 @@ sealed public class GameManager : Singleton<GameManager>
 
     public void AddPlayer(IPlayer player) {
         players.Add(player.id, player);
-        onChangePlayer.Invoke(players);
     }
 
     public void RemovePlayer(IPlayer player) {
         players.Remove(player.id);
-        onChangePlayer.Invoke(players);
     }
     
     public void OnChangePlayerState(IPlayer player) {
         players[player.id] = player;
-        onChangePlayer.Invoke(players);
     }   
+
+    public void IncrementScore(IPlayer player) { 
+        players[player.id].score++;
+    }
+
+    public void InvokeOnchangePlayer() { 
+        onChangePlayer.Invoke(players);
+    }
      
 }   

@@ -4,13 +4,16 @@ using System.Collections;
 using Photon.Pun;
 using System;
 using System.Threading.Tasks;
+using System.Threading;
+
 public class PlayerManager: MonoBehaviourPunCallbacks, IBumpable, IPlayer
 {
     private Rigidbody2D rb;
     private GameObject mainCamera;
     private Vector3 beforeCameraPos;
-    private PlayerManager lastBumper;
+    private IPlayer lastBumperPlayer;
     private GameManager gameManager;
+    private CancellationTokenSource cancellationToken = new CancellationTokenSource();
        
     [SerializeField] [Range(0.01f, 0.1f)] float shakeRange = 0.05f;
     [SerializeField] [Range(0.1f, 1f)] float duration = 0.5f;
@@ -33,7 +36,8 @@ public class PlayerManager: MonoBehaviourPunCallbacks, IBumpable, IPlayer
     private void Start()
     {
         onFall.AddListener(Dead);
-        gameManager.AddPlayer(this);
+        gameManager?.AddPlayer(this);
+        gameManager?.InvokeOnchangePlayer();
     }
 
     public void Revive() {
@@ -49,6 +53,8 @@ public class PlayerManager: MonoBehaviourPunCallbacks, IBumpable, IPlayer
         isDead = false;
         gameObject.SetActive(true);
         gameManager.OnChangePlayerState(this);
+        gameManager?.InvokeOnchangePlayer();
+
     }
 
     public void Dead() { 
@@ -64,17 +70,29 @@ public class PlayerManager: MonoBehaviourPunCallbacks, IBumpable, IPlayer
         gameObject.SetActive(false);
         isDead = true;
         gameManager.OnChangePlayerState(this);
+        
+        if(lastBumperPlayer != null) { 
+			gameManager.IncrementScore(lastBumperPlayer);
+		}
+
+        gameManager.InvokeOnchangePlayer();
     }
 
-    public void BumpSelf(Vector2 force) {
-        _BumpSelf(force);
-        photonView.RPC("_BumpSelf", RpcTarget.All, new object[] { force } );
-
+    public void BumpSelf(IPlayer lastBumperPlayer, Vector2 force) {
+        photonView.RPC("_BumpSelf", RpcTarget.All, new object[] { lastBumperPlayer.id, lastBumperPlayer.score, lastBumperPlayer.isDead, force } );
     }
     
     [PunRPC]
-    private void _BumpSelf(Vector2 force) {
+    private void _BumpSelf(int id, int score, bool isDead, Vector2 force) {
         rb.AddForce(force);
+
+	    lastBumperPlayer = new ConcretePlayer(){ id = id, isDead = isDead, score = score };
+	    cancellationToken.Cancel();
+
+	    Task.Run(() => {
+			Task.Delay(3 * 1000).Wait();
+			lastBumperPlayer = null;
+	    }, cancellationToken.Token);
 
         if(photonView.IsMine) {
             ShakePlayerCamera();
@@ -113,5 +131,13 @@ public class PlayerManager: MonoBehaviourPunCallbacks, IBumpable, IPlayer
 	    CancelInvoke("StartShake");
 	    Camera.main.transform.position = beforeCameraPos;
 	}
+
+
+    class ConcretePlayer : IPlayer
+    {
+        public int id { get; set; }
+        public int score { get; set; }
+        public bool isDead { get; set; }
+    }
 
 }
