@@ -32,4 +32,8 @@ public abstract class Interactable : MonoBehaviour
     public virtual void StopInteract() {
 
     }
+
+    public virtual void FinishInteract() {
+        
+    }
 }

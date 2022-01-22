@@ -12,6 +12,7 @@ public class GaugeMove : MonoBehaviour
     private bool isStarted;
     
     private void Awake() {
+        isStarted = false;
         // gaugeBar = GetComponent<Image>();
     }
 

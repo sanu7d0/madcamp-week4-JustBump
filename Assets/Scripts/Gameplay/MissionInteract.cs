@@ -13,6 +13,7 @@ public class MissionInteract : Interactable
     };
     private State state;
 
+    GameObject gaugeBarObject;
     RectTransform gaugeBar;
 
 
@@ -49,7 +50,8 @@ public class MissionInteract : Interactable
     {
         base.Interact();
         state = State.progress;
-        gaugeBar = Instantiate(prfGaugeBar, canvas.transform).GetComponent<RectTransform>();
+        gaugeBarObject = Instantiate(prfGaugeBar, canvas.transform);
+        gaugeBar = gaugeBarObject.GetComponent<RectTransform>();
         Vector3 _gaugeBarPos = Camera.main.WorldToScreenPoint(new Vector3(transform.position.x, transform.position.y + height, 0));
         gaugeBar.position = _gaugeBarPos;
         gaugeBar.GetComponent<GaugeMove>().InitGauge(totalTime);
@@ -58,17 +60,26 @@ public class MissionInteract : Interactable
 
         // interactor.InvokeStartInteract
 
-        // Invoke("StopInteract", GaugeMove.totalTime);
+        
+        Invoke("FinishInteract", totalTime);
         // TODO: 몇 초 뒤에 끝난 거 알리기
     }
 
     public override void StopInteract()
     {
+        base.StopInteract();
         if (state == State.progress) {
-            // Destroy(this.gameObject);
-            // Destroy(gaugeBar);
+            Destroy(gaugeBarObject);
             state = State.idle;
         }
         
+    }
+
+    public override void FinishInteract()
+    {
+        if (state == State.progress) {
+            base.FinishInteract();
+            Destroy(this.gameObject);
+        }
     }
 }
