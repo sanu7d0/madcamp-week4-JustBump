@@ -29,6 +29,7 @@ public class PlayerManager: MonoBehaviourPunCallbacks, IBumpable, IPlayer
     public bool isDead { get; set; }
     public int id { get; set; }
     public string nickname { get; set; }
+    private EventTimer cancellableTimer;
 
     void Awake()
     {
@@ -121,17 +122,11 @@ public class PlayerManager: MonoBehaviourPunCallbacks, IBumpable, IPlayer
         onBumped.Invoke();
 
 	    lastBumperPlayer = new ConcretePlayer(){ id = id, isDead = isDead, score = score };
-        Debug.Log(lastBumperPlayer.id);
-        Debug.Log(lastBumperPlayer.isDead);
-        Debug.Log(lastBumperPlayer.score);
-	    cancellationToken.Cancel();
-        TimerExtension.CreateEventTimer(() =>
+        cancellableTimer?.Stop();
+        cancellableTimer= TimerExtension.CreateEventTimer(() =>
         {
-
+            Debug.Log("Hello");
 			lastBumperPlayer = null;
-			Debug.Log(lastBumperPlayer.id);
-			Debug.Log(lastBumperPlayer.isDead);
-			Debug.Log(lastBumperPlayer.score);
         }, 3);
         if(photonView.IsMine) {
             ShakePlayerCamera();

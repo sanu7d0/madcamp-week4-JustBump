@@ -29,11 +29,17 @@ public class EventTimer : MonoBehaviour
 		    }
         }
     }
+
+    public void Stop() {
+        Destroy(gameObject);
+    }
+    
 }
 
 public static class TimerExtension {
-    public static void CreateEventTimer(Action callback, float delayTime) {
+    public static EventTimer CreateEventTimer(Action callback, float delayTime) {
         GameObject go = new GameObject();
         go.AddComponent<EventTimer>().InitTimer(callback, delayTime);
+        return go.GetComponent<EventTimer>();
     }
 }
