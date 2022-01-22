@@ -884,13 +884,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 4687371777569612328, guid: 867a119b452f3644082c62b8a9598544, type: 3}
     - target: {fileID: 4750887436583756450, guid: 19e95db4624a9f84fbd8856183b0db08, type: 3}
+      propertyPath: missionPrefab
+      value: 
+      objectReference: {fileID: 4687371777569612328, guid: 230ba193172c1b94b97ad9150970f533, type: 3}
+    - target: {fileID: 4750887436583756450, guid: 19e95db4624a9f84fbd8856183b0db08, type: 3}
       propertyPath: DEBUG_OfflineMode
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4750887436583756450, guid: 19e95db4624a9f84fbd8856183b0db08, type: 3}
       propertyPath: defaultPlayerPrefab
       value: 
-      objectReference: {fileID: 4687371777569612328, guid: 867a119b452f3644082c62b8a9598544, type: 3}
+      objectReference: {fileID: 4687371777569612328, guid: 230ba193172c1b94b97ad9150970f533, type: 3}
     - target: {fileID: 4750887436583756451, guid: 19e95db4624a9f84fbd8856183b0db08, type: 3}
       propertyPath: m_RootOrder
       value: 0

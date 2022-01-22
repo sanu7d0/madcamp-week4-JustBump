@@ -303,7 +303,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 601273628}
   m_CullTransparentMesh: 1
-<<<<<<< HEAD
 --- !u!1 &705410818
 GameObject:
   m_ObjectHideFlags: 0
@@ -424,8 +423,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 705410818}
   m_CullTransparentMesh: 1
-=======
->>>>>>> f9fc43ecb9db3e483c3293f96b85bf3a62671d83
 --- !u!1 &717588299
 GameObject:
   m_ObjectHideFlags: 0
@@ -548,7 +545,6 @@ MonoBehaviour:
   m_TrackedDeviceOrientationAction: {fileID: 7970375526676320489, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
   m_DeselectOnBackgroundClick: 1
   m_PointerBehavior: 0
-<<<<<<< HEAD
 --- !u!1 &899720250
 GameObject:
   m_ObjectHideFlags: 0
@@ -789,8 +785,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 928910668}
   m_CullTransparentMesh: 1
-=======
->>>>>>> f9fc43ecb9db3e483c3293f96b85bf3a62671d83
 --- !u!1 &993098022
 GameObject:
   m_ObjectHideFlags: 0
@@ -1012,7 +1006,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-<<<<<<< HEAD
 --- !u!1 &1372041746
 GameObject:
   m_ObjectHideFlags: 0
@@ -1134,9 +1127,6 @@ CanvasRenderer:
   m_GameObject: {fileID: 1372041746}
   m_CullTransparentMesh: 1
 --- !u!1 &1918102447
-=======
---- !u!1 &1918102447 stripped
->>>>>>> f9fc43ecb9db3e483c3293f96b85bf3a62671d83
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7992145678031736968, guid: 0d5667be85b174d349c4f74e7310a574, type: 3}
   m_PrefabInstance: {fileID: 7992145676720061223}
