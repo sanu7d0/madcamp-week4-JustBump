@@ -21,10 +21,15 @@ public abstract class Interactable : MonoBehaviour
     protected virtual void OnTriggerExit2D(Collider2D other) {
         if (other.tag == "Player") {
             other.GetComponent<PlayerMediator>().RemoveInteractable(this);
+            StopInteract();
         }
     }
 
     public virtual void Interact() {
+
+    }
+
+    public virtual void StopInteract() {
 
     }
 }

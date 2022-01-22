@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class GaugeMove : MonoBehaviour
 {
-    [SerializeField] float totalTime;
+    [SerializeField] public static float totalTime;
     private float startTime;
     [SerializeField] private Image gaugeBar;
     
