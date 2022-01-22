@@ -9,8 +9,6 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
     public UnityEvent onInteract;
 
-    public UnityEvent onJump;
-
     public UnityEvent onRoll;
 
     public UnityEvent onShoot;
@@ -23,6 +21,12 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
     public Vector2 mousePos {
         get { return Mouse.current.position.ReadValue(); }
+    }
+
+    private PlayerDebug playerDebug;
+
+    void Awake() {
+        playerDebug = GetComponent<PlayerDebug>();
     }
 
     void OnShoot(InputValue input) {
@@ -66,14 +70,6 @@ public class PlayerController : MonoBehaviourPunCallbacks
     void _OnSwapWeapon() {
         onSwapWeapon.Invoke();
     }
-    
-
-    void OnJump(InputValue input) {
-        if (!CanControl()) {
-            return;
-		}
-        onJump.Invoke();
-    }
 
     void OnRoll(InputValue input) {
         if (!CanControl()) {
@@ -83,6 +79,9 @@ public class PlayerController : MonoBehaviourPunCallbacks
     }
     
     bool CanControl() { 
+        if (GameManager.Instance.DEBUG_OfflineMode)
+            return true;
+        
         if(photonView.IsMine == false && PhotonNetwork.IsConnected == true) {
             return false;
         }

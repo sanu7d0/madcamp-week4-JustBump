@@ -12,9 +12,18 @@ public class WeaponObject : ScriptableObject
     public float power;
     public int durability;
     public float coolTime;
-    public LayerMask targetLayers;
+
+    public AudioClip[] useSounds;
 
     public WeaponObject GetClone() {
         return ScriptableObjectExtension.Clone<WeaponObject>(this);
+    }
+
+    public AudioClip GetRandomUseSound() {
+        if (useSounds == null || useSounds.Length == 0) {
+            Debug.LogError($"No use sound of {name}");
+            return null;
+        }
+        return useSounds[Random.Range(0, useSounds.Length)];
     }
 }

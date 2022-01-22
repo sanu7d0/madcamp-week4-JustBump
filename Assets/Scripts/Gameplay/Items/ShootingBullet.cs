@@ -38,6 +38,6 @@ public class ShootingBullet : MonoBehaviour
             // if (ray.collider.tag == "")
             DestroyBullet();
         }
-        transform.Translate(direction * speed * Time.deltaTime);
+        transform.Translate(direction.normalized * speed * Time.deltaTime);
     }
 }

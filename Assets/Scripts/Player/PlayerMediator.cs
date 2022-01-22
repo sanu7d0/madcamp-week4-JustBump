@@ -2,10 +2,12 @@ using UnityEngine;
 
 public class PlayerMediator : MonoBehaviour
 {
+    private PlayerManager playerManager;
     private PlayerInteraction playerInteraction;
     private PlayerMovement playerMovement;
 
     void Awake() {
+        playerManager = GetComponent<PlayerManager>();
         playerInteraction = GetComponent<PlayerInteraction>();
         playerMovement = GetComponent<PlayerMovement>();
     }
@@ -20,5 +22,9 @@ public class PlayerMediator : MonoBehaviour
 
     public void StartFalling() {
         playerMovement.StartFalling();
+    }
+
+    public void InvokeOnFall() {
+        playerManager.onFall.Invoke();
     }
 }

@@ -44,5 +44,9 @@ public class MissionInteract : Interactable
         Vector3 _gaugeBarPos = Camera.main.WorldToScreenPoint(new Vector3(transform.position.x, transform.position.y + height, 0));
         gaugeBar.position = _gaugeBarPos;
         Debug.Log($"??? interacted with {this.name}");
+
+        // interactor.InvokeStartInteract
+
+        // TODO: 몇 초 뒤에 끝난 거 알리기
     }
 }

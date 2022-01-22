@@ -39,9 +39,16 @@ sealed public class GameManager : Singleton<GameManager>
         private set;
     }
 
+    public bool DEBUG_OfflineMode;
+
     protected override void Awake() {
 	    base.Awake();
         lobbyManager = LobbyManager.Instance;
+
+        if (DEBUG_OfflineMode) {
+            PhotonNetwork.OfflineMode = DEBUG_OfflineMode;
+            PhotonNetwork.CreateRoom(null);
+        }
     }
 
     void Start() {
@@ -52,11 +59,11 @@ sealed public class GameManager : Singleton<GameManager>
         isPlaying = true;
 
         GameObject player;
-        if(PhotonNetwork.IsConnected) { 
-          player = PhotonNetwork.Instantiate(lobbyManager.selectedCharacterName ?? defaultPlayerPrefab.name, GameObject.Find("Spawn0").transform.position, Quaternion.identity);
-        } else { 
-          player = Instantiate(defaultPlayerPrefab, GameObject.Find("Spawn0").transform.position, Quaternion.identity);
-        }
+        if(PhotonNetwork.IsConnected || DEBUG_OfflineMode) { 
+			player = PhotonNetwork.Instantiate(lobbyManager.selectedCharacterName ?? defaultPlayerPrefab.name, GameObject.Find("Spawn0").transform.position, Quaternion.identity);
+		} else { 
+			player = Instantiate(defaultPlayerPrefab, GameObject.Find("Spawn0").transform.position, Quaternion.identity);
+		}
 
         AttachMainCamera(player);
         gameStartTime = Time.time;
@@ -81,8 +88,9 @@ sealed public class GameManager : Singleton<GameManager>
     }
 
     private void AttachMainCamera(GameObject target) {
-        GameObject camera = GameObject.Find("Main Camera");
-        camera.GetComponent<CameraController>().targetTransform = target.transform;
+        if (Camera.main.TryGetComponent<CameraController>(out CameraController cc)) {
+            cc.targetTransform = target.transform;
+        }
     }
 
     IEnumerator StartTimer() {
@@ -105,7 +113,7 @@ sealed public class GameManager : Singleton<GameManager>
     }
     
     public void OnChangePlayerState(IPlayer player) {
-        players.Add(player.id, player);
+        players[player.id] = player;
         onChangePlayer.Invoke(players);
     }   
      

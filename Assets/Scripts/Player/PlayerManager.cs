@@ -14,7 +14,6 @@ public class PlayerManager: MonoBehaviourPunCallbacks, IBumpable, IPlayer
        
     [SerializeField] [Range(0.01f, 0.1f)] float shakeRange = 0.05f;
     [SerializeField] [Range(0.1f, 1f)] float duration = 0.5f;
-    [SerializeField]
 
     public UnityEvent onFall;
 
@@ -81,9 +80,22 @@ public class PlayerManager: MonoBehaviourPunCallbacks, IBumpable, IPlayer
             ShakePlayerCamera();
 		}
     }
+
+    public void BumpExplosionSelf(float explosionForce, Vector2 explosionPosition, float explosionRadius) {
+        photonView.RPC("_BumpExplosionSelf", RpcTarget.All, new object[] { explosionForce, explosionPosition, explosionRadius } );
+
+        if(photonView.IsMine) {
+            ShakePlayerCamera();
+		}
+    }
+
+    [PunRPC]
+    private void _BumpExplosionSelf(float explosionForce, Vector2 explosionPosition, float explosionRadius) {
+        Rigidbody2DExtension.AddExplosionForce(rb, explosionForce, explosionPosition, explosionRadius);
+    }
     
     private void ShakePlayerCamera() {
-        beforeCameraPos = mainCamera.transform.position;
+        beforeCameraPos = Camera.main.transform.position;
         InvokeRepeating("StartShake", 0f, 0.005f);
         Invoke("StopShake", duration);
     }
@@ -91,15 +103,15 @@ public class PlayerManager: MonoBehaviourPunCallbacks, IBumpable, IPlayer
     void StartShake() { 
 		float camearPosX = UnityEngine.Random.value * shakeRange * 2 - shakeRange;
 		float camearPosY = UnityEngine.Random.value * shakeRange * 2 - shakeRange;
-	    Vector3 cameraPos = mainCamera.transform.position;
+	    Vector3 cameraPos = Camera.main.transform.position;
 		cameraPos.x += camearPosX;
 		cameraPos.y += camearPosY;
-		mainCamera.transform.position = cameraPos;
+		Camera.main.transform.position = cameraPos;
 	}       
 
 	void StopShake() {
 	    CancelInvoke("StartShake");
-	    mainCamera.transform.position = beforeCameraPos;
+	    Camera.main.transform.position = beforeCameraPos;
 	}
 
 }

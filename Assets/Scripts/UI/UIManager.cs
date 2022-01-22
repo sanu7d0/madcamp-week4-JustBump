@@ -24,8 +24,8 @@ public class UIManager : Singleton<UIManager>
 
     void Update() {
         if (gameManager.isPlaying) {
-            text_timer.text = $"TIMER {Mathf.Round(gameManager.gameElapsedTime)} / {gameManager.gameLimitTime}"; 
-            text_score.text = $"SCORE {0} / {gameManager.gameGoalScore}"; 
+            text_timer?.SetText($"TIMER {Mathf.Round(gameManager.gameElapsedTime)} / {gameManager.gameLimitTime}"); 
+            text_score?.SetText($"SCORE {0} / {gameManager.gameGoalScore}"); 
         }
     }
     
