@@ -32,4 +32,8 @@ public class PlayerMediator : MonoBehaviour
     public void AddListenerToOnBumped(UnityAction call) {
         playerManager.onBumped.AddListener(call);
     }
+
+    public bool IsDead {
+        get { return playerManager.isDead; }
+    }
 }

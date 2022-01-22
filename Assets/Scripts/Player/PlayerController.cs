@@ -23,9 +23,11 @@ public class PlayerController : MonoBehaviourPunCallbacks
         get { return Mouse.current.position.ReadValue(); }
     }
 
+    private PlayerMediator playerMediator;
     private PlayerDebug playerDebug;
 
     void Awake() {
+        playerMediator = GetComponent<PlayerMediator>();
         playerDebug = GetComponent<PlayerDebug>();
     }
 
@@ -79,6 +81,10 @@ public class PlayerController : MonoBehaviourPunCallbacks
     }
     
     bool CanControl() { 
+        if (playerMediator.IsDead) {
+            return false;
+        }
+        
         if (GameManager.Instance.DEBUG_OfflineMode)
             return true;
         

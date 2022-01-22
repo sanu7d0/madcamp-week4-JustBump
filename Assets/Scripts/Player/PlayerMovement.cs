@@ -10,7 +10,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 lastMoveDir;
     Animator anim;
     [SerializeField] private float speed;
-    [SerializeField] private float rollingSpeed;
+    [SerializeField] private float rollingImpulse;
     [SerializeField] private float rollingTime;
 
     private State state;
@@ -26,11 +26,15 @@ public class PlayerMovement : MonoBehaviour
         playerController = GetComponent<PlayerController>();
         playerMediator = GetComponent<PlayerMediator>();
         anim = GetComponent<Animator>();
+    }
+
+    void OnEnable() {
         state = State.Normal;
+        rb.velocity = Vector2.zero;
     }
     
     void Start() {
-        playerController.onRoll.AddListener(HandleRoll);
+        playerController.onRoll.AddListener(TryRoll);
         playerMediator.AddListenerToOnBumped(() => {
             state = State.Bumping;
 
@@ -43,15 +47,11 @@ public class PlayerMovement : MonoBehaviour
         });
     }
 
-    void Update()
+    void FixedUpdate()
     {
         switch (state) {
         case State.Normal:
             HandleMovement();
-            break;
-        
-        case State.Rolling:
-            HandleRollSliding();
             break;
         
         case State.Falling:
@@ -62,85 +62,45 @@ public class PlayerMovement : MonoBehaviour
     
     private void HandleMovement() {
         Vector2 moveDir = playerController.moveDir;
-        
         lastMoveDir = moveDir;
 
-        bool isIdle = moveDir.x == 0 && moveDir.y == 0;
-        if (isIdle) {
-            anim.SetBool("isWalking", false);
+        rb.AddForce(moveDir * speed * Time.deltaTime);
+        if (moveDir != Vector2.zero) {
+            anim.SetBool("isWalking", true);
         } else {
-            if (TryMove(moveDir, speed * Time.deltaTime)) {
-                anim.SetBool("isWalking", true);
-            } else {
-                anim.SetBool("isWalking", false);
-            }
+            anim.SetBool("isWalking", false);
         }
 
         // Flip transform
-        if (lastMoveDir.x < 0) {
+        if (moveDir.x < 0) {
             transform.SetPositionAndRotation(transform.position,
             Quaternion.Euler(0f, 180f, 0f));
-        } else if (lastMoveDir.x > 0) {
+        } else if (moveDir.x > 0) {
             transform.SetPositionAndRotation(transform.position,
             Quaternion.Euler(0f, 0f, 0f));
         }
     }
 
-    private void HandleRoll() {
+    private void TryRoll() {
+        // TODO: 구르기 쿨타임?
+        
         // Cannot roll while not moving or rolling
         if (lastMoveDir == Vector2.zero || state == State.Rolling) {
             return;
         }
 
         // Start roll
-        StartCoroutine(RollRoutine());
-    }
-
-    IEnumerator RollRoutine() {
         state = State.Rolling;
         anim.SetBool("isRolling", true);
+        rb.AddForce(lastMoveDir * rollingImpulse, ForceMode2D.Impulse);
 
-        yield return new WaitForSeconds(rollingTime);
-
-        state = State.Normal;
-        anim.SetBool("isRolling", false);
-    }
-
-    private void HandleRollSliding() {
-        TryMove(lastMoveDir, rollingSpeed * Time.deltaTime);
-    }
-
-    private bool CanMove(Vector3 dir, float distance) {
-        ContactFilter2D contactFilter = new ContactFilter2D();
-        List<RaycastHit2D> results = new List<RaycastHit2D>(); 
-        contactFilter.useTriggers = false;
-
-        return Physics2D.Raycast(transform.position, dir, contactFilter, results , distance) == 0;
-    }
-
-    private bool TryMove(Vector3 baseMoveDir, float distance) {
-        Vector3 moveDir = baseMoveDir;
-        bool canMove = CanMove(moveDir, distance);
-
-        if (!canMove) {
-            // Cannot move diagonally
-            moveDir = new Vector3(moveDir.x, 0f).normalized;
-            canMove = moveDir.x != 0f && CanMove(moveDir, distance);
-
-            if (!canMove) {
-                // Cannot move horizontally
-                moveDir = new Vector3(0f, baseMoveDir.y).normalized;
-                canMove = moveDir.y != 0f && CanMove(moveDir, distance);
+        // Release Roll State after x sec
+        TimerExtension.CreateEventTimer(() => {
+            if (state == State.Rolling) {
+                state = State.Normal;
+                anim.SetBool("isRolling", false);
             }
-        }
-
-        if (canMove) {
-            lastMoveDir = moveDir;
-            transform.position += moveDir * distance;
-            return true;
-        } else {
-            return false;
-        }
+        }, rollingTime);
     }
 
     public void StartFalling() {
@@ -150,6 +110,9 @@ public class PlayerMovement : MonoBehaviour
         
         state = State.Falling;
         rb.velocity = Vector2.zero;
+
+         anim.SetBool("isWalking", false);
+         anim.SetBool("isRolling", false);
 
         playerMediator.InvokeOnFall();
     }

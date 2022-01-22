@@ -10,11 +10,11 @@ public class BumpBox : MonoBehaviour, IBumpable
     }
 
     public void BumpSelf(Vector2 force) {
-        rb.AddForce(force);
+        rb.AddForce(force, ForceMode2D.Impulse);
     }
 
     public void BumpSelf(Vector2 force, IPlayer player) {
-        rb.AddForce(force);
+        rb.AddForce(force, ForceMode2D.Impulse);
     }
 
     public void BumpExplosionSelf(float explosionForce, Vector2 explosionPosition, float explosionRadius) {
