@@ -21,7 +21,7 @@ public class PlayerManager: MonoBehaviourPunCallbacks, IBumpable, IPlayer
     [SerializeField] [Range(0.1f, 1f)] float duration = 0.5f;
     [SerializeField] private GameObject nameField;
 
-    public UnityEvent onFall;
+    public UnityEvent onDead;
 
     public int score { get; set; }
     public bool isDead { get; set; }
@@ -48,7 +48,7 @@ public class PlayerManager: MonoBehaviourPunCallbacks, IBumpable, IPlayer
 
     private void Start()
     {
-        onFall.AddListener(Dead);
+        onDead.AddListener(Dead);
         gameManager?.AddPlayer(this);
         gameManager?.InvokeOnchangePlayer();
    }
@@ -83,25 +83,18 @@ public class PlayerManager: MonoBehaviourPunCallbacks, IBumpable, IPlayer
 		}
         Debug.Log("_Dead Start");
 
-        Task.Run(() => {
-			Debug.Log("_Dead Delay Start");
-            Task.Delay(2000).Wait();
+		isDead = true;
+		gameManager.OnChangePlayerState(this);
+		if(lastBumperPlayer != null) { 
+				gameManager.IncrementScore(lastBumperPlayer, 3);
+		}
+		nameInstance.GetComponent<TextMeshProUGUI>().color = Color.red;
+		gameManager.InvokeOnchangePlayer();
+
+        TimerExtension.CreateEventTimer(() => { 
 			gameObject.SetActive(false);
-			isDead = true;
-			gameManager.OnChangePlayerState(this);
+		}, 2);
 
-			if(lastBumperPlayer != null) { 
-					gameManager.IncrementScore(lastBumperPlayer, 3);
-			}
-			nameInstance.GetComponent<TextMeshProUGUI>().color = Color.red;
-			gameManager.InvokeOnchangePlayer();
-
-            Task.Run(() =>
-            {
-				Debug.Log("Revive");
-                Revive();
-            }); 
-		});
     }
 
     public void BumpSelf(IPlayer lastBumperPlayer, Vector2 force) {
@@ -114,12 +107,10 @@ public class PlayerManager: MonoBehaviourPunCallbacks, IBumpable, IPlayer
 
 	    lastBumperPlayer = new ConcretePlayer(){ id = id, isDead = isDead, score = score };
 	    cancellationToken.Cancel();
-
-	    Task.Run(() => {
-			Task.Delay(3 * 1000).Wait();
+        TimerExtension.CreateEventTimer(() =>
+        {
 			lastBumperPlayer = null;
-	    }, cancellationToken.Token);
-
+        }, 3);
         if(photonView.IsMine) {
             ShakePlayerCamera();
 		}

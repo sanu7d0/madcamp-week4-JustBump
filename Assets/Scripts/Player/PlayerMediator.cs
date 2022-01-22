@@ -25,6 +25,6 @@ public class PlayerMediator : MonoBehaviour
     }
 
     public void InvokeOnFall() {
-        playerManager.onFall.Invoke();
+        playerManager.onDead.Invoke();
     }
 }
