@@ -47,7 +47,10 @@ public class ArenaUIManager : Singleton<ArenaUIManager>
         for (int i = 0; i < childCount; i++) {
 	        var childObject = scorePanel.transform.GetChild(i).gameObject;
             if(i < sortedPlayersLength) {
-			    childObject.GetComponent<TextMeshProUGUI>().text = sortedPlayers.Values[i].score.ToString();
+                var player = sortedPlayers.Values[i];
+                var nickname = player.nickname;
+                var score = player.score;
+                childObject.GetComponent<TextMeshProUGUI>().text = $"{nickname} : {score}";
                 childObject.SetActive(true);
 		    } else { 
                 childObject.SetActive(false);
