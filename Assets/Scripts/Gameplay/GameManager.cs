@@ -49,6 +49,8 @@ sealed public class GameManager : Singleton<GameManager>
             PhotonNetwork.OfflineMode = DEBUG_OfflineMode;
             PhotonNetwork.CreateRoom(null);
         }
+
+        SetPhysics2DSettings();
     }
 
     void Start() {
@@ -116,5 +118,9 @@ sealed public class GameManager : Singleton<GameManager>
         players[player.id] = player;
         onChangePlayer.Invoke(players);
     }   
-     
+    
+    private void SetPhysics2DSettings() {
+        Physics2D.queriesStartInColliders = false;
+        // Physics2D.autoSyncTransforms = true;
+    }
 }   

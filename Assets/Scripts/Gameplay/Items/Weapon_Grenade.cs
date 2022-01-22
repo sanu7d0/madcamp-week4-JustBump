@@ -5,6 +5,8 @@ using UnityEngine;
 public class Weapon_Grenade : Weapon
 {
     [SerializeField] private float explosionRadius;
+    [SerializeField] private float explosionDelayTime;
+    [SerializeField] private GameObject grenade_throwed;
 
     protected override void Start()
     {
@@ -18,14 +20,13 @@ public class Weapon_Grenade : Weapon
             return false;
         }
 
-        // 테스트용 즉발 폭발
-        // Debug.Log($"Explosion at ({targetPosition.x}, {targetPosition.y})");
-        Collider2D[] hitTargets = Physics2D.OverlapCircleAll(targetPosition, explosionRadius);
-        foreach (Collider2D target in hitTargets) {
-            if (target.TryGetComponent<Rigidbody2D>(out Rigidbody2D targetRb)) {
-                Rigidbody2DExtension.AddExplosionForce(targetRb, weapon.power, targetPosition, explosionRadius);
-                // Debug.Log($"Grenade smashed {target.name}");
-            }
+        GameObject throwedGrenade 
+            = Instantiate(grenade_throwed, targetPosition, Quaternion.identity);
+        
+        if (throwedGrenade.TryGetComponent<TimerBomb>(out TimerBomb timerBomb)) {
+            timerBomb.InitBomb(weapon.power, explosionRadius, explosionDelayTime);
+        } else {
+            Debug.LogError("Failed to TryGetComponent TimerBomb");
         }
 
         return base.Use();

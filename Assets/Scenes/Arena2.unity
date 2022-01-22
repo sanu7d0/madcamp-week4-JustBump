@@ -8536,9 +8536,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b22d21c227405a0469e8e9e2d0eca13b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultPlayerPrefab: {fileID: 4687371777569612328, guid: 230ba193172c1b94b97ad9150970f533, type: 3}
-  missionPrefab: {fileID: 0}
-  _gameGoalScore: 0
+  defaultPlayerPrefab: {fileID: 4687371777569612328, guid: 9944f587fd267c54289d7d2942107b89, type: 3}
+  missionPrefab: {fileID: 534196961231993660, guid: 5cd6847ab4db83d4fad87ffb78938e38, type: 3}
+  _gameGoalScore: 100
   onChangePlayer:
     m_PersistentCalls:
       m_Calls: []
