@@ -113,8 +113,8 @@ sealed public class GameManager : Singleton<GameManager>
         players[player.id] = player;
     }   
 
-    public void IncrementScore(IPlayer player) { 
-        players[player.id].score++;
+    public void IncrementScore(IPlayer player, int score) { 
+        players[player.id].score += score;
     }
 
     public void InvokeOnchangePlayer() { 

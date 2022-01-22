@@ -91,7 +91,7 @@ public class PlayerManager: MonoBehaviourPunCallbacks, IBumpable, IPlayer
 			gameManager.OnChangePlayerState(this);
 
 			if(lastBumperPlayer != null) { 
-					gameManager.IncrementScore(lastBumperPlayer);
+					gameManager.IncrementScore(lastBumperPlayer, 3);
 			}
 			nameInstance.GetComponent<TextMeshProUGUI>().color = Color.red;
 			gameManager.InvokeOnchangePlayer();
@@ -157,6 +157,12 @@ public class PlayerManager: MonoBehaviourPunCallbacks, IBumpable, IPlayer
 	    CancelInvoke("StartShake");
 	    Camera.main.transform.position = beforeCameraPos;
 	}
+
+    public void AddScore(int score) {
+        // 자기의 점수를 ++
+        gameManager.IncrementScore(this, score);
+        gameManager.InvokeOnchangePlayer();
+    }
 
 
     class ConcretePlayer : IPlayer
