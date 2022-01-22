@@ -50,7 +50,14 @@ public class ArenaUIManager : Singleton<ArenaUIManager>
                 var player = sortedPlayers.Values[i];
                 var nickname = player.nickname;
                 var score = player.score;
-                childObject.GetComponent<TextMeshProUGUI>().text = $"{nickname} : {score}";
+                var dead = player.isDead;
+                var textMesh = childObject.GetComponent<TextMeshProUGUI>();
+                textMesh.text = $"{nickname} : {score}";
+                if (dead) {
+                    textMesh.color = Color.gray;
+				} else { 
+                    textMesh.color = Color.black;
+				}
                 childObject.SetActive(true);
 		    } else { 
                 childObject.SetActive(false);
