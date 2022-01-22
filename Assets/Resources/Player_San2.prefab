@@ -195,7 +195,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.03552091, y: -0.2941094}
@@ -423,6 +423,9 @@ MonoBehaviour:
   duration: 0.5
   nameField: {fileID: 6559818071731903151, guid: 16f01ec0065b34b8080fd9fff20723c2, type: 3}
   onFall:
+    m_PersistentCalls:
+      m_Calls: []
+  onBumped:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &5657404246925965935

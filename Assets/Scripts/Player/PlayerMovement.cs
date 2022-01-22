@@ -17,7 +17,8 @@ public class PlayerMovement : MonoBehaviour
     private enum State {
         Normal,
         Rolling,
-        Falling
+        Falling,
+        Bumping
     }
 
     void Awake() {
@@ -30,6 +31,16 @@ public class PlayerMovement : MonoBehaviour
     
     void Start() {
         playerController.onRoll.AddListener(HandleRoll);
+        playerMediator.AddListenerToOnBumped(() => {
+            state = State.Bumping;
+
+            // Restore to normal state after 0.75 sec
+            TimerExtension.CreateEventTimer(() => {
+                if (state == State.Bumping) {
+                    state = State.Normal;
+                }
+            }, 0.75f);
+        });
     }
 
     void Update()
@@ -51,6 +62,7 @@ public class PlayerMovement : MonoBehaviour
     
     private void HandleMovement() {
         Vector2 moveDir = playerController.moveDir;
+        
         lastMoveDir = moveDir;
 
         bool isIdle = moveDir.x == 0 && moveDir.y == 0;

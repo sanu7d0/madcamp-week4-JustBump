@@ -23,6 +23,8 @@ public class PlayerManager: MonoBehaviourPunCallbacks, IBumpable, IPlayer
 
     public UnityEvent onFall;
 
+    public UnityEvent onBumped;
+
     public int score { get; set; }
     public bool isDead { get; set; }
     public int id { get; set; }
@@ -41,8 +43,9 @@ public class PlayerManager: MonoBehaviourPunCallbacks, IBumpable, IPlayer
         nameInstance.GetComponent<TextMeshProUGUI>().text = nickname;
     }
 
-    void OnEnable() {
-        // reset
+    public override void OnEnable()
+    {
+        base.OnEnable();
     }
 
     private void Start()
@@ -110,6 +113,7 @@ public class PlayerManager: MonoBehaviourPunCallbacks, IBumpable, IPlayer
     [PunRPC]
     private void _BumpSelf(int id, int score, bool isDead, Vector2 force) {
         rb.AddForce(force);
+        onBumped.Invoke();
 
 	    lastBumperPlayer = new ConcretePlayer(){ id = id, isDead = isDead, score = score };
 	    cancellationToken.Cancel();

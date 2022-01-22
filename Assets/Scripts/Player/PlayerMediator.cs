@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlayerMediator : MonoBehaviour
 {
@@ -26,5 +27,9 @@ public class PlayerMediator : MonoBehaviour
 
     public void InvokeOnFall() {
         playerManager.onFall.Invoke();
+    }
+
+    public void AddListenerToOnBumped(UnityAction call) {
+        playerManager.onBumped.AddListener(call);
     }
 }
