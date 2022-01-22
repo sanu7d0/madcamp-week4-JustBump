@@ -1,14 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Threading.Tasks;
+using Photon.Pun;
 
-public class TimerBomb : MonoBehaviour
+public class TimerBomb : MonoBehaviourPunCallbacks
 {
     private float power;
     private float explosionRadius;
     private float delayTime;
     private float igniteTime;
+    private IPlayer thrower;
 
     void Update() {
         if (Time.time >= igniteTime + delayTime) {
@@ -16,10 +17,11 @@ public class TimerBomb : MonoBehaviour
         }
     }
 
-    public void InitBomb(float power, float explosionRadius, float delayTimeInSec) {
+    public void InitBomb(float power, float explosionRadius, float delayTimeInSec, IPlayer thrower) {
         this.power = power;
         this.explosionRadius = explosionRadius;
         this.delayTime = delayTimeInSec;
+        this.thrower = thrower;
         igniteTime = Time.time;
 
         // ** Fatal ** Physics2D seems not workin in thread...
@@ -33,12 +35,12 @@ public class TimerBomb : MonoBehaviour
     private void DetonateBomb() {
         Collider2D[] hitTargets = Physics2D.OverlapCircleAll(transform.position, explosionRadius);
         foreach (Collider2D target in hitTargets) {
-            if (target.TryGetComponent<IBumpable>(out IBumpable targetBump)) {
+            if (target.TryGetComponent<IBumpable>(out IBumpable bumpTarget)) {
                 // Power decreases along the distance
-                targetBump.BumpSelf(ExplosionPower(
+                bumpTarget.BumpSelf(ExplosionPower(
                     power, 
                     Vector2.Distance(transform.position, target.transform.position),
-                    target.transform.position - transform.position));
+                    target.transform.position - transform.position), thrower);
                 
                 // Rigidbody2DExtension.AddExplosionForce(targetRb, power, transform.position, explosionRadius);
             }

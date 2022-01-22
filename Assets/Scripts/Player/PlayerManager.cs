@@ -104,7 +104,7 @@ public class PlayerManager: MonoBehaviourPunCallbacks, IBumpable, IPlayer
 		});
     }
 
-    public void BumpSelf(IPlayer lastBumperPlayer, Vector2 force) {
+    public void BumpSelf(Vector2 force, IPlayer lastBumperPlayer) {
         photonView.RPC("_BumpSelf", RpcTarget.All, new object[] { lastBumperPlayer.id, lastBumperPlayer.score, lastBumperPlayer.isDead, force } );
     }
     
@@ -124,6 +124,7 @@ public class PlayerManager: MonoBehaviourPunCallbacks, IBumpable, IPlayer
             ShakePlayerCamera();
 		}
     }
+
 
     public void BumpExplosionSelf(float explosionForce, Vector2 explosionPosition, float explosionRadius) {
         photonView.RPC("_BumpExplosionSelf", RpcTarget.All, new object[] { explosionForce, explosionPosition, explosionRadius } );

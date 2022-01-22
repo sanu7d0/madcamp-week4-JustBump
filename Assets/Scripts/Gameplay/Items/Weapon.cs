@@ -68,12 +68,17 @@ public abstract class Weapon : MonoBehaviour
             } else {
                 IBumpable bumpTarget = target.GetComponent<IBumpable>();
                 if(bumpTarget != null) { 
-					Debug.Log("Player hit " + target.name);
-                    bumpTarget.BumpSelf(
-                        transform.root.GetComponent<IPlayer>(),
-                        (target.transform.position - transform.position).normalized
-                        * weapon.power);
-                        attacked = true;
+                    Vector2 force = (target.transform.position - transform.position).normalized * weapon.power;
+					Debug.Log($"Player hit {target.name} with {force.SqrMagnitude()} force");
+
+                    if(bumpTarget is IPlayer) {
+                        var holder = transform.root.GetComponent<IPlayer>();
+                        bumpTarget.BumpSelf(force, holder);
+                    } else {
+                        bumpTarget.BumpSelf(force);
+                    }
+
+                    attacked = true;
 				}
             }
 

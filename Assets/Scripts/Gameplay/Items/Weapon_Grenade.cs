@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class Weapon_Grenade : Weapon
 {
@@ -21,10 +22,11 @@ public class Weapon_Grenade : Weapon
         }
 
         GameObject throwedGrenade 
-            = Instantiate(grenade_throwed, targetPosition, Quaternion.identity);
+            = PhotonNetwork.Instantiate(grenade_throwed.name, targetPosition, Quaternion.identity);
         
         if (throwedGrenade.TryGetComponent<TimerBomb>(out TimerBomb timerBomb)) {
-            timerBomb.InitBomb(weapon.power, explosionRadius, explosionDelayTime);
+            IPlayer player = transform.root.GetComponent<IPlayer>();
+            timerBomb.InitBomb(weapon.power, explosionRadius, explosionDelayTime, player);
         } else {
             Debug.LogError("Failed to TryGetComponent TimerBomb");
         }
