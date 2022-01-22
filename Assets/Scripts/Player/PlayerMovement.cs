@@ -66,7 +66,9 @@ public class PlayerMovement : MonoBehaviour
         Vector2 moveDir = playerController.moveDir;
         lastMoveDir = moveDir;
 
-        rb.AddForce(moveDir * speed * Time.deltaTime);
+        // rb.AddForce(moveDir * speed * Time.deltaTime);
+        rb.velocity = moveDir * speed * Time.deltaTime;
+        Debug.Log(rb.velocity);
         if (moveDir != Vector2.zero) {
             anim.SetBool("isWalking", true);
         } else {

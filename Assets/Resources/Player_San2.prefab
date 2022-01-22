@@ -300,8 +300,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1d3d5a9d3df2aa4ba20246d8b61cfd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 600
-  rollingImpulse: 5
+  speed: 300
+  rollingImpulse: 7
   rollingTime: 0.5
 --- !u!114 &7323937160024080161
 MonoBehaviour:
