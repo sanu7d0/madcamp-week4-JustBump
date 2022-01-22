@@ -21,7 +21,7 @@ public class PlayerManager: MonoBehaviourPunCallbacks, IBumpable, IPlayer
     [SerializeField] [Range(0.1f, 1f)] float duration = 0.5f;
     [SerializeField] private GameObject nameField;
 
-    public UnityEvent onFall;
+    public UnityEvent onDead;
 
     public UnityEvent onBumped;
 
@@ -38,7 +38,7 @@ public class PlayerManager: MonoBehaviourPunCallbacks, IBumpable, IPlayer
         score = 0;
         id = photonView.ViewID;
         nickname = photonView.Owner.NickName;
-
+        
         nameInstance = Instantiate(nameField, GameObject.Find("WorldSpaceCanvas").transform);
         nameInstance.GetComponent<TextMeshProUGUI>().text = nickname;
     }
@@ -50,10 +50,19 @@ public class PlayerManager: MonoBehaviourPunCallbacks, IBumpable, IPlayer
 
     private void Start()
     {
-        onFall.AddListener(Dead);
+        onDead.AddListener(Dead);
         gameManager?.AddPlayer(this);
         gameManager?.InvokeOnchangePlayer();
    }
+
+    private void Update()
+    {
+        nameInstance.transform.position = new Vector3(
+            transform.position.x,
+            transform.position.y + 0.2f,
+            0
+        );
+    }
 
     public void Revive() {
         photonView.RPC("_Revive", RpcTarget.All);
@@ -68,13 +77,17 @@ public class PlayerManager: MonoBehaviourPunCallbacks, IBumpable, IPlayer
         isDead = false;
         gameObject.SetActive(true);
         gameObject.transform.position = new Vector3(0, 0, 0);
+        nameInstance.GetComponent<TextMeshProUGUI>().color = Color.black;
         gameManager.OnChangePlayerState(this);
         gameManager?.InvokeOnchangePlayer();
-        nameInstance.GetComponent<TextMeshProUGUI>().color = Color.red;
     }
 
     public void Dead() { 
         photonView.RPC("_Dead", RpcTarget.All);
+
+        TimerExtension.CreateEventTimer(() => {
+            Revive();
+		 }, 10);
     }
     
     [PunRPC]
@@ -85,25 +98,17 @@ public class PlayerManager: MonoBehaviourPunCallbacks, IBumpable, IPlayer
 		}
         Debug.Log("_Dead Start");
 
-        Task.Run(() => {
-			Debug.Log("_Dead Delay Start");
-            Task.Delay(2000).Wait();
+		isDead = true;
+		gameManager.OnChangePlayerState(this);
+		if(lastBumperPlayer != null && lastBumperPlayer.id != id) { 
+				gameManager.IncrementScore(lastBumperPlayer, 3);
+		}
+		nameInstance.GetComponent<TextMeshProUGUI>().color = Color.red;
+		gameManager.InvokeOnchangePlayer();
+
+        TimerExtension.CreateEventTimer(() => { 
 			gameObject.SetActive(false);
-			isDead = true;
-			gameManager.OnChangePlayerState(this);
-
-			if(lastBumperPlayer != null) { 
-					gameManager.IncrementScore(lastBumperPlayer, 3);
-			}
-			nameInstance.GetComponent<TextMeshProUGUI>().color = Color.red;
-			gameManager.InvokeOnchangePlayer();
-
-            Task.Run(() =>
-            {
-				Debug.Log("Revive");
-                Revive();
-            }); 
-		});
+		}, 2);
     }
 
     public void BumpSelf(Vector2 force, IPlayer lastBumperPlayer) {
@@ -116,13 +121,18 @@ public class PlayerManager: MonoBehaviourPunCallbacks, IBumpable, IPlayer
         onBumped.Invoke();
 
 	    lastBumperPlayer = new ConcretePlayer(){ id = id, isDead = isDead, score = score };
+        Debug.Log(lastBumperPlayer.id);
+        Debug.Log(lastBumperPlayer.isDead);
+        Debug.Log(lastBumperPlayer.score);
 	    cancellationToken.Cancel();
+        TimerExtension.CreateEventTimer(() =>
+        {
 
-	    Task.Run(() => {
-			Task.Delay(3 * 1000).Wait();
 			lastBumperPlayer = null;
-	    }, cancellationToken.Token);
-
+			Debug.Log(lastBumperPlayer.id);
+			Debug.Log(lastBumperPlayer.isDead);
+			Debug.Log(lastBumperPlayer.score);
+        }, 3);
         if(photonView.IsMine) {
             ShakePlayerCamera();
 		}
@@ -168,6 +178,11 @@ public class PlayerManager: MonoBehaviourPunCallbacks, IBumpable, IPlayer
         gameManager.InvokeOnchangePlayer();
     }
 
+    private void OnDestroy()
+    {
+        gameManager.RemovePlayer(this);
+        gameManager.InvokeOnchangePlayer();
+    }
 
     class ConcretePlayer : IPlayer
     {

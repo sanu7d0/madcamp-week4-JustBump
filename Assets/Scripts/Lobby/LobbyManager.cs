@@ -102,7 +102,7 @@ public class LobbyManager : SingletonP<LobbyManager>
             Debug.Log("prefab Name is null");
         }
 
-        PhotonNetwork.Instantiate(name, new Vector3(0, 0), Quaternion.identity, 0);
+		PhotonNetwork.Instantiate(name, new Vector3(0, 0), Quaternion.identity, 0);
     }
 
 }
