@@ -409,6 +409,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17e29fde81fac49a0acf1ee35b19959f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shakeRange: 0.05
+  duration: 0.5
+  onFall:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &-7468427969651486225
 MonoBehaviour:
   m_ObjectHideFlags: 0

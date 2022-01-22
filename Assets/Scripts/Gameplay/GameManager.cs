@@ -1,16 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
+using UnityEngine.Events;
+using Players = System.Collections.Generic.SortedDictionary<int, IPlayer>;
 using UnityEngine.UI;
 
 sealed public class GameManager : Singleton<GameManager>
 {
-    [SerializeField] private GameObject playerPrefab;
-    [SerializeField] private GameObject missionPrefab;
+    [SerializeField] private GameObject defaultPlayerPrefab;
     [SerializeField] private int _gameGoalScore;
-        public int gameGoalScore {
-            get { return _gameGoalScore; }
-        }
+    private LobbyManager lobbyManager;
+    private readonly Players players = 
+		new Players();
+
+    public UnityEvent<Players> onChangePlayer;
+
+    public int gameGoalScore {
+     get { return _gameGoalScore; }
+    }
+    
     [SerializeField] private int _gameLimitTime;
         public int gameLimitTime {
             get { return _gameLimitTime; }
@@ -29,9 +38,10 @@ sealed public class GameManager : Singleton<GameManager>
         private set;
     }
 
-        protected override void Awake() {
-            base.Awake();
-        }
+    protected override void Awake() {
+	    base.Awake();
+        lobbyManager = LobbyManager.Instance;
+    }
 
     void Start() {
         StartGame();
@@ -39,15 +49,18 @@ sealed public class GameManager : Singleton<GameManager>
 
     private void StartGame() {
         isPlaying = true;
-        
-        
-        // TODO: Player 오브젝트들 찾고, phothonview.ismine 이면 카메라 붙이기
-        // GameObject.FindGameObjectsWithTag("Player");
-        GameObject player = Instantiate(playerPrefab, GameObject.Find("Spawn0").transform.position, Quaternion.identity);
+
+        GameObject player;
+        if(PhotonNetwork.IsConnected) { 
+          player = PhotonNetwork.Instantiate(lobbyManager.selectedCharacterName ?? defaultPlayerPrefab.name, GameObject.Find("Spawn0").transform.position, Quaternion.identity);
+        } else { 
+          player = Instantiate(defaultPlayerPrefab, GameObject.Find("Spawn0").transform.position, Quaternion.identity);
+        }
+
         AttachMainCamera(player);
-        
         gameStartTime = Time.time;
         StartCoroutine(StartTimer());
+        Debug.Log("Game started");
 
         // TODO Mission object create
         // Mission Prefab에 프리팹넣기
@@ -79,4 +92,20 @@ sealed public class GameManager : Singleton<GameManager>
         Debug.Log("Time limit reached!");
         EndGame();
     }
-}
+
+    public void AddPlayer(IPlayer player) {
+        players.Add(player.id, player);
+        onChangePlayer.Invoke(players);
+    }
+
+    public void RemovePlayer(IPlayer player) {
+        players.Remove(player.id);
+        onChangePlayer.Invoke(players);
+    }
+    
+    public void OnChangePlayerState(IPlayer player) {
+        players.Add(player.id, player);
+        onChangePlayer.Invoke(players);
+    }   
+     
+}   

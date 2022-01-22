@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class Weapon_Fist : Weapon
 {
@@ -34,13 +35,14 @@ public class Weapon_Fist : Weapon
                 Debug.Log("Invalid target");
 		        continue;
             } else {
-                IBumpable bumpTarget = target.GetComponent<IBumpable>();
-                if(bumpTarget != null) { 
-					Debug.Log("Player hit " + target.name);
-                    // TODO: Hit origin 지정?
-                    bumpTarget.BumpSelf(
-                        (target.transform.position - transform.position).normalized
-                        * weapon.power);
+
+                if (target.TryGetComponent<IBumpable>(out IBumpable bumpTarget)) {
+                    Debug.Log("Player hit " + target.name);
+                    if (transform.root.TryGetComponent<PhotonView>(out PhotonView photonview)) { 
+					    bumpTarget.BumpSelf(
+						(target.transform.position - transform.position).normalized
+						* weapon.power);
+				    }
 				}
             }
 
