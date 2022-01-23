@@ -88,7 +88,7 @@ public class PlayerManager: MonoBehaviourPunCallbacks, IBumpable, IPlayer
             return;
 		}
         isDead = false;
-        gameObject.transform.position = new Vector3(0, 0, 0);
+        gameObject.transform.position = GameObject.Find("Spawn0").transform.position;
         gameObject.SetActive(true);
         nameInstance.GetComponent<TextMeshProUGUI>().color = Color.black;
 
