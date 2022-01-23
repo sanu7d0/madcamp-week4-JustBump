@@ -37,7 +37,7 @@ public class ArenaUIManager : Singleton<ArenaUIManager>
     
     public void OnGameEnd(string winnerName) {
         gameEndUI.SetActive(true);
-        winnerText.GetComponent<TextMeshProUGUI>().text = $"승자 : {winnerName}";
+        winnerText.GetComponent<TextMeshProUGUI>().text = $"winner : {winnerName}";
     }
 
     public void OnClickLeaveButton() {
