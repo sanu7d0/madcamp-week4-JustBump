@@ -50,10 +50,12 @@ public class TimerBomb : MonoBehaviourPunCallbacks
             }
         }
 
-        var explosion = Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+        var explosion = PhotonNetwork.Instantiate(explosionPrefab.name, transform.position, Quaternion.identity);
         TimerExtension.CreateEventTimer(() =>
         {
-            Destroy(explosion);
+            if(photonView.IsMine) { 
+			    PhotonNetwork.Destroy(explosion);
+		    }
         }, 1);
 		PhotonNetwork.Destroy(gameObject);
     }
