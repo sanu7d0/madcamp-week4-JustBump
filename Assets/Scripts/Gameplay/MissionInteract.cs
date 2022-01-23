@@ -47,9 +47,9 @@ public class MissionInteract : Interactable
         // Debug.Log($"{other.name} exited {this.name}");
     }
 
-    public override void Interact()
+    public override void Interact(PlayerMediator playerMediator)
     {
-        base.Interact();
+        base.Interact(playerMediator);
         StopInteract();
         state = State.progress;
         gaugeBarObject = Instantiate(prfGaugeBar, canvas.transform);

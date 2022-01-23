@@ -23,7 +23,7 @@ public class UIManager : Singleton<UIManager>
         if (gameManager.isPlaying) {
             text_timer?.SetText($"TIMER {Mathf.Round(gameManager.gameElapsedTime)} / {gameManager.gameLimitTime}"); 
             text_score?.SetText($"SCORE {0} / {gameManager.gameGoalScore}");
-            text_score?.SetText($"PING {PhotonNetwork.GetPing()}"); 
+            text_ping?.SetText($"PING {PhotonNetwork.GetPing()}"); 
         }
     }
     
