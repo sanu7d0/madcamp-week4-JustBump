@@ -72,7 +72,7 @@ sealed public class GameManager : Singleton<GameManager>
         GameObject spawnGo = GameObject.Find("Spawn0");
         Vector3 spawn;
         if(spawnGo == null) {
-            spawn = new Vector3(0, 0, 0);
+            spawn = new Vector3(8, -5, 0);
 		}  else {
             spawn = spawnGo.transform.position;
 		}
