@@ -60,6 +60,7 @@ MonoBehaviour:
   - _AddScore
   - _Interact
   - _FinishInteract
+  - _DetonateBomt
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

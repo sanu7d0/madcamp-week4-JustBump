@@ -48,12 +48,8 @@ public class TimerBomb : MonoBehaviourPunCallbacks
                 // Rigidbody2DExtension.AddExplosionForce(targetRb, power, transform.position, explosionRadius);
             }
         }
-
-        Destroy(this.gameObject);
-        // PhotonNetwork.Destroy(gameObject);
-        // if(photonView.IsMine) { 
-		// 	PhotonNetwork.Destroy(gameObject);
-		// }
+        
+		PhotonNetwork.Destroy(gameObject);
     }
 
     private Vector2 ExplosionPower(float power, float distance, Vector2 vector) {
