@@ -88,7 +88,6 @@ sealed public class GameManager : Singleton<GameManager>
         AttachMainCamera(player);
         gameStartTime = Time.time;
         StartCoroutine(StartTimer());
-        Debug.Log("Game started");
 
         // TODO Mission object create
         // Mission Prefab에 프리팹넣기

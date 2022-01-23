@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using Photon.Pun;
 
@@ -6,11 +7,14 @@ public class PlayerCombat : MonoBehaviourPunCallbacks
     private PlayerController playerController;
 
     [SerializeField] private Transform weaponHolder;
-    public Transform[] weapons {
+    [SerializeField] private GameObject defaultFistPrefab;
+
+    // Tuple<Weapon, bool> -> bool = Is weapon occupied?
+    public Tuple<Weapon, bool>[] weapons {
         get; private set;
     }
-    private int currentSelection;
-    private Weapon currentWeapon;
+    private int curWeponIdx;
+    private Weapon_Fist deafultFist;
 
     public GameObject appleBullet;
     [SerializeField] public Transform shootPosition;
@@ -23,21 +27,45 @@ public class PlayerCombat : MonoBehaviourPunCallbacks
         playerController.onAttack.AddListener(TryAttack);
         playerController.onSwapWeapon.AddListener(SwapWeapon);
         playerController.onShoot.AddListener(TryShoot);
+
+        weapons = new Tuple<Weapon, bool>[2];
     }
 
     void Start() {
-        // Weapons
-        weapons = new Transform[2];
-        currentSelection = 0;
+        // Instantiate default fist
+        GameObject _defaultFist =
+            PhotonNetwork.Instantiate(defaultFistPrefab.name, weaponHolder.position, Quaternion.identity);
+        _defaultFist.transform.parent = weaponHolder;
+        deafultFist = _defaultFist.GetComponent<Weapon_Fist>();
+    }
 
-        weapons[0] = weaponHolder.GetChild(0); // ?? something // null 이면 대체 넣기
-        weapons[1] = weaponHolder.GetChild(1);
-
-        currentWeapon = weapons[currentSelection].GetComponent<Weapon>();
-        weapons[1].gameObject.SetActive(false);
+    public override void OnEnable()
+    {
+        base.OnEnable();
+        for (int i = 0; i < weapons.Length; i++) {
+            weapons[i] = new Tuple<Weapon, bool>(null, false);
+        }
+        curWeponIdx = 0;
 
         // Shoots
         lastShootTime = 0;
+    }
+
+    private void ClearWeapon() {
+        photonView.RPC("_ClearWeapon", RpcTarget.All);
+    }
+    [PunRPC]
+    private void _ClearWeapon() {
+        for (int i = 0; i < weapons.Length; i++) {
+            Tuple<Weapon, bool> w = weapons[i];
+
+            if (w.Item2 && w.Item1.TryGetComponent<PhotonView>(out PhotonView target)) {
+                PhotonNetwork.Destroy(target);
+            }
+            weapons[i] = new Tuple<Weapon, bool>(null, false);
+        }
+        
+        curWeponIdx = 0;
     }
 
     private void SwapWeapon() {
@@ -45,47 +73,59 @@ public class PlayerCombat : MonoBehaviourPunCallbacks
     }
     [PunRPC]
     private void _SwapWeapon() {
-        weapons[currentSelection].gameObject.SetActive(false);
+        if (weapons[curWeponIdx].Item2) {
+            weapons[curWeponIdx].Item1.gameObject.SetActive(false);
+        }
         
-        if (currentSelection == weapons.Length - 1) {
-            currentSelection = 0;
+        if (curWeponIdx == weapons.Length - 1) {
+            curWeponIdx = 0;
         } else {
-            currentSelection += 1;
+            curWeponIdx += 1;
         }
 
-        weapons[currentSelection].gameObject.SetActive(true);
-        currentWeapon = weapons[currentSelection].GetComponent<Weapon>();
+        if (weapons[curWeponIdx].Item2) {
+            weapons[curWeponIdx].Item1.gameObject.SetActive(true);
+        }
     }
 
-    public void ChangeCurrentWeapon(GameObject newWeapon) {
-        photonView.RPC("_ChangeCurrentWeapon", RpcTarget.All, newWeapon.GetComponent<PhotonView>().ViewID);
+    public void SetWeaponAt(GameObject newWeapon, int idx = -1) {
+        // -1 -> Change current
+        if (idx == -1) {
+            idx = curWeponIdx;
+        }
+        photonView.RPC("_SetWeaponAt", RpcTarget.All, newWeapon.GetComponent<PhotonView>().ViewID, idx);
     }
     [PunRPC]
-    public void _ChangeCurrentWeapon(int newWeaponId) {
-        Destroy(weapons[currentSelection].gameObject);
+    public void _SetWeaponAt(int newWeaponId, int changeIdx) {
+        // If empty, just change
+        if (!weapons[changeIdx].Item2) {
+
+        } else {
+            // If not empty, spit weapon out
+            
+            // TODO : Spit 으로 바꾸기
+            PhotonNetwork.Destroy(weapons[curWeponIdx].Item1.gameObject);
+        }
         
         GameObject newWeapon = PhotonView.Find(newWeaponId).gameObject;
-        weapons[currentSelection] = newWeapon.transform;
+        weapons[curWeponIdx] = new Tuple<Weapon, bool>(newWeapon.GetComponent<Weapon>(), true);
 
         newWeapon.transform.parent = weaponHolder;
-        newWeapon.transform.SetSiblingIndex(currentSelection);
         newWeapon.transform.position = weaponHolder.position;
         newWeapon.transform.localPosition = Vector3.zero;
         newWeapon.transform.rotation = weaponHolder.rotation;
-        // rotation
-
-        currentWeapon = newWeapon.GetComponent<Weapon>();
     }
 
     private void TryAttack() {
-        if (currentWeapon == null) {
-            Debug.LogError("No weapon to use");
+        if (!weapons[curWeponIdx].Item2) {
+            deafultFist.Use();
             return;
         }
         
-        switch (currentWeapon.GetWeaponType()) {
+        Weapon curWeapon = weapons[curWeponIdx].Item1;
+        switch (curWeapon.GetWeaponType()) {
         case WeaponCategory.Melee:
-            if (currentWeapon.Use()) {
+            if (curWeapon.Use()) {
                 // ...
             }
             break;
@@ -95,10 +135,9 @@ public class PlayerCombat : MonoBehaviourPunCallbacks
             break;
         
         case WeaponCategory.Throwable:
-            Debug.Log(currentWeapon.Use(shootPosition.position, Camera.main.ScreenToWorldPoint(playerController.mousePos)));
-            // if (currentWeapon.Use(Camera.main.ScreenToWorldPoint(playerController.mousePos))) {
-            //     // ...
-            // }
+            Debug.Log(curWeapon.Use(
+                shootPosition.position, 
+                Camera.main.ScreenToWorldPoint(playerController.mousePos)));
             break;
         }
         

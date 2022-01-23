@@ -40,7 +40,7 @@ public class PlayerMediator : MonoBehaviour
     }
 
     public void PickUpItem(GameObject newItem) {
-        playerCombat.ChangeCurrentWeapon(newItem);
+        playerCombat.SetWeaponAt(newItem);
     }
 
     public void AddScore(int score) {
