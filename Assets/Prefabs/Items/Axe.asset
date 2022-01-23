@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Axe
   category: 0
-  power: 15
-  durability: 100000
+  power: 10
+  durability: 10
   coolTime: 0.5
   useSounds:
   - {fileID: 8300000, guid: da04b515ebb9df34ca4d4bc6512e1664, type: 3}

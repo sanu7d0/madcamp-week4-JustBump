@@ -93,18 +93,22 @@ public class PlayerCombat : MonoBehaviourPunCallbacks
         if (idx == -1) {
             idx = curWeponIdx;
         }
-        photonView.RPC("_SetWeaponAt", RpcTarget.All, newWeapon.GetComponent<PhotonView>().ViewID, idx);
+        Debug.Log(newWeapon.name);
+        photonView.RPC("_SetWeaponAt", RpcTarget.All, new object[]{newWeapon.GetComponent<PhotonView>().ViewID, idx});
     }
     [PunRPC]
     public void _SetWeaponAt(int newWeaponId, int changeIdx) {
-        // If empty, just change
-        if (!weapons[changeIdx].Item2) {
-
-        } else {
-            // If not empty, spit weapon out
+        // If not empty, spit out weapon
+        if (weapons[changeIdx].Item2) {
+            // If durability = 0, destroy
+            Weapon oldWeapon = weapons[curWeponIdx].Item1;
+            if (oldWeapon.weaponDurability > 0) {
+                oldWeapon.WeaponToFieldDrop(transform.position);
+            }
             
-            // TODO : Spit 으로 바꾸기
-            PhotonNetwork.Destroy(weapons[curWeponIdx].Item1.gameObject);
+            if (photonView.IsMine) {
+                PhotonNetwork.Destroy(oldWeapon.gameObject);
+            }
         }
         
         GameObject newWeapon = PhotonView.Find(newWeaponId).gameObject;
