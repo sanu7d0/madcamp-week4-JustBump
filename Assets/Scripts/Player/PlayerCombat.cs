@@ -70,9 +70,10 @@ public class PlayerCombat : MonoBehaviour
             break;
         
         case WeaponCategory.Throwable:
-            if (currentWeapon.Use(Camera.main.ScreenToWorldPoint(playerController.mousePos))) {
-                // ...
-            }
+            Debug.Log(currentWeapon.Use(shootPosition.position, Camera.main.ScreenToWorldPoint(playerController.mousePos)));
+            // if (currentWeapon.Use(Camera.main.ScreenToWorldPoint(playerController.mousePos))) {
+            //     // ...
+            // }
             break;
         }
         

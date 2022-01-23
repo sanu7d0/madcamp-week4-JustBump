@@ -71,7 +71,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1212483085
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300260, guid: 7810966f0f690954c87305933cabf2b0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -227,6 +227,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weapon: {fileID: 11400000, guid: 32b7ccab8873f1742b6cf71844e8f408, type: 2}
-  explosionRadius: 5
+  explosionRadius: 4
   explosionDelayTime: 1
   grenade_throwed: {fileID: 3807789984623135664, guid: a8066509adfc03241a767a75ad058ef6, type: 3}

@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: -766624780628683557}
   - component: {fileID: 1630169988286656655}
   - component: {fileID: -6933838719398911320}
+  - component: {fileID: 7437906756990086027}
+  - component: {fileID: 2977794862213960599}
   m_Layer: 0
   m_Name: Grenade-Throwed
   m_TagString: Weapon
@@ -144,6 +146,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5434cf0cddba42a468864ddaa689dc07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 5
+  distance: 1
+  isLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  direction: {x: 0, y: 0}
 --- !u!114 &1630169988286656655
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -183,6 +191,43 @@ MonoBehaviour:
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!50 &7437906756990086027
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3807789984623135664}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!58 &2977794862213960599
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3807789984623135664}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.002243008, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.4484088
 --- !u!1 &4324000958830453031
 GameObject:
   m_ObjectHideFlags: 0

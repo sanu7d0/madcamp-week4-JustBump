@@ -151,7 +151,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1212483085
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 1
   m_Sprite: {fileID: 8416797952724722639, guid: 40de9a8703e2e5a47882b0b86451c741, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -301,7 +301,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
-  rollingSpeed: 10
+  rollingImpulse: 0
   rollingTime: 0.5
 --- !u!114 &7323937160024080161
 MonoBehaviour:
@@ -421,7 +421,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shakeRange: 0.05
   duration: 0.5
-  onFall:
+  nameField: {fileID: 0}
+  onDead:
+    m_PersistentCalls:
+      m_Calls: []
+  onBumped:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &5657404246925965935
@@ -548,6 +552,14 @@ PrefabInstance:
     - target: {fileID: 4880096109504664899, guid: 3ccae9a538e11e347b89ed0b8965cf4c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8222056656697116907, guid: 3ccae9a538e11e347b89ed0b8965cf4c, type: 3}
+      propertyPath: explosionRadius
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8222056656697116907, guid: 3ccae9a538e11e347b89ed0b8965cf4c, type: 3}
+      propertyPath: explosionDelayTime
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 9172026964250369542, guid: 3ccae9a538e11e347b89ed0b8965cf4c, type: 3}
       propertyPath: m_Name

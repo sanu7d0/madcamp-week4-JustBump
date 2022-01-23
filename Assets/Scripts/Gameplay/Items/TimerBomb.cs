@@ -10,26 +10,29 @@ public class TimerBomb : MonoBehaviourPunCallbacks
     private float delayTime;
     private float igniteTime;
     private IPlayer thrower;
+    [SerializeField] private float speed;
+    [SerializeField] private float distance;
+    public LayerMask isLayer;
 
-    void Update() {
-        if (Time.time >= igniteTime + delayTime) {
-            DetonateBomb();
-        }
+    private void Start() {
+        
     }
 
-    public void InitBomb(float power, float explosionRadius, float delayTimeInSec, IPlayer thrower) {
+    public void InitBomb(float power, float explosionRadius, float delayTimeInSec, IPlayer thrower, Vector2 direction) {
         this.power = power;
         this.explosionRadius = explosionRadius;
         this.delayTime = delayTimeInSec;
         this.thrower = thrower;
         igniteTime = Time.time;
-
+        Invoke("DetonateBomb", delayTime);
         // ** Fatal ** Physics2D seems not workin in thread...
         /*int delayTime = Mathf.FloorToInt(delayTimeInSec * 1000);
         Task.Run( async () => {
             await Task.Delay(delayTime);
             DetonateBomb();
         });*/
+
+        GetComponent<Rigidbody2D>().velocity = direction.normalized * speed;
     }
 
     private void DetonateBomb() {
@@ -45,10 +48,12 @@ public class TimerBomb : MonoBehaviourPunCallbacks
                 // Rigidbody2DExtension.AddExplosionForce(targetRb, power, transform.position, explosionRadius);
             }
         }
-        
-        if(photonView.IsMine) { 
-			PhotonNetwork.Destroy(gameObject);
-		}
+
+        Destroy(this.gameObject);
+        // PhotonNetwork.Destroy(gameObject);
+        // if(photonView.IsMine) { 
+		// 	PhotonNetwork.Destroy(gameObject);
+		// }
     }
 
     private Vector2 ExplosionPower(float power, float distance, Vector2 vector) {

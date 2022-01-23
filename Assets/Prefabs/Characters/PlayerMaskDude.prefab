@@ -52,6 +52,8 @@ GameObject:
   - component: {fileID: -3787980036594515536}
   - component: {fileID: -930202363073277345}
   - component: {fileID: -3888358243529888901}
+  - component: {fileID: 1733309289901041518}
+  - component: {fileID: 7385028852903774855}
   m_Layer: 0
   m_Name: PlayerMaskDude
   m_TagString: Player
@@ -141,7 +143,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
-  rollingSpeed: 10
+  rollingImpulse: 0
   rollingTime: 0.5
 --- !u!114 &-7560875368018852956
 MonoBehaviour:
@@ -277,6 +279,7 @@ MonoBehaviour:
   observableSearch: 2
   ObservedComponents:
   - {fileID: 8890730937837443390}
+  - {fileID: 1733309289901041518}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -293,8 +296,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_SynchronizePosition: 1
-  m_SynchronizeRotation: 0
-  m_SynchronizeScale: 0
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 1
   m_UseLocal: 1
 --- !u!114 &-3787980036594515536
 MonoBehaviour:
@@ -323,7 +326,7 @@ MonoBehaviour:
   weaponHolder: {fileID: 8593304941047200704}
   appleBullet: {fileID: 2194892889725062679, guid: 37c6aae4a55769e42b9c9d016aba66ec, type: 3}
   shootPosition: {fileID: 3441389381380292495}
-  shootCoolTime: 0
+  shootCoolTime: 0.3
 --- !u!114 &-3888358243529888901
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -336,6 +339,51 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed6cad6227686ac408063f62d2aa8d19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1733309289901041518
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4687371777569612328}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b8c4a61274f60b4ea5fb4299cfdbf14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowLayerWeightsInspector: 1
+  ShowParameterInspector: 1
+  m_SynchronizeParameters:
+  - Type: 4
+    SynchronizeType: 2
+    Name: isWalking
+  - Type: 4
+    SynchronizeType: 2
+    Name: isRolling
+  m_SynchronizeLayers:
+  - SynchronizeType: 2
+    LayerIndex: 0
+--- !u!114 &7385028852903774855
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4687371777569612328}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17e29fde81fac49a0acf1ee35b19959f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shakeRange: 0.05
+  duration: 0.5
+  nameField: {fileID: 0}
+  onDead:
+    m_PersistentCalls:
+      m_Calls: []
+  onBumped:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &8314783677628827311
 GameObject:
   m_ObjectHideFlags: 0
@@ -481,6 +529,10 @@ PrefabInstance:
     - target: {fileID: 4880096109504664899, guid: 3ccae9a538e11e347b89ed0b8965cf4c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8222056656697116907, guid: 3ccae9a538e11e347b89ed0b8965cf4c, type: 3}
+      propertyPath: explosionRadius
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 9172026964250369542, guid: 3ccae9a538e11e347b89ed0b8965cf4c, type: 3}
       propertyPath: m_Name
