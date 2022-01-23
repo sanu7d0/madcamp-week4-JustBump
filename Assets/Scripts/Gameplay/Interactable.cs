@@ -29,7 +29,7 @@ public abstract class Interactable : MonoBehaviourPunCallbacks
 
     }
 
-    public virtual void Interact(PlayerManager interactor) {
+    public virtual void Interact(PlayerMediator interactor) {
         
     }
 

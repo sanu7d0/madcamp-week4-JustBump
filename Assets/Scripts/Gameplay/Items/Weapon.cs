@@ -68,7 +68,7 @@ public abstract class Weapon : MonoBehaviourPunCallbacks
             
             // Check the target is not itself
             if (target.transform.GetInstanceID() == transform.root.GetInstanceID()) {
-                Debug.Log("Invalid target");
+                // Debug.Log("Invalid target");
 		        continue;
             } else {
                 IBumpable bumpTarget = target.GetComponent<IBumpable>();

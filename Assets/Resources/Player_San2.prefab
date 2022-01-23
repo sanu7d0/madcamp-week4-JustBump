@@ -87,6 +87,7 @@ GameObject:
   - component: {fileID: 3378916843865608276}
   - component: {fileID: 4833737983273911213}
   - component: {fileID: 5657404246925965935}
+  - component: {fileID: -571809309212829419}
   m_Layer: 0
   m_Name: Player_San2
   m_TagString: Player
@@ -176,7 +177,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 1
+  m_LinearDrag: 2
   m_AngularDrag: 0
   m_GravityScale: 1
   m_Material: {fileID: 0}
@@ -322,6 +323,7 @@ MonoBehaviour:
   observableSearch: 2
   ObservedComponents:
   - {fileID: 8890730937837443390}
+  - {fileID: -571809309212829419}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -414,6 +416,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba3b6a74e1f45a2499657770fdfedb91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-571809309212829419
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4687371777569612328}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e7cb724808c322458aa4d15f5035fa9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizeVelocity: 1
+  m_SynchronizeAngularVelocity: 0
+  m_TeleportEnabled: 0
+  m_TeleportIfDistanceGreaterThan: 3
 --- !u!1001 &2693398472319013397
 PrefabInstance:
   m_ObjectHideFlags: 0

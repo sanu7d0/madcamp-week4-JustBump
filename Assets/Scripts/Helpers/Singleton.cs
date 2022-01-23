@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 
 public class Singleton<T> : MonoBehaviour where T : Component
 {
@@ -10,6 +11,12 @@ public class Singleton<T> : MonoBehaviour where T : Component
                 if (_instance == null) {
                     GameObject newGO = new GameObject();
                     _instance = newGO.AddComponent<T>();
+                    newGO.name = typeof(T).FullName;
+
+                    Transform managers = GameObject.Find("Managers")?.transform;
+                    if (managers) {
+                        newGO.transform.parent = managers;
+                    }
                 }
             }
             return _instance;
@@ -19,5 +26,4 @@ public class Singleton<T> : MonoBehaviour where T : Component
     protected virtual void Awake() {
         _instance = this as T;
     }
-
 }
