@@ -19,10 +19,12 @@ sealed public class GameManager : Singleton<GameManager>
     [SerializeField] private int missionNum;
 
     public UnityEvent<Players> onChangePlayer;
+    public int bigScore = 0;
 
     public int gameGoalScore {
      get { return _gameGoalScore; }
     }
+    private ArenaUIManager arenaUIManager;
     
     [SerializeField] private int _gameLimitTime;
         public int gameLimitTime {
@@ -43,7 +45,8 @@ sealed public class GameManager : Singleton<GameManager>
     protected override void Awake() {
 	    base.Awake();
         lobbyManager = LobbyManager.Instance;
-
+        arenaUIManager = ArenaUIManager.Instance;
+        
         if (DEBUG_OfflineMode) {
             PhotonNetwork.OfflineMode = DEBUG_OfflineMode;
             PhotonNetwork.CreateRoom(null);
@@ -106,8 +109,28 @@ sealed public class GameManager : Singleton<GameManager>
     }
 
     private void EndGame() {
+        if(SceneManager.GetActiveScene().name == "Lobby") {
+            return;
+        }
         isPlaying = false;
-        Debug.Log("Game ended");
+        arenaUIManager.OnGameEnd(getWinnerPlayer().nickname);
+    }
+
+    private IPlayer getWinnerPlayer() {
+        IPlayer player = null;
+	   
+        foreach(KeyValuePair<int, IPlayer> pair in players) { 
+            if(player == null) {
+                player = pair.Value;
+                continue;
+		    }  
+
+            if(pair.Value.score >= player.score) {
+                player = pair.Value;
+		    }
+		}
+
+        return player;
     }
 
     private void AttachMainCamera(GameObject target) {
@@ -144,9 +167,19 @@ sealed public class GameManager : Singleton<GameManager>
 
     public void IncrementScore(IPlayer player, int score) { 
         players[player.id].score += score;
+        players[player.id].score = Mathf.Min(players[player.id].score, gameGoalScore);
     }
 
-    public void InvokeOnchangePlayer() { 
+    public void InvokeOnchangePlayer() {
+        var tempBigScore = 0;
+        foreach(KeyValuePair<int, IPlayer> player in this.players) {
+            tempBigScore = Mathf.Max(player.Value.score, tempBigScore);
+		}
+        bigScore = tempBigScore;
+
+        if(bigScore >= gameGoalScore) {
+            EndGame();
+		}
         onChangePlayer.Invoke(players);
     }
      

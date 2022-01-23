@@ -514,7 +514,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2394664470813839896, guid: 18112d1c5b6824b55bfab060473e0f63, type: 3}
       propertyPath: MinStartGame
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2394664470813839897, guid: 18112d1c5b6824b55bfab060473e0f63, type: 3}
       propertyPath: m_RootOrder
