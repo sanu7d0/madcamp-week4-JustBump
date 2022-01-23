@@ -148,6 +148,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   distance: 1
+  explosionPrefab: {fileID: 139366, guid: 9752025aae18b425da4b14097051b4dc, type: 3}
   isLayer:
     serializedVersion: 2
     m_Bits: 0

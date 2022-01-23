@@ -12,6 +12,7 @@ public class TimerBomb : MonoBehaviourPunCallbacks
     private IPlayer thrower;
     [SerializeField] private float speed;
     [SerializeField] private float distance;
+    [SerializeField] private GameObject explosionPrefab;
     public LayerMask isLayer;
 
     private void Start() {
@@ -48,7 +49,12 @@ public class TimerBomb : MonoBehaviourPunCallbacks
                 // Rigidbody2DExtension.AddExplosionForce(targetRb, power, transform.position, explosionRadius);
             }
         }
-        
+
+        var explosion = Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+        TimerExtension.CreateEventTimer(() =>
+        {
+            Destroy(explosion);
+        }, 1);
 		PhotonNetwork.Destroy(gameObject);
     }
 
