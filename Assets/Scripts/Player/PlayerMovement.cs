@@ -29,13 +29,15 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
         anim = GetComponent<Animator>();
     }
 
-    void OnEnable() {
+    public override void OnEnable()
+    {
+        Debug.Log("PlayerMovement: OnEnable Called");
         state = State.Normal;
         rb.velocity = Vector2.zero;
         transform.rotation = Quaternion.identity;
         transform.localScale = Vector3.one;
     }
-    
+
     void Start() {
         playerController.onRoll.AddListener(TryRoll);
         playerMediator.AddListenerToOnBumped(() => {
@@ -63,6 +65,9 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
         }
     }
 
+    private void HandleMovement() {
+        photonView.RPC("_HandleMovement", RpcTarget.All);
+    }
     [PunRPC]
     private void _HandleMovement(){
         Vector2 moveDir = playerController.moveDir;
@@ -70,7 +75,6 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
 
         // rb.AddForce(moveDir * speed * Time.deltaTime);
         rb.velocity = moveDir * speed * Time.deltaTime;
-        Debug.Log(rb.velocity);
         if (moveDir != Vector2.zero) {
             anim.SetBool("isWalking", true);
         } else {
@@ -79,40 +83,18 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
 
         // Flip transform
         if (moveDir.x < 0) {
-            transform.SetPositionAndRotation(transform.position,
-            Quaternion.Euler(0f, 180f, 0f));
+            transform.localRotation = Quaternion.Euler(0f, 180f, 0f);
         } else if (moveDir.x > 0) {
-            transform.SetPositionAndRotation(transform.position,
-            Quaternion.Euler(0f, 0f, 0f));
+            transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
         }
     }
     
-    private void HandleMovement() {
-
-        photonView.RPC("_HandleMovement", RpcTarget.All);
-        // Vector2 moveDir = playerController.moveDir;
-        // lastMoveDir = moveDir;
-
-        // // rb.AddForce(moveDir * speed * Time.deltaTime);
-        // rb.velocity = moveDir * speed * Time.deltaTime;
-        // Debug.Log(rb.velocity);
-        // if (moveDir != Vector2.zero) {
-        //     anim.SetBool("isWalking", true);
-        // } else {
-        //     anim.SetBool("isWalking", false);
-        // }
-
-        // // Flip transform
-        // if (moveDir.x < 0) {
-        //     transform.SetPositionAndRotation(transform.position,
-        //     Quaternion.Euler(0f, 180f, 0f));
-        // } else if (moveDir.x > 0) {
-        //     transform.SetPositionAndRotation(transform.position,
-        //     Quaternion.Euler(0f, 0f, 0f));
-        // }
-    }
 
     private void TryRoll() {
+        photonView.RPC("_HandleMovement", RpcTarget.All);
+    }
+    [PunRPC]
+    private void _TryRoll() {
         // TODO: 구르기 쿨타임?
         
         // Cannot roll while not moving or rolling
@@ -135,6 +117,10 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
     }
 
     public void StartFalling() {
+        photonView.RPC("_StartFalling", RpcTarget.All);
+    }
+    [PunRPC]
+    public void _StartFalling() {
         // Already falling
         if (state == State.Falling)
             return;

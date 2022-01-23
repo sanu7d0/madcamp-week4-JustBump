@@ -299,9 +299,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1d3d5a9d3df2aa4ba20246d8b61cfd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 300
-  rollingImpulse: 7
-  rollingTime: 0.5
+  speed: 250
+  rollingImpulse: 4.5
+  rollingTime: 0.35
 --- !u!114 &7323937160024080161
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -322,7 +322,6 @@ MonoBehaviour:
   observableSearch: 2
   ObservedComponents:
   - {fileID: 8890730937837443390}
-  - {fileID: 0}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0

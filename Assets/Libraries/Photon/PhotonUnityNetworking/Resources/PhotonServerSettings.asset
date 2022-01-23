@@ -53,6 +53,8 @@ MonoBehaviour:
   - _OnSwapWeapon
   - _BumpExplosionSelf
   - _HandleMovement
+  - _StartFalling
+  - _TryRoll
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

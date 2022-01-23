@@ -44,7 +44,7 @@ public class MissionInteract : Interactable
     protected override void OnTriggerExit2D(Collider2D other)
     {
         base.OnTriggerExit2D(other);
-        Debug.Log($"{other.name} exited {this.name}");
+        // Debug.Log($"{other.name} exited {this.name}");
     }
 
     public override void Interact()
