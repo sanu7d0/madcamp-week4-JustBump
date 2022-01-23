@@ -58,9 +58,13 @@ public class PlayerCombat : MonoBehaviourPunCallbacks
     }
 
     public void ChangeCurrentWeapon(GameObject newWeapon) {
-        // TODO: network-destroy??
+        photonView.RPC("_ChangeCurrentWeapon", RpcTarget.All, newWeapon.GetComponent<PhotonView>().ViewID);
+    }
+    [PunRPC]
+    public void _ChangeCurrentWeapon(int newWeaponId) {
         Destroy(weapons[currentSelection].gameObject);
         
+        GameObject newWeapon = PhotonView.Find(newWeaponId).gameObject;
         weapons[currentSelection] = newWeapon.transform;
 
         newWeapon.transform.parent = weaponHolder;

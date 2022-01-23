@@ -58,6 +58,7 @@ MonoBehaviour:
   - _PlayUseSound
   - _SwapWeapon
   - _OnStateChange
+  - _ChangeCurrentWeapon
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
