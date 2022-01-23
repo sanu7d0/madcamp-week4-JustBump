@@ -6,7 +6,6 @@ using UnityEngine.Events;
 using Players = System.Collections.Generic.SortedDictionary<int, IPlayer>;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using Photon.Pun;
 
 sealed public class GameManager : Singleton<GameManager>
 {

@@ -13,7 +13,6 @@ public class TimerBomb : MonoBehaviourPunCallbacks
     [SerializeField] private float speed;
     [SerializeField] private float distance;
     [SerializeField] private GameObject explosionPrefab;
-    [SerializeField] private AudioClip explosionSound;
     public LayerMask isLayer;
 
     private AudioSource audioSource;
@@ -71,7 +70,7 @@ public class TimerBomb : MonoBehaviourPunCallbacks
     }
     [PunRPC]
     private void _PlayeExplosionSound() {
-        audioSource.PlayOneShot(explosionSound);
+        audioSource.Play();
     }
 
     private Vector2 ExplosionPower(float power, float distance, Vector2 vector) {

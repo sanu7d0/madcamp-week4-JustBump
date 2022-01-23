@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Events;
 using Photon.Pun;
 
 public class PlayerCombat : MonoBehaviourPunCallbacks
@@ -21,6 +22,8 @@ public class PlayerCombat : MonoBehaviourPunCallbacks
     [SerializeField] public float shootCoolTime;
     private float lastShootTime;
 
+    public UnityEvent onWeaponChange;
+
     void Awake() {
         playerController = GetComponent<PlayerController>();
 
@@ -29,6 +32,8 @@ public class PlayerCombat : MonoBehaviourPunCallbacks
         playerController.onShoot.AddListener(TryShoot);
 
         weapons = new Tuple<Weapon, bool>[2];
+
+        onWeaponChange = new UnityEvent();
     }
 
     void Start() {
@@ -43,9 +48,10 @@ public class PlayerCombat : MonoBehaviourPunCallbacks
     {
         base.OnEnable();
         for (int i = 0; i < weapons.Length; i++) {
-            weapons[i] = new Tuple<Weapon, bool>(null, false);
+            weapons[i] = new Tuple<Weapon, bool>(deafultFist, false);
         }
         curWeponIdx = 0;
+        onWeaponChange.Invoke();
 
         // Shoots
         lastShootTime = 0;
@@ -62,9 +68,10 @@ public class PlayerCombat : MonoBehaviourPunCallbacks
             if (w.Item2 && w.Item1.TryGetComponent<PhotonView>(out PhotonView target)) {
                 PhotonNetwork.Destroy(target);
             }
-            weapons[i] = new Tuple<Weapon, bool>(null, false);
+            weapons[i] = new Tuple<Weapon, bool>(deafultFist, false);
         }
         
+        onWeaponChange.Invoke();
         curWeponIdx = 0;
     }
 
@@ -86,6 +93,8 @@ public class PlayerCombat : MonoBehaviourPunCallbacks
         if (weapons[curWeponIdx].Item2) {
             weapons[curWeponIdx].Item1.gameObject.SetActive(true);
         }
+
+        onWeaponChange.Invoke();
     }
 
     public void SetWeaponAt(GameObject newWeapon, int idx = -1) {
@@ -93,7 +102,6 @@ public class PlayerCombat : MonoBehaviourPunCallbacks
         if (idx == -1) {
             idx = curWeponIdx;
         }
-        Debug.Log(newWeapon.name);
         photonView.RPC("_SetWeaponAt", RpcTarget.All, new object[]{newWeapon.GetComponent<PhotonView>().ViewID, idx});
     }
     [PunRPC]
@@ -118,6 +126,8 @@ public class PlayerCombat : MonoBehaviourPunCallbacks
         newWeapon.transform.position = weaponHolder.position;
         newWeapon.transform.localPosition = Vector3.zero;
         newWeapon.transform.rotation = weaponHolder.rotation;
+
+        onWeaponChange.Invoke();
     }
 
     private void TryAttack() {
@@ -148,7 +158,7 @@ public class PlayerCombat : MonoBehaviourPunCallbacks
         // If all used, drop it
         if (result == WeaponUseResult.AllUsed) {
             PhotonNetwork.Destroy(curWeapon.gameObject);
-            weapons[curWeponIdx] = new Tuple<Weapon, bool>(null, false);
+            weapons[curWeponIdx] = new Tuple<Weapon, bool>(deafultFist, false);
         }
         
     }

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -17,6 +18,14 @@ public class PlayerMediator : MonoBehaviour
 
     public bool IsDead {
         get { return playerManager.isDead; }
+    }
+
+    public UnityEvent onWeaponChange {
+        get { return playerCombat.onWeaponChange; }
+    }
+
+    public Tuple<Weapon, bool>[] weapons {
+        get { return playerCombat.weapons; }
     }
 
     public void AddNewInteractable(Interactable interactable) {

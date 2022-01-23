@@ -11,6 +11,7 @@ using TMPro;
 public class PlayerManager: MonoBehaviourPunCallbacks, IBumpable, IPlayer
 {
     private Rigidbody2D rb;
+    private PlayerMediator playerMediator;
     private GameObject mainCamera;
     private Vector3 beforeCameraPos;
     private IPlayer lastBumperPlayer;
@@ -33,6 +34,7 @@ public class PlayerManager: MonoBehaviourPunCallbacks, IBumpable, IPlayer
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        playerMediator = GetComponent<PlayerMediator>();
         gameManager = GameManager.Instance;
         isDead = false;
         score = 0;
@@ -50,17 +52,21 @@ public class PlayerManager: MonoBehaviourPunCallbacks, IBumpable, IPlayer
         base.OnEnable();
     }
 
-    private void Start()
+    void Start()
     {
         onDead.AddListener(Dead);
-        Debug.Log(gameManager);
-        if(gameManager != null) { 
-			gameManager.AddPlayer(this);
-			gameManager.InvokeOnchangePlayer();
-		}
+
+        gameManager?.AddPlayer(this);
+        gameManager?.InvokeOnchangePlayer();
+
+        if (photonView.IsMine) {
+            // Add listener to UI Manager
+            playerMediator.onWeaponChange.AddListener(ArenaUIManager.Instance.UpdateWeapons);
+            ArenaUIManager.Instance.myPlayer = playerMediator;
+        }
    }
 
-    private void Update()
+    void Update()
     {
         if(nameInstance != null) { 
 			nameInstance.transform.position = new Vector3(

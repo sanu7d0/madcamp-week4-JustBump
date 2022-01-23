@@ -25,6 +25,6 @@ public class FieldItem : Interactable
     {
         itemObject.SetActive(true);
         interactor.PickUpItem(itemObject);
-        Destroy(gameObject);
+        PhotonNetwork.Destroy(gameObject);
     }
 }

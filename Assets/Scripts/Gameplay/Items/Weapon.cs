@@ -18,7 +18,11 @@ public abstract class Weapon : MonoBehaviourPunCallbacks
 
     public int weaponDurability {
         get { return weapon.durability; }
-     }
+    }
+
+    public Sprite weaponSprite {
+        get { return weapon.sprite; }
+    }
 
     protected virtual void Start() {
         weapon = weapon.GetClone();

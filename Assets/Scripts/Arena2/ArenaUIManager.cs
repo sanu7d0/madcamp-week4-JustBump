@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Photon.Pun;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Events;
 using Players = System.Collections.Generic.SortedDictionary<int, IPlayer>;
 
@@ -13,6 +15,8 @@ public class ArenaUIManager : Singleton<ArenaUIManager>
     [SerializeField] TMP_Text text_timer;
     [SerializeField] TMP_Text text_score;
     [SerializeField] TMP_Text text_ping;
+    [SerializeField] Image weapon1;
+    [SerializeField] Image weapon2;
     [SerializeField]
     private GameObject scorePanel;
     [SerializeField]
@@ -21,6 +25,8 @@ public class ArenaUIManager : Singleton<ArenaUIManager>
     private GameObject gameEndUI;
     public UnityEvent onLeaveButton;
     private GameManager gameManager;
+
+    public PlayerMediator myPlayer;
 
     protected override void Awake()
     {
@@ -88,6 +94,14 @@ public class ArenaUIManager : Singleton<ArenaUIManager>
             text_timer?.SetText($"TIMER {Mathf.Round(gameManager.gameElapsedTime)} / {gameManager.gameLimitTime}");
             text_score?.SetText($"SCORE {Mathf.Min(gameManager.bigScore, gameManager.gameGoalScore)} / {gameManager.gameGoalScore}");
             text_ping?.SetText($"PING {PhotonNetwork.GetPing()}");
+        }
+    }
+
+    public void UpdateWeapons() {
+        Tuple<Weapon, bool>[] weapons = myPlayer.weapons;
+
+        foreach (Tuple<Weapon, bool> w in weapons) {
+            weapon1.sprite = w.Item1.weaponSprite;
         }
     }
 }

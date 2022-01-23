@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Axe
   category: 0
-  power: 10
+  sprite: {fileID: 21300000, guid: 9a574ea1bed619b449abc56d1abc4712, type: 2}
+  power: 15
   durability: 10
   coolTime: 0.5
   useSounds:

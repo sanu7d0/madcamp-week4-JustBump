@@ -340,7 +340,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_SynchronizePosition: 1
-  m_SynchronizeRotation: 0
+  m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
   m_UseLocal: 0
 --- !u!114 &1527859615770454813
@@ -360,6 +360,9 @@ MonoBehaviour:
   appleBullet: {fileID: 2194892889725062679, guid: 37c6aae4a55769e42b9c9d016aba66ec, type: 3}
   shootPosition: {fileID: 5407413067054279749}
   shootCoolTime: 0.3
+  onWeaponChange:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &7143443165932468450
 MonoBehaviour:
   m_ObjectHideFlags: 0
