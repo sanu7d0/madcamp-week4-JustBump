@@ -40,6 +40,7 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
 
     void Start() {
         playerController.onRoll.AddListener(TryRoll);
+
         playerMediator.AddListenerToOnBumped(() => {
             state = State.Bumping;
 
@@ -91,7 +92,7 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
     
 
     private void TryRoll() {
-        photonView.RPC("_HandleMovement", RpcTarget.All);
+        photonView.RPC("_TryRoll", RpcTarget.All);
     }
     [PunRPC]
     private void _TryRoll() {
