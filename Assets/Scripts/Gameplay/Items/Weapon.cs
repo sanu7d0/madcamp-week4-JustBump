@@ -1,6 +1,12 @@
 using UnityEngine;
 using Photon.Pun;
 
+public enum WeaponUseResult {
+    Normal,
+    AllUsed,
+    NoHit
+}
+
 [RequireComponent (typeof (AudioSource))]
 public abstract class Weapon : MonoBehaviourPunCallbacks
 {   
@@ -19,20 +25,22 @@ public abstract class Weapon : MonoBehaviourPunCallbacks
         audioSource = GetComponent<AudioSource>();
     }
 
-    public virtual bool Use() {
+    public virtual WeaponUseResult Use() {
         weapon.durability -= 1;
         if (weapon.durability <= 0) {
             AllUsed();
+            return WeaponUseResult.AllUsed;
         }
-        return true;
+        return WeaponUseResult.Normal;
     }
 
-    public virtual bool Use(Vector3 originPosition, Vector3 targetPosition) {
+    public virtual WeaponUseResult Use(Vector3 originPosition, Vector3 targetPosition) {
         weapon.durability -= 1;
         if (weapon.durability <= 0) {
             AllUsed();
+            return WeaponUseResult.AllUsed;
         }
-        return true;
+        return WeaponUseResult.Normal;
     }
 
     public virtual void WeaponToFieldDrop(Vector3 pos) {
@@ -97,7 +105,7 @@ public abstract class Weapon : MonoBehaviourPunCallbacks
                 IBumpable bumpTarget = target.GetComponent<IBumpable>();
                 if(bumpTarget != null) { 
                     Vector2 force = (target.transform.position - transform.position).normalized * weapon.power;
-					Debug.Log($"Player hit {target.name} with {force.SqrMagnitude()} force");
+					// Debug.Log($"Player hit {target.name} with {force.SqrMagnitude()} force");
 
                     if(bumpTarget is IPlayer) {
                         var holder = transform.root.GetComponent<IPlayer>();

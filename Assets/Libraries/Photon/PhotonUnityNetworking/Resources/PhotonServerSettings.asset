@@ -65,6 +65,7 @@ MonoBehaviour:
   - _DetonateBomt
   - _ClearWeapon
   - _SetWeaponAt
+  - _WeaponToFieldDrop
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
