@@ -25,6 +25,7 @@ public class FieldItem : Interactable
     {
         itemObject.SetActive(true);
         interactor.PickUpItem(itemObject);
+        Debug.Log($"Destorying {gameObject.name}");
         PhotonNetwork.Destroy(gameObject);
     }
 }
