@@ -14,11 +14,11 @@ public class Weapon_Grenade : Weapon
         base.Start();
     }
 
-    public override bool Use(Vector3 originPosition, Vector3 targetPosition)
+    public override WeaponUseResult Use(Vector3 originPosition, Vector3 targetPosition)
     {
         if (weapon.durability <= 0) {
             // Debug.Log($"Durability: {weapon.durability}");
-            return false;
+            return WeaponUseResult.AllUsed;
         }
 
         GameObject throwedGrenade 

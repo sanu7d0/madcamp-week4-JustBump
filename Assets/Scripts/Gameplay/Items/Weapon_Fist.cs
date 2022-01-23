@@ -13,13 +13,13 @@ public class Weapon_Fist : Weapon
         hitBox = GetComponentInChildren<Collider2D>();
     }
 
-    public override bool Use()
+    public override WeaponUseResult Use()
     {
         if (TryMeleeAttack(hitBox)) {
             base.PlayUseSound();
             return base.Use();
         } else {
-            return false;
+            return WeaponUseResult.NoHit;
         }
     }
 

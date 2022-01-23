@@ -184,6 +184,9 @@ sealed public class GameManager : Singleton<GameManager>
     }
 
     public void InvokeOnchangePlayer() {
+        if(SceneManager.GetActiveScene().name == "Lobby") {
+            return;
+		}
         var tempBigScore = 0;
         foreach(KeyValuePair<int, IPlayer> player in this.players) {
             tempBigScore = Mathf.Max(player.Value.score, tempBigScore);
