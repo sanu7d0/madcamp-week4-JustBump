@@ -82,6 +82,8 @@ sealed public class GameManager : Singleton<GameManager>
 			player = Instantiate(defaultPlayerPrefab, spawn, Quaternion.identity);
 		}
 
+        Destroy(lobbyManager.gameObject);
+
         AttachMainCamera(player);
         gameStartTime = Time.time;
         StartCoroutine(StartTimer());

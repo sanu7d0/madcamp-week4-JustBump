@@ -16,6 +16,7 @@ public class MissionInteract : Interactable
 
     GameObject gaugeBarObject;
     RectTransform gaugeBar;
+    PlayerMediator playerMediator;
 
 
     public float height = 1.7f;
@@ -79,7 +80,7 @@ public class MissionInteract : Interactable
             base.FinishInteract();
             // Destroy(this.gameObject);
             this.gameObject.SetActive(false);
-
+            playerMediator.AddScore(10);
             Invoke("recreate_mission", coolTime);
         }
     }
