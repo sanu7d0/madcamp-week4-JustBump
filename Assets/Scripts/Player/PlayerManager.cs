@@ -66,7 +66,7 @@ public class PlayerManager: MonoBehaviourPunCallbacks, IBumpable, IPlayer
 			nameInstance.transform.position = new Vector3(
 			    transform.position.x,
 			    transform.position.y + 0.2f,
-			    0
+			    -1
 			);
 		}
     }

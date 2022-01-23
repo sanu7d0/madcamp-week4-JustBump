@@ -15,7 +15,6 @@ public class Timer : MonoBehaviour
         get { return LimitTime - (Time.time - startTime); }
     }
     private TMP_Text textView;
-    private CancellationTokenSource cancellationTokenSource;
     
 
     public void Destory() { 
@@ -27,7 +26,6 @@ public class Timer : MonoBehaviour
     private void Awake()
     {
         textView = GetComponent<TMP_Text>();
-        cancellationTokenSource = new CancellationTokenSource();
     }
 
     private void Start()
