@@ -1,7 +1,8 @@
 using UnityEngine;
+using Photon.Pun;
 
 [RequireComponent (typeof (AudioSource))]
-public abstract class Weapon : MonoBehaviour
+public abstract class Weapon : MonoBehaviourPunCallbacks
 {   
     [SerializeField] protected WeaponObject weapon;
     protected AudioSource audioSource;
@@ -42,6 +43,10 @@ public abstract class Weapon : MonoBehaviour
     }
 
     protected virtual void PlayUseSound() {
+        photonView.RPC("_PlayUseSound", RpcTarget.All);
+    }
+    [PunRPC]
+    protected virtual void _PlayUseSound() {
         audioSource.PlayOneShot(weapon.GetRandomUseSound());
     }
 

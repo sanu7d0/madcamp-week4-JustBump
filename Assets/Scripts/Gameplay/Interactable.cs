@@ -1,9 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
-// TODO: interface로 구현?
-public abstract class Interactable : MonoBehaviour
+public abstract class Interactable : MonoBehaviourPunCallbacks
 {
     [SerializeField] private Collider2D cc;
 
