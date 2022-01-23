@@ -127,11 +127,11 @@ public class PlayerCombat : MonoBehaviourPunCallbacks
         }
         
         Weapon curWeapon = weapons[curWeponIdx].Item1;
+        
+        WeaponUseResult result = WeaponUseResult.Normal;
         switch (curWeapon.GetWeaponType()) {
         case WeaponCategory.Melee:
-            if (curWeapon.Use()) {
-                // ...
-            }
+            result = curWeapon.Use();
             break;
         
         case WeaponCategory.Range:
@@ -139,10 +139,16 @@ public class PlayerCombat : MonoBehaviourPunCallbacks
             break;
         
         case WeaponCategory.Throwable:
-            Debug.Log(curWeapon.Use(
+            result = curWeapon.Use(
                 shootPosition.position, 
-                Camera.main.ScreenToWorldPoint(playerController.mousePos)));
+                Camera.main.ScreenToWorldPoint(playerController.mousePos));
             break;
+        }
+
+        // If all used, drop it
+        if (result == WeaponUseResult.AllUsed) {
+            PhotonNetwork.Destroy(curWeapon.gameObject);
+            weapons[curWeponIdx] = new Tuple<Weapon, bool>(null, false);
         }
         
     }

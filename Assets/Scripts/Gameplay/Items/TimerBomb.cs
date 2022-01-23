@@ -13,10 +13,13 @@ public class TimerBomb : MonoBehaviourPunCallbacks
     [SerializeField] private float speed;
     [SerializeField] private float distance;
     [SerializeField] private GameObject explosionPrefab;
+    [SerializeField] private AudioClip explosionSound;
     public LayerMask isLayer;
 
+    private AudioSource audioSource;
+
     private void Start() {
-        
+        audioSource = GetComponent<AudioSource>();
     }
 
     public void InitBomb(float power, float explosionRadius, float delayTimeInSec, IPlayer thrower, Vector2 direction) {
@@ -57,7 +60,17 @@ public class TimerBomb : MonoBehaviourPunCallbacks
 			    PhotonNetwork.Destroy(explosion);
 		    }
         }, 1);
+        PlayeExplosionSound();
+        
 		PhotonNetwork.Destroy(gameObject);
+    }
+
+    private void PlayeExplosionSound() {
+        photonView.RPC("_PlayeExplosionSound", RpcTarget.All);
+    }
+    [PunRPC]
+    private void _PlayeExplosionSound() {
+        audioSource.PlayOneShot(explosionSound);
     }
 
     private Vector2 ExplosionPower(float power, float distance, Vector2 vector) {
