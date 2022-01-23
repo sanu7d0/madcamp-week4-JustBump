@@ -5,18 +5,26 @@ using Photon.Pun;
 
 public class FieldItem : Interactable
 {
-    [SerializeField] private GameObject itemPrefab;
+    public GameObject itemPrefab;
+    public GameObject itemObject;
+    public int durability;
 
-    public override void OnEnable()
-    {
-        base.OnEnable();
-        // ...
+    void Start() {
+        itemObject = PhotonNetwork.Instantiate(itemPrefab.name, transform.position, Quaternion.identity);
+        itemObject.name = itemPrefab.name;
+        itemObject.SetActive(false);
     }
+
+    // public override void OnEnable()
+    // {
+    //     base.OnEnable();
+    //     itemObject.SetActive(false);
+    // }
 
     public override void Interact(PlayerMediator interactor)
     {
-        GameObject itemClone = PhotonNetwork.Instantiate(itemPrefab.name, Vector3.zero, Quaternion.identity);
-        interactor.PickUpItem(itemClone);
+        itemObject.SetActive(true);
+        interactor.PickUpItem(itemObject);
         Destroy(gameObject);
     }
 }

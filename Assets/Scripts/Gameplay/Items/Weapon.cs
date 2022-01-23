@@ -5,9 +5,14 @@ using Photon.Pun;
 public abstract class Weapon : MonoBehaviourPunCallbacks
 {   
     [SerializeField] protected WeaponObject weapon;
+    [SerializeField] protected GameObject emptyFieldDrop;
     protected AudioSource audioSource;
 
     protected float lastUseTime = 0;
+
+    public int weaponDurability {
+        get { return weapon.durability; }
+     }
 
     protected virtual void Start() {
         weapon = weapon.GetClone();
@@ -28,6 +33,24 @@ public abstract class Weapon : MonoBehaviourPunCallbacks
             AllUsed();
         }
         return true;
+    }
+
+    public virtual void WeaponToFieldDrop(Vector3 pos) {
+        photonView.RPC("_WeaponToFieldDrop", RpcTarget.All, pos);
+    } 
+
+    [PunRPC]
+    protected virtual void _WeaponToFieldDrop(Vector3 pos) {
+        GameObject emptyDrop = 
+            PhotonNetwork.Instantiate(emptyFieldDrop.name, pos, Quaternion.identity);
+        emptyDrop.name = weapon.name;
+        emptyDrop.GetComponent<SpriteRenderer>().sprite = weapon.sprite;
+        FieldItem fi = emptyDrop.GetComponent<FieldItem>();
+        fi.itemPrefab = gameObject;
+        fi.itemObject = gameObject;
+        fi.durability = weapon.durability;
+
+        gameObject.SetActive(false);
     }
 
     public virtual WeaponCategory GetWeaponType() {

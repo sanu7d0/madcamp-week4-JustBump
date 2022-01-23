@@ -9,6 +9,7 @@ public class WeaponObject : ScriptableObject
 {
     public new string name;
     public WeaponCategory category;
+    public Sprite sprite;
     public float power;
     public int durability;
     public float coolTime;
