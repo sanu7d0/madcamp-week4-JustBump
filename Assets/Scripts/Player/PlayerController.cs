@@ -5,6 +5,7 @@ using Photon.Pun;
 
 public class PlayerController : MonoBehaviourPunCallbacks
 {
+    #region Events & Values
     public UnityEvent onAttack;
 
     public UnityEvent onInteract;
@@ -22,6 +23,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     public Vector2 mousePos {
         get { return Mouse.current.position.ReadValue(); }
     }
+    #endregion
 
     private PlayerMediator playerMediator;
     private PlayerDebug playerDebug;
@@ -29,6 +31,12 @@ public class PlayerController : MonoBehaviourPunCallbacks
     void Awake() {
         playerMediator = GetComponent<PlayerMediator>();
         playerDebug = GetComponent<PlayerDebug>();
+    }
+
+    public override void OnEnable()
+    {
+        base.OnEnable();
+        moveDir = Vector2.zero;
     }
 
     void OnShoot(InputValue input) {

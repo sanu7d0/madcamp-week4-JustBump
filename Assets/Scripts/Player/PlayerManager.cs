@@ -76,8 +76,8 @@ public class PlayerManager: MonoBehaviourPunCallbacks, IBumpable, IPlayer
             return;
 		}
         isDead = false;
-        gameObject.SetActive(true);
         gameObject.transform.position = new Vector3(0, 0, 0);
+        gameObject.SetActive(true);
         nameInstance.GetComponent<TextMeshProUGUI>().color = Color.black;
         gameManager.OnChangePlayerState(this);
         gameManager?.InvokeOnchangePlayer();
@@ -88,7 +88,7 @@ public class PlayerManager: MonoBehaviourPunCallbacks, IBumpable, IPlayer
 
         TimerExtension.CreateEventTimer(() => {
             Revive();
-		 }, 10);
+		 }, 5);
     }
     
     [PunRPC]

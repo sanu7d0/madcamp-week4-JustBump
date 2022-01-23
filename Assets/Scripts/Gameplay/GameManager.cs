@@ -53,10 +53,6 @@ sealed public class GameManager : Singleton<GameManager>
     void Start() {
         StartGame();
     }
-    private void Update()
-    {
-        Debug.Log(PhotonNetwork.GetPing());
-    }
 
     private void StartGame() {
         isPlaying = true;

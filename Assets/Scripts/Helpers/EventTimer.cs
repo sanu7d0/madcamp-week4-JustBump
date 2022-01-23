@@ -40,6 +40,7 @@ public static class TimerExtension {
     public static EventTimer CreateEventTimer(Action callback, float delayTime) {
         GameObject go = new GameObject();
         go.AddComponent<EventTimer>().InitTimer(callback, delayTime);
+        go.name = "TimerEvent";
         return go.GetComponent<EventTimer>();
     }
 }
