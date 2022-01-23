@@ -5,8 +5,11 @@ using Photon.Pun;
 
 public class MissionInteract : Interactable
 {
-    public float totalTime;
-    public float coolTime;
+    public float minTotalTime;
+    public float maxTotalTime;
+    private float totalTime;
+    public float minCoolTime;
+    public float maxCoolTime;
     public GameObject prfGaugeBar;
     private GameObject canvas;
     private enum State {
@@ -51,6 +54,7 @@ public class MissionInteract : Interactable
     {
         base.Interact(playerMediator);
         this.playerMediator = playerMediator;
+        totalTime = Random.Range(minTotalTime, maxTotalTime);
         photonView.RPC("_Interact", RpcTarget.All);
         Invoke("FinishInteract", totalTime);
     }
@@ -87,7 +91,9 @@ public class MissionInteract : Interactable
         if (state == State.progress) {
             base.FinishInteract();
             // Destroy(this.gameObject);
+            Debug.LogError("HERE!!!!!!!");
             gameObject.SetActive(false);
+            float coolTime = Random.Range(minCoolTime, maxCoolTime);
             Invoke("recreate_mission", coolTime);
         }
     }

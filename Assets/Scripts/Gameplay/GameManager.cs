@@ -12,11 +12,13 @@ sealed public class GameManager : Singleton<GameManager>
 {
     [SerializeField] private GameObject defaultPlayerPrefab;
     [SerializeField] private GameObject missionPrefab;
+    [SerializeField] private GameObject lootBoxPrefab;
     [SerializeField] private int _gameGoalScore;
     private LobbyManager lobbyManager;
     private readonly Players players = 
 		new Players();
     [SerializeField] private int missionNum;
+    [SerializeField] private int lootBoxNum;
 
     public UnityEvent<Players> onChangePlayer;
     public int bigScore = 0;
@@ -101,6 +103,18 @@ sealed public class GameManager : Singleton<GameManager>
 				    GameObject mission = PhotonNetwork.Instantiate(missionPrefab.name, missionLoc.transform.position, Quaternion.identity);
 				}
 		    }
+        }
+
+        for (int i = 0; i < lootBoxNum; i++)
+        {
+            GameObject lootLoc = GameObject.Find("LootLoc" + i);
+            if (lootLoc != null)
+            {
+                if (PhotonNetwork.IsMasterClient)
+                {
+                    GameObject lootBox = PhotonNetwork.Instantiate(lootBoxPrefab.name, lootLoc.transform.position, Quaternion.identity);
+                }
+            }
         }
         
 
