@@ -31,7 +31,6 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
 
     public override void OnEnable()
     {
-        Debug.Log("PlayerMovement: OnEnable Called");
         state = State.Normal;
         rb.velocity = Vector2.zero;
         transform.rotation = Quaternion.identity;
