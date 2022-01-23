@@ -31,7 +31,6 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
 
     public override void OnEnable()
     {
-        Debug.Log("PlayerMovement: OnEnable Called");
         state = State.Normal;
         rb.velocity = Vector2.zero;
         transform.rotation = Quaternion.identity;
@@ -67,10 +66,6 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
     }
 
     private void HandleMovement() {
-        photonView.RPC("_HandleMovement", RpcTarget.All);
-    }
-    [PunRPC]
-    private void _HandleMovement(){
         Vector2 moveDir = playerController.moveDir;
         lastMoveDir = moveDir;
 
@@ -89,16 +84,8 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
             transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
         }
     }
-    
 
     private void TryRoll() {
-        photonView.RPC("_TryRoll", RpcTarget.All);
-    }
-    [PunRPC]
-    private void _TryRoll() {
-        // TODO: 구르기 쿨타임?
-        
-        // Cannot roll while not moving or rolling
         if (lastMoveDir == Vector2.zero || state == State.Rolling) {
             return;
         }

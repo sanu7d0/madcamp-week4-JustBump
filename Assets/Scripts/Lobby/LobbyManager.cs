@@ -7,7 +7,6 @@ using UnityEngine.SceneManagement;
 
 public class LobbyManager : SingletonP<LobbyManager>
 {
-    [SerializeField]
     private RoomManager roomManager;
     private LobbyUIManager lobbyUIManager;
     public string selectedCharacterName;
@@ -18,12 +17,11 @@ public class LobbyManager : SingletonP<LobbyManager>
 
         lobbyUIManager = LobbyUIManager.Instance;
         roomManager = RoomManager.Instance;
+        DontDestroyOnLoad(gameObject);
     }
 
     void Start()
     {
-        Debug.Log("LobbyManager Start");
-        DontDestroyOnLoad(gameObject);
         lobbyUIManager.ShowCharacterSelectPanel();
         lobbyUIManager.onClickedLeaveButtonListener.AddListener(() => {
             LeaveRoom();
@@ -48,12 +46,13 @@ public class LobbyManager : SingletonP<LobbyManager>
         Debug.Log("OnLeftRoom");
 
         SceneManager.LoadScene(0);
+        Destroy(this.gameObject);
     }
 
     private void LeaveRoom()
     {
         Debug.Log("LeaveRoom");
-        if (!roomManager.CanStartGame())
+        if (!roomManager.CanStartGame())    
         {
             roomManager.Wait();
             Debug.Log("!roomManager.CanStartGame == True");

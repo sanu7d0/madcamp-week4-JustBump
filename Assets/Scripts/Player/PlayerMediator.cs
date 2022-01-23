@@ -6,11 +6,17 @@ public class PlayerMediator : MonoBehaviour
     private PlayerManager playerManager;
     private PlayerInteraction playerInteraction;
     private PlayerMovement playerMovement;
+    private PlayerCombat playerCombat;
 
     void Awake() {
         playerManager = GetComponent<PlayerManager>();
         playerInteraction = GetComponent<PlayerInteraction>();
         playerMovement = GetComponent<PlayerMovement>();
+        playerCombat = GetComponent<PlayerCombat>();
+    }
+
+    public bool IsDead {
+        get { return playerManager.isDead; }
     }
 
     public void AddNewInteractable(Interactable interactable) {
@@ -33,7 +39,11 @@ public class PlayerMediator : MonoBehaviour
         playerManager.onBumped.AddListener(call);
     }
 
-    public bool IsDead {
-        get { return playerManager.isDead; }
+    public void PickUpItem(GameObject newItem) {
+        playerCombat.ChangeCurrentWeapon(newItem);
+    }
+
+    public void AddScore(int score) {
+        playerManager.AddScore(score);
     }
 }

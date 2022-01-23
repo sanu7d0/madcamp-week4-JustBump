@@ -15,7 +15,6 @@ public class PlayerManager: MonoBehaviourPunCallbacks, IBumpable, IPlayer
     private Vector3 beforeCameraPos;
     private IPlayer lastBumperPlayer;
     private GameManager gameManager;
-    private CancellationTokenSource cancellationToken = new CancellationTokenSource();
     private GameObject nameInstance;
     [SerializeField] [Range(0.01f, 0.1f)] float shakeRange = 0.05f;
     [SerializeField] [Range(0.1f, 1f)] float duration = 0.5f;
@@ -39,9 +38,11 @@ public class PlayerManager: MonoBehaviourPunCallbacks, IBumpable, IPlayer
         score = 0;
         id = photonView.ViewID;
         nickname = photonView.Owner.NickName;
-        
-        nameInstance = Instantiate(nameField, GameObject.Find("WorldSpaceCanvas").transform);
-        nameInstance.GetComponent<TextMeshProUGUI>().text = nickname;
+            
+	    if(GameObject.Find("WorldSpaceCanvas") != null) { 
+			nameInstance = Instantiate(nameField, GameObject.Find("WorldSpaceCanvas").transform);
+			nameInstance.GetComponent<TextMeshProUGUI>().text = nickname;
+		}   
     }
 
     public override void OnEnable()
@@ -52,17 +53,22 @@ public class PlayerManager: MonoBehaviourPunCallbacks, IBumpable, IPlayer
     private void Start()
     {
         onDead.AddListener(Dead);
-        gameManager?.AddPlayer(this);
-        gameManager?.InvokeOnchangePlayer();
+        Debug.Log(gameManager);
+        if(gameManager != null) { 
+			gameManager.AddPlayer(this);
+			gameManager.InvokeOnchangePlayer();
+		}
    }
 
     private void Update()
     {
-        nameInstance.transform.position = new Vector3(
-            transform.position.x,
-            transform.position.y + 0.2f,
-            0
-        );
+        if(nameInstance != null) { 
+			nameInstance.transform.position = new Vector3(
+			    transform.position.x,
+			    transform.position.y + 0.2f,
+			    -1
+			);
+		}
     }
 
     public void Revive() {
@@ -79,8 +85,11 @@ public class PlayerManager: MonoBehaviourPunCallbacks, IBumpable, IPlayer
         gameObject.transform.position = new Vector3(0, 0, 0);
         gameObject.SetActive(true);
         nameInstance.GetComponent<TextMeshProUGUI>().color = Color.black;
-        gameManager.OnChangePlayerState(this);
-        gameManager?.InvokeOnchangePlayer();
+
+        if(gameManager != null) { 
+			gameManager.OnChangePlayerState(this);
+			gameManager?.InvokeOnchangePlayer();
+		}
     }
 
     public void Dead() { 
@@ -100,12 +109,18 @@ public class PlayerManager: MonoBehaviourPunCallbacks, IBumpable, IPlayer
         Debug.Log("_Dead Start");
 
 		isDead = true;
-		gameManager.OnChangePlayerState(this);
-		if(lastBumperPlayer != null && lastBumperPlayer.id != id) { 
-				gameManager.IncrementScore(lastBumperPlayer, 3);
+
+        if(gameManager != null) { 
+			gameManager.OnChangePlayerState(this);
+			if(lastBumperPlayer != null && lastBumperPlayer.id != id) { 
+					gameManager.IncrementScore(lastBumperPlayer, 3);
+			}
+			gameManager.InvokeOnchangePlayer();
 		}
-		nameInstance.GetComponent<TextMeshProUGUI>().color = Color.red;
-		gameManager.InvokeOnchangePlayer();
+
+        if(nameInstance != null) { 
+			nameInstance.GetComponent<TextMeshProUGUI>().color = Color.red;
+		}
 
         TimerExtension.CreateEventTimer(() => { 
 			gameObject.SetActive(false);
@@ -122,10 +137,12 @@ public class PlayerManager: MonoBehaviourPunCallbacks, IBumpable, IPlayer
         onBumped.Invoke();
 
 	    lastBumperPlayer = new ConcretePlayer(){ id = id, isDead = isDead, score = score };
-        cancellableTimer?.Stop();
-        cancellableTimer= TimerExtension.CreateEventTimer(() =>
+
+        if(cancellableTimer != null) { 
+			cancellableTimer.Stop();
+		}
+        cancellableTimer = TimerExtension.CreateEventTimer(() =>
         {
-            Debug.Log("Hello");
 			lastBumperPlayer = null;
         }, 3);
         if(photonView.IsMine) {
@@ -168,15 +185,21 @@ public class PlayerManager: MonoBehaviourPunCallbacks, IBumpable, IPlayer
 	}
 
     public void AddScore(int score) {
-        // 자기의 점수를 ++
-        gameManager.IncrementScore(this, score);
-        gameManager.InvokeOnchangePlayer();
+        photonView.RPC("_AddScore", RpcTarget.All, new object[] { score });
     }
-
+    [PunRPC]
+    public void _AddScore(int score) { 
+        if(gameManager != null) { 
+			gameManager.IncrementScore(this, score);
+			gameManager.InvokeOnchangePlayer();
+		}
+    }
     private void OnDestroy()
     {
-        gameManager.RemovePlayer(this);
-        gameManager.InvokeOnchangePlayer();
+        if(gameManager != null) { 
+			gameManager.RemovePlayer(this);
+			gameManager.InvokeOnchangePlayer();
+		}
     }
 
     class ConcretePlayer : IPlayer

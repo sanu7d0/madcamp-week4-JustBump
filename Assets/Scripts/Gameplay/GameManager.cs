@@ -5,6 +5,8 @@ using Photon.Pun;
 using UnityEngine.Events;
 using Players = System.Collections.Generic.SortedDictionary<int, IPlayer>;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+using Photon.Pun;
 
 sealed public class GameManager : Singleton<GameManager>
 {
@@ -50,23 +52,38 @@ sealed public class GameManager : Singleton<GameManager>
         SetPhysics2DSettings();
     }
 
-    void Start() {
+    void Start(){
         StartGame();
-    }
+   }
 
     private void StartGame() {
+
+        if(SceneManager.GetActiveScene().name == "Lobby") {
+            return;
+		}
+
         isPlaying = true;
 
         GameObject player;
+        GameObject spawnGo = GameObject.Find("Spawn0");
+        Vector3 spawn;
+        if(spawnGo == null) {
+            spawn = new Vector3(0, 0, 0);
+		}  else {
+            spawn = spawnGo.transform.position;
+		}
+
         if(PhotonNetwork.IsConnected || DEBUG_OfflineMode) { 
             if(string.IsNullOrEmpty(lobbyManager.selectedCharacterName)){ 
-				player = PhotonNetwork.Instantiate(defaultPlayerPrefab.name, GameObject.Find("Spawn0").transform.position, Quaternion.identity);
+				player = PhotonNetwork.Instantiate(defaultPlayerPrefab.name, spawn, Quaternion.identity);
 		    } else {
-				player = PhotonNetwork.Instantiate(lobbyManager.selectedCharacterName, GameObject.Find("Spawn0").transform.position, Quaternion.identity);
+				player = PhotonNetwork.Instantiate(lobbyManager.selectedCharacterName, spawn, Quaternion.identity);
 			}
 		} else { 
-			player = Instantiate(defaultPlayerPrefab, GameObject.Find("Spawn0").transform.position, Quaternion.identity);
+			player = Instantiate(defaultPlayerPrefab, spawn, Quaternion.identity);
 		}
+
+        Destroy(lobbyManager.gameObject);
 
         AttachMainCamera(player);
         gameStartTime = Time.time;
@@ -77,7 +94,11 @@ sealed public class GameManager : Singleton<GameManager>
         // Mission Prefab에 프리팹넣기
         for (int i = 0; i < missionNum; i++) {
             GameObject missionLoc = GameObject.Find("MissionLoc" + i);
-            GameObject mission = Instantiate(missionPrefab, missionLoc.transform.position, Quaternion.identity);
+            if(missionLoc != null) { 
+                if(PhotonNetwork.IsMasterClient) { 
+				    GameObject mission = PhotonNetwork.Instantiate(missionPrefab.name, missionLoc.transform.position, Quaternion.identity);
+				}
+		    }
         }
         
 

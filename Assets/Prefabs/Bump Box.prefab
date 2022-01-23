@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 9073980760607410359}
   - component: {fileID: 9073980760607410356}
   - component: {fileID: 9073980760607410357}
-  - component: {fileID: 7915601559780529706}
+  - component: {fileID: 9211717631292335351}
   m_Layer: 31
   m_Name: Bump Box
   m_TagString: Untagged
@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayer: 2
   m_SortingOrder: 1
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.8113208, g: 0.4781717, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -134,7 +134,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &7915601559780529706
+--- !u!114 &9211717631292335351
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -143,6 +143,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 9073980760607410363}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5b1da7578c9f2574682fa63a4d8cd6e2, type: 3}
+  m_Script: {fileID: 11500000, guid: eccf15761d6b2ed4897279052ed5b3ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

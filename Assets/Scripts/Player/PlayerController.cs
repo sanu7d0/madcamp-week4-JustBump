@@ -73,11 +73,6 @@ public class PlayerController : MonoBehaviourPunCallbacks
         if (!CanControl()) {
             return;
 		}
-        photonView.RPC("_OnSwapWeapon", RpcTarget.All);
-    }
-
-    [PunRPC]
-    void _OnSwapWeapon() {
         onSwapWeapon.Invoke();
     }
 
