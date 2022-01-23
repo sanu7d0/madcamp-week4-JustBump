@@ -167,6 +167,8 @@ MonoBehaviour:
   cc: {fileID: 1854758956}
   ItemPrefabs:
   - {fileID: 7287484521070632406, guid: 792e4c2497977c34b94fe5f77d397d5c, type: 3}
+  - {fileID: 219934575823820037, guid: 22dd64694aa344a4bba1cafa5030d092, type: 3}
+  - {fileID: 2793633946519415300, guid: 6013cbd3e565bb84680d3e0bba0e1df3, type: 3}
   regenTime: 5
   sprite_Normal: {fileID: 21300000, guid: 29c9cded5e558164aaf8c9bf08aa1510, type: 3}
   sprite_Looted: {fileID: 21300040, guid: 29c9cded5e558164aaf8c9bf08aa1510, type: 3}

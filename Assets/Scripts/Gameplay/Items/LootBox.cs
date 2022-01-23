@@ -38,11 +38,13 @@ public class LootBox : Interactable
             return;
         }
 
+        state = State.Looted;
         onStateChange.Invoke(State.Looted);
         SpitOutItem();
 
         // Switch to normal state after regen time
         TimerExtension.CreateEventTimer(() => {
+            state = State.Normal;
             onStateChange.Invoke(State.Normal);
         }, regenTime);
     }

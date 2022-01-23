@@ -160,7 +160,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7053558377170165328
 Transform:
   m_ObjectHideFlags: 0
@@ -191,6 +191,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weapon: {fileID: 11400000, guid: 555433045f30f334583efa007089a4fc, type: 2}
+  emptyFieldDrop: {fileID: 781654957273517497, guid: bce69776621f75346b1112fd27e6b617, type: 3}
 --- !u!82 &6834892307878143021
 AudioSource:
   m_ObjectHideFlags: 0

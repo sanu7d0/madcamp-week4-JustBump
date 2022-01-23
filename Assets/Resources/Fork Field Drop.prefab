@@ -65,6 +65,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cc: {fileID: 5708907310929794635}
   itemPrefab: {fileID: 5191502054817757635, guid: fc0fc29fefd87514f95404c3ece2d3ed, type: 3}
+  itemObject: {fileID: 0}
+  durability: 0
 --- !u!212 &112900686052611546
 SpriteRenderer:
   m_ObjectHideFlags: 0

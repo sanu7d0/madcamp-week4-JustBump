@@ -102,7 +102,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4880096109504664899
 Transform:
   m_ObjectHideFlags: 0
@@ -228,6 +228,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weapon: {fileID: 11400000, guid: 32b7ccab8873f1742b6cf71844e8f408, type: 2}
+  emptyFieldDrop: {fileID: 781654957273517497, guid: bce69776621f75346b1112fd27e6b617, type: 3}
   explosionRadius: 5
   explosionDelayTime: 1
   grenade_throwed: {fileID: 3807789984623135664, guid: a8066509adfc03241a767a75ad058ef6, type: 3}
