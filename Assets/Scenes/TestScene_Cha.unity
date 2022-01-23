@@ -23059,7 +23059,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b22d21c227405a0469e8e9e2d0eca13b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultPlayerPrefab: {fileID: 4687371777569612328, guid: ce7b23f6e0fb52a47b08b03d6310154c, type: 3}
+  defaultPlayerPrefab: {fileID: 4687371777569612328, guid: 4eae07fa02de2e444b59dbb373e569ca, type: 3}
   missionPrefab: {fileID: 4771700952456603950, guid: 5d41544017e5d3045af6e86f19ea3018, type: 3}
   _gameGoalScore: 0
   missionNum: 3

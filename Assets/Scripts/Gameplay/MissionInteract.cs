@@ -50,6 +50,7 @@ public class MissionInteract : Interactable
     public override void Interact()
     {
         base.Interact();
+        StopInteract();
         state = State.progress;
         gaugeBarObject = Instantiate(prfGaugeBar, canvas.transform);
         gaugeBar = gaugeBarObject.GetComponent<RectTransform>();
