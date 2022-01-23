@@ -70,6 +70,9 @@ public class PlayerController : MonoBehaviourPunCallbacks
     }
 
     void OnSwapWeapon(InputValue input) {
+        if (!CanControl()) {
+            return;
+		}
         onSwapWeapon.Invoke();
     }
 
