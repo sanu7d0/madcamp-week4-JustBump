@@ -29,7 +29,7 @@ MonoBehaviour:
     EnableLobbyStatistics: 0
     NetworkLogging: 1
   DevRegion: kr
-  PunLogging: 0
+  PunLogging: 2
   EnableSupportLogger: 0
   RunInBackground: 1
   StartInOfflineMode: 0
@@ -57,6 +57,9 @@ MonoBehaviour:
   - _TryRoll
   - _PlayUseSound
   - _SwapWeapon
+  - _AddScore
+  - _Interact
+  - _FinishInteract
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

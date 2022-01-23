@@ -6,6 +6,7 @@ using UnityEngine.Events;
 using Players = System.Collections.Generic.SortedDictionary<int, IPlayer>;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Photon.Pun;
 
 sealed public class GameManager : Singleton<GameManager>
 {
@@ -94,7 +95,9 @@ sealed public class GameManager : Singleton<GameManager>
         for (int i = 0; i < missionNum; i++) {
             GameObject missionLoc = GameObject.Find("MissionLoc" + i);
             if(missionLoc != null) { 
-			    GameObject mission = Instantiate(missionPrefab, missionLoc.transform.position, Quaternion.identity);
+                if(PhotonNetwork.IsMasterClient) { 
+				    GameObject mission = PhotonNetwork.Instantiate(missionPrefab.name, missionLoc.transform.position, Quaternion.identity);
+				}
 		    }
         }
         

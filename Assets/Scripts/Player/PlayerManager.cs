@@ -185,13 +185,15 @@ public class PlayerManager: MonoBehaviourPunCallbacks, IBumpable, IPlayer
 	}
 
     public void AddScore(int score) {
-        // 자기의 점수를 ++
+        photonView.RPC("_AddScore", RpcTarget.All, new object[] { score });
+    }
+    [PunRPC]
+    public void _AddScore(int score) { 
         if(gameManager != null) { 
 			gameManager.IncrementScore(this, score);
 			gameManager.InvokeOnchangePlayer();
 		}
     }
-
     private void OnDestroy()
     {
         if(gameManager != null) { 

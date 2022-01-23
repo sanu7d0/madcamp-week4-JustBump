@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 1854758956}
   - component: {fileID: -1557053006542941658}
   m_Layer: 0
-  m_Name: Misson2
+  m_Name: Misson2_Remote
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
