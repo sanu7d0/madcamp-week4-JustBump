@@ -66,6 +66,7 @@ MonoBehaviour:
   - _ClearWeapon
   - _SetWeaponAt
   - _WeaponToFieldDrop
+  - _PlayeExplosionSound
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

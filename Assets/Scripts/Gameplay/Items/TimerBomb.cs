@@ -52,14 +52,15 @@ public class TimerBomb : MonoBehaviourPunCallbacks
                 // Rigidbody2DExtension.AddExplosionForce(targetRb, power, transform.position, explosionRadius);
             }
         }
+        
+    
 
         var explosion = PhotonNetwork.Instantiate(explosionPrefab.name, transform.position, Quaternion.identity);
         TimerExtension.CreateEventTimer(() =>
         {
-            if(photonView.IsMine) { 
 			    PhotonNetwork.Destroy(explosion);
-		    }
         }, 1);
+
         PlayeExplosionSound();
         
 		PhotonNetwork.Destroy(gameObject);
