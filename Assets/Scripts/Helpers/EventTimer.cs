@@ -30,7 +30,7 @@ public class EventTimer : MonoBehaviour
         }
     }
 
-    public void Stop() {
+    public  void Stop() {
         Destroy(gameObject);
     }
     
