@@ -21,7 +21,7 @@ public class Launcher : MonoBehaviourPunCallbacks
     void Awake()
     {
         PhotonNetwork.AutomaticallySyncScene = true;
-        uiManager = LauncherUIManager.Instance as LauncherUIManager;
+        uiManager = LauncherUIManager.Instance;
     }
 
     private void Start()

@@ -9,8 +9,10 @@ enum RoomState{
 
 public class RoomManager : SingletonP<RoomManager>
 {
+    [SerializeField]
+    private GameObject timerPrefab;
+    private GameObject timerInstance;
     public int MinStartGame = 2;
-    public GameObject timer;
     private LobbyUIManager lobbyUIManager;
 
     protected override void Awake()
@@ -40,14 +42,17 @@ public class RoomManager : SingletonP<RoomManager>
 
 
     public void Wait() {
-        Debug.Log("Wait");
-        if (this.roomState != RoomState.Ready) {
+        if (roomState != RoomState.Ready) {
             Debug.Log("Can not Wait");
             return;
 		}
         
-        this.roomState = RoomState.Wait;
-        Timer.Instance.Destory();
+        roomState = RoomState.Wait;
+
+        if (timerInstance != null && timerInstance.TryGetComponent<Timer>(out Timer ti)) {
+            ti.Destory();
+		}
+
 		PhotonNetwork.CurrentRoom.IsVisible = true;
     }
 
@@ -62,8 +67,7 @@ public class RoomManager : SingletonP<RoomManager>
 
         if(PhotonNetwork.IsMasterClient) {
             Debug.Log("PhotonNetWork.IsMasterClient");
-
-			PhotonNetwork.Instantiate(timer.name, new Vector3(0, 0, 0), Quaternion.identity);
+			timerInstance = PhotonNetwork.Instantiate(timerPrefab.name, new Vector3(0, 0, 0), Quaternion.identity);
 		}
     }
 

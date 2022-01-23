@@ -7,7 +7,6 @@ using UnityEngine.SceneManagement;
 
 public class LobbyManager : SingletonP<LobbyManager>
 {
-    [SerializeField]
     private RoomManager roomManager;
     private LobbyUIManager lobbyUIManager;
     public string selectedCharacterName;

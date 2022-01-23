@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine.EventSystems;
 using UnityEngine.Events;
 
-public class LauncherUIManager : Singleton<MonoBehaviour>
+public class LauncherUIManager : Singleton<LauncherUIManager>
 {
 
     [SerializeField]
@@ -12,6 +12,11 @@ public class LauncherUIManager : Singleton<MonoBehaviour>
     private GameObject progressLabel;
 
     public UnityEvent onConnectButtonClickedListener;
+
+    protected override void Awake()
+    {
+        base.Awake();
+    }
 
     public void OnControlPanel() { 
         progressLabel.SetActive(false);

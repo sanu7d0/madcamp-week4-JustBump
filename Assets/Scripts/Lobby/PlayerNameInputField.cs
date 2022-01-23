@@ -31,7 +31,6 @@ public class PlayerNameInputField : MonoBehaviour
 	    }
 
 	    PhotonNetwork.NickName = defaultName;
-		Debug.Log(defaultName);
 }
 
     public void SetPlayerName(string value)
@@ -45,7 +44,6 @@ public class PlayerNameInputField : MonoBehaviour
 	    PhotonNetwork.NickName = value;
 	    PlayerPrefs.SetString(playerNamePrefKey, value);
 
-		Debug.Log(PhotonNetwork.NickName);
 	}
 
 
