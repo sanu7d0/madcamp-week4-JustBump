@@ -22,7 +22,7 @@ public abstract class Weapon : MonoBehaviourPunCallbacks
         return true;
     }
 
-    public virtual bool Use(Vector2 targetPosition) {
+    public virtual bool Use(Vector3 originPosition, Vector3 targetPosition) {
         weapon.durability -= 1;
         if (weapon.durability <= 0) {
             AllUsed();

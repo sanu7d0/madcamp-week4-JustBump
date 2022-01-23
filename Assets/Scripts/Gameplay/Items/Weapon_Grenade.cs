@@ -14,7 +14,7 @@ public class Weapon_Grenade : Weapon
         base.Start();
     }
 
-    public override bool Use(Vector2 targetPosition)
+    public override bool Use(Vector3 originPosition, Vector3 targetPosition)
     {
         if (weapon.durability <= 0) {
             // Debug.Log($"Durability: {weapon.durability}");
@@ -22,11 +22,11 @@ public class Weapon_Grenade : Weapon
         }
 
         GameObject throwedGrenade 
-            = PhotonNetwork.Instantiate(grenade_throwed.name, targetPosition, Quaternion.identity);
+            = PhotonNetwork.Instantiate(grenade_throwed.name, originPosition, Quaternion.identity);
         
         if (throwedGrenade.TryGetComponent<TimerBomb>(out TimerBomb timerBomb)) {
             IPlayer player = transform.root.GetComponent<IPlayer>();
-            timerBomb.InitBomb(weapon.power, explosionRadius, explosionDelayTime, player);
+            timerBomb.InitBomb(weapon.power, explosionRadius, explosionDelayTime, player, targetPosition-originPosition);
         } else {
             Debug.LogError("Failed to TryGetComponent TimerBomb");
         }
