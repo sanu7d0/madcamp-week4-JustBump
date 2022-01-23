@@ -1,6 +1,7 @@
 using UnityEngine;
+using Photon.Pun;
 
-public class PlayerCombat : MonoBehaviour
+public class PlayerCombat : MonoBehaviourPunCallbacks
 {
     private PlayerController playerController;
 
@@ -40,6 +41,10 @@ public class PlayerCombat : MonoBehaviour
     }
 
     private void SwapWeapon() {
+        photonView.RPC("_SwapWeapon", RpcTarget.All);
+    }
+    [PunRPC]
+    private void _SwapWeapon() {
         weapons[currentSelection].gameObject.SetActive(false);
         
         if (currentSelection == weapons.Length - 1) {
@@ -50,6 +55,22 @@ public class PlayerCombat : MonoBehaviour
 
         weapons[currentSelection].gameObject.SetActive(true);
         currentWeapon = weapons[currentSelection].GetComponent<Weapon>();
+    }
+
+    public void ChangeCurrentWeapon(GameObject newWeapon) {
+        // TODO: network-destroy??
+        Destroy(weapons[currentSelection].gameObject);
+        
+        weapons[currentSelection] = newWeapon.transform;
+
+        newWeapon.transform.parent = weaponHolder;
+        newWeapon.transform.SetSiblingIndex(currentSelection);
+        newWeapon.transform.position = weaponHolder.position;
+        newWeapon.transform.localPosition = Vector3.zero;
+        newWeapon.transform.rotation = weaponHolder.rotation;
+        // rotation
+
+        currentWeapon = newWeapon.GetComponent<Weapon>();
     }
 
     private void TryAttack() {

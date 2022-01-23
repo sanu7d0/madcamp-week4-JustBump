@@ -5,17 +5,22 @@ using System.Collections.Generic;
 public class PlayerInteraction : MonoBehaviour
 {
     private PlayerController playerController;
+    private PlayerMediator playerMediator;
 
     public List<Tuple<Interactable, int>> interactables;
 
     void Awake() {
         playerController = GetComponent<PlayerController>();
+        playerMediator = GetComponent<PlayerMediator>();
+        interactables = new List<Tuple<Interactable, int>>();
     }
 
     void Start() {
         playerController.onInteract.AddListener(InteractWith);
+    }
 
-        interactables = new List<Tuple<Interactable, int>>();
+    void OnDisable() {
+        interactables.Clear();
     }
 
     // TODO: Update 에서 거리 가장 가까운 interactable을 focus 하기?
@@ -25,7 +30,7 @@ public class PlayerInteraction : MonoBehaviour
             return;
         }
 
-        interactables[0].Item1.Interact();
+        interactables[0].Item1.Interact(playerMediator);
     }
 
     public void AddInteractable(Interactable interactable) {

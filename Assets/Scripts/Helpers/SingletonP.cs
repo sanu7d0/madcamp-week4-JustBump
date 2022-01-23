@@ -12,6 +12,7 @@ public class SingletonP<T> : MonoBehaviourPunCallbacks where T : Component
                 if (_instance == null) {
                     GameObject newGO = new GameObject();
                     _instance = newGO.AddComponent<T>();
+                    newGO.name = typeof(T).FullName;
                 }
             }
             return _instance;
