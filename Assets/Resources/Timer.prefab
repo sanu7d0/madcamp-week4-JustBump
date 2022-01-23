@@ -150,7 +150,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   arenaName: Arena4
-  LimitTime: 10
+  LimitTime: 5
 --- !u!114 &3767676445158165385
 MonoBehaviour:
   m_ObjectHideFlags: 0
