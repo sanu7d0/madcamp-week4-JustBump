@@ -44,6 +44,9 @@ public class PlayerController : MonoBehaviourPunCallbacks
             return;
 		}
 		moveDir = input.Get<Vector2>();
+
+        // ERROR: 마지막에 누른 값이 저장돼있다......
+        // Inpu
     }
 
 
