@@ -148,6 +148,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   distance: 1
+  explosionSound: {fileID: 8300000, guid: 2ef8d3cd22f87754d8df21a0d7f0e44e, type: 3}
   isLayer:
     serializedVersion: 2
     m_Bits: 0
