@@ -72,6 +72,7 @@ MonoBehaviour:
   - _InitItem
   - _DropCurrentWeapon
   - DropWeaponAt
+  - __BumpSelf
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

@@ -24,6 +24,7 @@ public class TrampolinInteractable : Interactable
         if (other.tag == "Player")
         {
             var player = other.GetComponent<PlayerMediator>();
+            player.GetComponent<Rigidbody2D>().velocity = new Vector2(0,0);
 
             if(direction == Direction.Left) {
                 player.AddForce(new Vector2(-1, 0)*power);
