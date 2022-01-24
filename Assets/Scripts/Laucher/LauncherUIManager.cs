@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine.EventSystems;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class LauncherUIManager : Singleton<LauncherUIManager>
 {
@@ -12,6 +13,9 @@ public class LauncherUIManager : Singleton<LauncherUIManager>
     [SerializeField]
     private GameObject progressLabel;
 
+    [SerializeField] private Image backlights;
+    [SerializeField] private float backlightRotSpeed;
+
     public UnityEvent onConnectButtonClickedListener;
 
     protected override void Awake()
@@ -19,6 +23,10 @@ public class LauncherUIManager : Singleton<LauncherUIManager>
         base.Awake();
 
         Cursor.SetCursor(cursorTexture, Vector2.zero, CursorMode.Auto);
+    }
+
+    void Update() {
+        backlights.transform.Rotate(Vector3.forward, backlightRotSpeed * Time.deltaTime);
     }
 
     public void OnControlPanel() { 
