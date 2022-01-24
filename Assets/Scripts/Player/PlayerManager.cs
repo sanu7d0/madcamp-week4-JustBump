@@ -17,6 +17,7 @@ public class PlayerManager: MonoBehaviourPunCallbacks, IBumpable, IPlayer
     private IPlayer lastBumperPlayer;
     private GameManager gameManager;
     private GameObject nameInstance;
+    [SerializeField] private int spawnTime = 5;
     [SerializeField] [Range(0.01f, 0.1f)] float shakeRange = 0.05f;
     [SerializeField] [Range(0.1f, 1f)] float duration = 0.5f;
     [SerializeField] private GameObject nameField;
@@ -79,20 +80,18 @@ public class PlayerManager: MonoBehaviourPunCallbacks, IBumpable, IPlayer
 		}
     }
 
-    public void Revive(Transform spawnLoc, GameObject spawnObject) {
-        photonView.RPC("_Revive", RpcTarget.All, spawnLoc, spawnObject);
+    public void Revive() {
+        photonView.RPC("_Revive", RpcTarget.All);
     }
     
     [PunRPC]
-    private void _Revive(Transform spawnLoc, GameObject spawnObject) { 
+    private void _Revive() { 
         if(!isDead) {
             Debug.Log("Can not Revive Because live");
             return;
 		}
         isDead = false;
         
-        gameObject.transform.position = spawnLoc.position;
-        Destroy(spawnObject); // TODO Photon
         gameObject.SetActive(true);
         nameInstance.GetComponent<TextMeshProUGUI>().color = Color.black;
 
@@ -106,12 +105,18 @@ public class PlayerManager: MonoBehaviourPunCallbacks, IBumpable, IPlayer
         photonView.RPC("_Dead", RpcTarget.All);
 
         int randomSpawn = UnityEngine.Random.Range(0, spawnNum);
-        Transform spawnLoc = GameObject.Find("Spawn" + spawnNum).transform;
-        GameObject spawnObject = Instantiate(spawnImage, spawnLoc); // TODO Photon
-
+        Transform spawnLoc = GameObject.Find("Spawn" + randomSpawn).transform;
+        GameObject spawnObject = PhotonNetwork.Instantiate(spawnImage.name, spawnLoc.position , Quaternion.identity); // TODO Photon  
+        spawnObject.SetActive(true);
         TimerExtension.CreateEventTimer(() => {
-            Revive(spawnLoc, spawnObject);
-		 }, 5);
+            gameObject.transform.position = spawnLoc.position;
+        }, 2);
+     
+        TimerExtension.CreateEventTimer(() =>
+        {
+            PhotonNetwork.Destroy(spawnObject);
+          Revive();
+        }, spawnTime);
     }
     
     [PunRPC]
@@ -139,6 +144,9 @@ public class PlayerManager: MonoBehaviourPunCallbacks, IBumpable, IPlayer
         TimerExtension.CreateEventTimer(() => { 
 			gameObject.SetActive(false);
 		}, 2);
+
+
+      
     }
 
     public void BumpSelf(Vector2 force, IPlayer lastBumperPlayer) {

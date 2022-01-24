@@ -399,10 +399,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17e29fde81fac49a0acf1ee35b19959f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnTime: 5
   shakeRange: 0.05
   duration: 0.5
   nameField: {fileID: 6559818071731903151, guid: 16f01ec0065b34b8080fd9fff20723c2, type: 3}
   spawnNum: 5
+  spawnImage: {fileID: 4554817803931594215, guid: bcfd2f5782fb03646926fd6554e6dc36, type: 3}
   onDead:
     m_PersistentCalls:
       m_Calls: []
