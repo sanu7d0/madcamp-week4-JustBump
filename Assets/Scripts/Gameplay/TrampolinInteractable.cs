@@ -20,7 +20,6 @@ public class TrampolinInteractable : Interactable
     protected override void OnTriggerEnter2D(Collider2D other)
     {
         base.OnTriggerEnter2D(other);
-        Debug.Log("Hello");
         if (other.tag == "Player")
         {
             var player = other.GetComponent<PlayerMediator>();

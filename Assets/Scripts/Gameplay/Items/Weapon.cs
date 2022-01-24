@@ -10,9 +10,9 @@ public enum WeaponUseResult {
 [RequireComponent (typeof (AudioSource))]
 public abstract class Weapon : MonoBehaviourPunCallbacks
 {   
+    protected AudioSource audioSource;
     [SerializeField] protected WeaponObject weapon;
     [SerializeField] protected GameObject emptyFieldDrop;
-    protected AudioSource audioSource;
 
     protected float lastUseTime = 0;
 
@@ -24,9 +24,10 @@ public abstract class Weapon : MonoBehaviourPunCallbacks
         get { return weapon.sprite; }
     }
 
+
     protected virtual void Start() {
-        weapon = weapon.GetClone();
         audioSource = GetComponent<AudioSource>();
+        weapon = weapon.GetClone();
     }
 
     public virtual WeaponUseResult Use() {
@@ -70,11 +71,11 @@ public abstract class Weapon : MonoBehaviourPunCallbacks
     protected abstract void PlayUseMotion();
 
     protected virtual void PlayUseSound() {
-        photonView.RPC("_PlayUseSound", RpcTarget.All);
+        photonView.RPC("_PlayUseSound", RpcTarget.All, weapon.GetRandomUseSound().name);
     }
     [PunRPC]
-    protected virtual void _PlayUseSound() {
-        audioSource.PlayOneShot(weapon.GetRandomUseSound());
+    protected virtual void _PlayUseSound(string clipName) {
+        audioSource.PlayOneShot(AudioManager.Instance.GetAudioClip(clipName));
     }
 
     protected bool TryMeleeAttack(Collider2D hitBox) {
