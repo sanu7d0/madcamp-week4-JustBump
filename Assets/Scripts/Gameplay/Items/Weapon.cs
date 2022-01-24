@@ -109,6 +109,5 @@ public abstract class Weapon : MonoBehaviourPunCallbacks, IPunObservable
         } else {
             this.weaponDurability = (int)stream.ReceiveNext();
         }
-        throw new System.NotImplementedException();
     }
 }
