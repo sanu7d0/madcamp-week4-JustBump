@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Weapon_Axe : Weapon
+public class Weapon_Fork : Weapon
 {
     private Collider2D hitBox;
     private Quaternion originalRotation;
@@ -20,18 +20,18 @@ public class Weapon_Axe : Weapon
         originalRotation = transform.localRotation;
     }
 
-    void Update() {
+    /*void Update() {
         switch (state) {
         case State.Motion:
             HandleMotion();
             break;
         }
-    }
+    }*/
 
     public override WeaponUseResult Use()
     {
         if (TryMeleeAttack(hitBox)) {
-            PlayUseMotion();
+            // PlayUseMotion();
             base.PlayUseSound();
             return base.Use();
         } else {
@@ -39,13 +39,8 @@ public class Weapon_Axe : Weapon
         }
     }
 
-    protected override void PlayUseMotion()
-    {
-        // base.PlayUseMotion();
+    protected override void PlayUseMotion() {
 
-        transform.localRotation = originalRotation;
-        transform.Rotate(0, 0, -70f);
-        state = State.Motion;
     }
 
     private void HandleMotion() {

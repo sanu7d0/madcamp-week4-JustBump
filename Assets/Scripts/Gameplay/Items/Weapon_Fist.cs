@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
-public class Weapon_Fist : Weapon
+// ** Dont inherit this Wepon_Fist class! **
+sealed public class Weapon_Fist : Weapon
 {
     private Collider2D hitBox;
 
@@ -23,11 +24,8 @@ public class Weapon_Fist : Weapon
         }
     }
 
-    protected override void AllUsed()
-    {
-        // Do Something
-
-        base.AllUsed();
+    protected override void PlayUseMotion() {
+        
     }
     
     /*void OnDrawGizmosSelected() {

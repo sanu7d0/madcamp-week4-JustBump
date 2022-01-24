@@ -29,7 +29,7 @@ MonoBehaviour:
     EnableLobbyStatistics: 0
     NetworkLogging: 1
   DevRegion: kr
-  PunLogging: 2
+  PunLogging: 0
   EnableSupportLogger: 0
   RunInBackground: 1
   StartInOfflineMode: 0
@@ -67,6 +67,11 @@ MonoBehaviour:
   - _SetWeaponAt
   - _WeaponToFieldDrop
   - _PlayeExplosionSound
+  - Init
+  - _Init
+  - _InitItem
+  - _DropCurrentWeapon
+  - DropWeaponAt
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
