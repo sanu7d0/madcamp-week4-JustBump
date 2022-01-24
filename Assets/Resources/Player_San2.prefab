@@ -369,6 +369,9 @@ MonoBehaviour:
   onSwapWeapon:
     m_PersistentCalls:
       m_Calls: []
+  onDrop:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &7653847611745656730
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -11,7 +11,7 @@ using Players = System.Collections.Generic.SortedDictionary<int, IPlayer>;
 
 public class ArenaUIManager : Singleton<ArenaUIManager>
 {
-
+    [SerializeField] Texture2D cursorTexture;
     [SerializeField] TMP_Text text_timer;
     [SerializeField] TMP_Text text_score;
     [SerializeField] TMP_Text text_ping;
@@ -34,10 +34,12 @@ public class ArenaUIManager : Singleton<ArenaUIManager>
         gameManager.onChangePlayer.AddListener(OnChangeScorePanel);
     }
 
-    // Start is called before the first frame update
     void Start()
     {
         gameEndUI.SetActive(false);
+
+        // Change mouse cursor
+        Cursor.SetCursor(cursorTexture, Vector2.zero, CursorMode.Auto);
     }
     
     public void OnGameEnd(string winnerName) {

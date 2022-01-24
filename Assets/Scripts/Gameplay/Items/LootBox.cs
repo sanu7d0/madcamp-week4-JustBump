@@ -94,16 +94,13 @@ public class LootBox : Interactable
 
     public override void Interact()
     {
-        throw new System.NotImplementedException();
     }
 
     public override void StopInteract()
     {
-        throw new System.NotImplementedException();
     }
 
     public override void FinishInteract()
     {
-        throw new System.NotImplementedException();
     }
 }
