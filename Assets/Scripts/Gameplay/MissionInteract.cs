@@ -52,7 +52,6 @@ public class MissionInteract : Interactable
 
     public override void Interact(PlayerMediator playerMediator)
     {
-        Interact(playerMediator);
         this.playerMediator = playerMediator;
         totalTime = Random.Range(minTotalTime, maxTotalTime);
         photonView.RPC("_Interact", RpcTarget.All);
