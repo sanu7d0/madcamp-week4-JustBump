@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 using Players = System.Collections.Generic.SortedDictionary<int, IPlayer>;
-
+using UnityEngine.SceneManagement;
 
 public class ArenaUIManager : Singleton<ArenaUIManager>
 {
@@ -15,8 +15,7 @@ public class ArenaUIManager : Singleton<ArenaUIManager>
     [SerializeField] TMP_Text text_timer;
     [SerializeField] TMP_Text text_score;
     [SerializeField] TMP_Text text_ping;
-    [SerializeField] Image weapon1;
-    [SerializeField] Image weapon2;
+    [SerializeField] Image[] weaponIcons;
     [SerializeField]
     private GameObject scorePanel;
     [SerializeField]
@@ -38,6 +37,9 @@ public class ArenaUIManager : Singleton<ArenaUIManager>
     // Start is called before the first frame update
     void Start()
     {
+        if(SceneManager.GetActiveScene().name == "Lobby") {
+            return;
+        }
         gameEndUI.SetActive(false);
     }
     
@@ -98,10 +100,9 @@ public class ArenaUIManager : Singleton<ArenaUIManager>
     }
 
     public void UpdateWeapons() {
-        Tuple<Weapon, bool>[] weapons = myPlayer.weapons;
-
-        foreach (Tuple<Weapon, bool> w in weapons) {
-            weapon1.sprite = w.Item1.weaponSprite;
+        Weapon[] weapons = myPlayer.weapons;
+        for (int i = 0; i < weapons.Length; i++) {
+            weaponIcons[i].sprite = weapons[i].weaponSprite;
         }
     }
 }

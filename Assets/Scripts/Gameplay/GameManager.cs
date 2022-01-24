@@ -127,24 +127,39 @@ sealed public class GameManager : Singleton<GameManager>
             return;
         }
         isPlaying = false;
-        arenaUIManager.OnGameEnd(getWinnerPlayer().nickname);
+
+        List<IPlayer> winners = getWinnerPlayers();
+        string winnersString = "";
+        foreach(IPlayer winner in winners) { 
+	        winnersString += $"{winner.nickname},";
+        }
+
+        winnersString = winnersString.Substring(0, winnersString.Length - 1);
+        arenaUIManager.OnGameEnd(winnersString);
     }
 
-    private IPlayer getWinnerPlayer() {
-        IPlayer player = null;
+    private List<IPlayer> getWinnerPlayers() {
+        IPlayer candidatePlayer = null;
 	   
         foreach(KeyValuePair<int, IPlayer> pair in players) { 
-            if(player == null) {
-                player = pair.Value;
+            if(candidatePlayer == null) {
+                candidatePlayer = pair.Value;
                 continue;
 		    }  
 
-            if(pair.Value.score >= player.score) {
-                player = pair.Value;
+            if(pair.Value.score >= candidatePlayer.score) {
+                candidatePlayer = pair.Value;
+		    }
+		}
+        List<IPlayer> winners = new List<IPlayer>();
+
+        foreach(KeyValuePair<int, IPlayer> pair in players) { 
+            if(candidatePlayer.score == pair.Value.score) {
+                winners.Add(pair.Value);
 		    }
 		}
 
-        return player;
+        return winners;
     }
 
     private void AttachMainCamera(GameObject target) {

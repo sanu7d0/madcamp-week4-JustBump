@@ -25,19 +25,12 @@ public abstract class Interactable : MonoBehaviourPunCallbacks
         }
     }
 
-    public virtual void Interact() {
+    public abstract void Interact();
 
-    }
+    public abstract void Interact(PlayerMediator interactor);
 
-    public virtual void Interact(PlayerMediator interactor) {
-        
-    }
+    public abstract void StopInteract();
 
-    public virtual void StopInteract() {
+    public abstract void FinishInteract();
 
-    }
-
-    public virtual void FinishInteract() {
-
-    }
 }

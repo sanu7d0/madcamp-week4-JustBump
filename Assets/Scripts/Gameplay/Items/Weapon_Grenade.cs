@@ -38,9 +38,4 @@ public class Weapon_Grenade : Weapon
     {
         // base.PlayUseMotion();
     }
-
-    protected override void AllUsed()
-    {
-        // base.AllUsed();
-    }
 }

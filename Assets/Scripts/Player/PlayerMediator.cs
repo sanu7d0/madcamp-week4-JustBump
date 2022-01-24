@@ -8,12 +8,14 @@ public class PlayerMediator : MonoBehaviour
     private PlayerInteraction playerInteraction;
     private PlayerMovement playerMovement;
     private PlayerCombat playerCombat;
+    private PlayerInventory playerInventory;
 
     void Awake() {
         playerManager = GetComponent<PlayerManager>();
         playerInteraction = GetComponent<PlayerInteraction>();
         playerMovement = GetComponent<PlayerMovement>();
         playerCombat = GetComponent<PlayerCombat>();
+        playerInventory = GetComponent<PlayerInventory>();
     }
 
     public bool IsDead {
@@ -21,11 +23,11 @@ public class PlayerMediator : MonoBehaviour
     }
 
     public UnityEvent onWeaponChange {
-        get { return playerCombat.onWeaponChange; }
+        get { return playerInventory.onWeaponChange; }
     }
 
-    public Tuple<Weapon, bool>[] weapons {
-        get { return playerCombat.weapons; }
+    public Weapon[] weapons {
+        get { return playerInventory.weapons; }
     }
 
     public void AddNewInteractable(Interactable interactable) {
@@ -49,10 +51,14 @@ public class PlayerMediator : MonoBehaviour
     }
 
     public void PickUpItem(GameObject newItem) {
-        playerCombat.SetWeaponAt(newItem);
+        playerInventory.SetWeaponAt(newItem);
     }
 
     public void AddScore(int score) {
         playerManager.AddScore(score);
+    }
+
+    public void AddForce(Vector2 force) {
+        playerManager.BumpSelf(force);
     }
 }
