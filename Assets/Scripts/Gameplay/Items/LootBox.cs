@@ -21,10 +21,8 @@ public class LootBox : Interactable
 
     private UnityEvent<State> onStateChange;
 
-    protected override void Awake()
+    private void Awake()
     {
-        base.Awake();
-
         spriteRenderer = GetComponent<SpriteRenderer>();
 
         onStateChange ??= new UnityEvent<State>();

@@ -25,9 +25,8 @@ public class MissionInteract : Interactable
 
     public float height = 1.7f;
 
-    protected override void Awake()
+    private void Awake()
     {
-        base.Awake();
         canvas = GameObject.Find("MissionGaugeCanvas");
         state = State.idle;
     }
@@ -47,6 +46,7 @@ public class MissionInteract : Interactable
     protected override void OnTriggerExit2D(Collider2D other)
     {
         base.OnTriggerExit2D(other);
+        StopInteract();
         // Debug.Log($"{other.name} exited {this.name}");
     }
 

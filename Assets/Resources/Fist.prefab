@@ -191,7 +191,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weapon: {fileID: 11400000, guid: 68f65d0a2e751b546bbfbe95f90a2864, type: 2}
-  emptyFieldDrop: {fileID: 781654957273517497, guid: bce69776621f75346b1112fd27e6b617, type: 3}
+  weaponDurability: 0
 --- !u!114 &5958294273590070175
 MonoBehaviour:
   m_ObjectHideFlags: 0
