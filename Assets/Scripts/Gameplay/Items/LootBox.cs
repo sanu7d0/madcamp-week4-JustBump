@@ -59,9 +59,6 @@ public class LootBox : Interactable
         
         GameObject newItem =
             PhotonNetwork.Instantiate(spitItem.name, spitPosition, Quaternion.identity);
-        
-        FieldItem fi = newItem.GetComponent<FieldItem>();
-        fi.InitItem();
     }
 
     private void OnStateChange(State s) {
