@@ -151,8 +151,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7712499011411277502}
-  - component: {fileID: 8918222842683070992}
   - component: {fileID: 5958294273590070175}
+  - component: {fileID: -231416754895881007}
   m_Layer: 0
   m_Name: Fork
   m_TagString: Untagged
@@ -177,20 +177,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8918222842683070992
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5191502054817757635}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1aefc6ef406d5d74a9f5721ee54f7741, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weapon: {fileID: 11400000, guid: b861efda5086c2f47a017c7bd071a081, type: 2}
-  emptyFieldDrop: {fileID: 781654957273517497, guid: bce69776621f75346b1112fd27e6b617, type: 3}
 --- !u!114 &5958294273590070175
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -213,3 +199,17 @@ MonoBehaviour:
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &-231416754895881007
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5191502054817757635}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6183de00972a3a459cf8a0491e1553b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weapon: {fileID: 11400000, guid: b861efda5086c2f47a017c7bd071a081, type: 2}
+  emptyFieldDrop: {fileID: 781654957273517497, guid: bce69776621f75346b1112fd27e6b617, type: 3}

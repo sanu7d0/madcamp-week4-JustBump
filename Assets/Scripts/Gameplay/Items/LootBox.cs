@@ -51,7 +51,7 @@ public class LootBox : Interactable
 
     private void SpitOutItem() {
         GameObject spitItem = ItemPrefabs[Random.Range(0, ItemPrefabs.Length)];
-        
+
         float radian = Random.Range(0f, 2 * Mathf.PI);
         Vector3 spitPosition = new Vector3(
             transform.position.x + 1f * Mathf.Cos(radian),
@@ -59,7 +59,11 @@ public class LootBox : Interactable
             0
         );
         
-        PhotonNetwork.Instantiate(spitItem.name, spitPosition, Quaternion.identity);
+        GameObject newItem =
+            PhotonNetwork.Instantiate(spitItem.name, spitPosition, Quaternion.identity);
+        
+        FieldItem fi = newItem.GetComponent<FieldItem>();
+        fi.InitItem();
     }
 
     private void OnStateChange(State s) {

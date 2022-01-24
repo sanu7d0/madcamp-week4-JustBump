@@ -38,10 +38,8 @@ public class UIManager : Singleton<UIManager>
     }
 
     public void UpdateWeapons() {
-        Tuple<Weapon, bool>[] weapons = myPlayer.weapons;
-
-        foreach (Tuple<Weapon, bool> w in weapons) {
-            weapon1.sprite = w.Item1.weaponSprite;
+        foreach (Weapon w in myPlayer.weapons) {
+            weapon1.sprite = w.weaponSprite;
         }
     }
 }

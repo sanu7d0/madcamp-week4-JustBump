@@ -32,7 +32,6 @@ public abstract class Weapon : MonoBehaviourPunCallbacks
     public virtual WeaponUseResult Use() {
         weapon.durability -= 1;
         if (weapon.durability <= 0) {
-            AllUsed();
             return WeaponUseResult.AllUsed;
         }
         return WeaponUseResult.Normal;
@@ -41,7 +40,6 @@ public abstract class Weapon : MonoBehaviourPunCallbacks
     public virtual WeaponUseResult Use(Vector3 originPosition, Vector3 targetPosition) {
         weapon.durability -= 1;
         if (weapon.durability <= 0) {
-            AllUsed();
             return WeaponUseResult.AllUsed;
         }
         return WeaponUseResult.Normal;
@@ -69,13 +67,7 @@ public abstract class Weapon : MonoBehaviourPunCallbacks
         return weapon.category;
     }
 
-    protected virtual void AllUsed() {
-
-    }
-
-    protected virtual void PlayUseMotion() {
-
-    }
+    protected abstract void PlayUseMotion();
 
     protected virtual void PlayUseSound() {
         photonView.RPC("_PlayUseSound", RpcTarget.All);

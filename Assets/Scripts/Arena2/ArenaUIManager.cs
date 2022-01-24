@@ -15,8 +15,7 @@ public class ArenaUIManager : Singleton<ArenaUIManager>
     [SerializeField] TMP_Text text_timer;
     [SerializeField] TMP_Text text_score;
     [SerializeField] TMP_Text text_ping;
-    [SerializeField] Image weapon1;
-    [SerializeField] Image weapon2;
+    [SerializeField] Image[] weaponIcons;
     [SerializeField]
     private GameObject scorePanel;
     [SerializeField]
@@ -98,10 +97,9 @@ public class ArenaUIManager : Singleton<ArenaUIManager>
     }
 
     public void UpdateWeapons() {
-        Tuple<Weapon, bool>[] weapons = myPlayer.weapons;
-
-        foreach (Tuple<Weapon, bool> w in weapons) {
-            weapon1.sprite = w.Item1.weaponSprite;
+        Weapon[] weapons = myPlayer.weapons;
+        for (int i = 0; i < weapons.Length; i++) {
+            weaponIcons[i].sprite = weapons[i].weaponSprite;
         }
     }
 }
