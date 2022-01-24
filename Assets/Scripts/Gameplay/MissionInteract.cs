@@ -72,7 +72,6 @@ public class MissionInteract : Interactable
 
     public override void StopInteract()
     {
-        StopInteract();
         if (state == State.progress) {
             Destroy(gaugeBarObject);
             CancelInvoke("FinishInteract");
