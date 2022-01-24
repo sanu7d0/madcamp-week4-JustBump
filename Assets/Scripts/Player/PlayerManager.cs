@@ -81,7 +81,7 @@ public class PlayerManager: MonoBehaviourPunCallbacks, IBumpable, IPlayer
     }
 
     public void Revive() {
-        photonView.RPC("_Revive", RpcTarget.All);
+		photonView.RPC("_Revive", RpcTarget.All);
     }
     
     [PunRPC]
@@ -102,18 +102,20 @@ public class PlayerManager: MonoBehaviourPunCallbacks, IBumpable, IPlayer
 		}
     }
 
-    public void Dead() { 
-        int randomSpawn = UnityEngine.Random.Range(0, spawnNum);
-        Transform spawnLoc = GameObject.Find("Spawn" + randomSpawn).transform;
-        GameObject spawnObject = PhotonNetwork.Instantiate(spawnImage.name, spawnLoc.position , Quaternion.identity);   
+    public void Dead() {
+        if (photonView.IsMine) { 
+			int randomSpawn = UnityEngine.Random.Range(0, spawnNum);
+			Transform spawnLoc = GameObject.Find("Spawn" + randomSpawn).transform;
+			GameObject spawnObject = PhotonNetwork.Instantiate(spawnImage.name, spawnLoc.position , Quaternion.identity);   
      
-        TimerExtension.CreateEventTimer(() =>
-        {
-		    Revive();
-            PhotonNetwork.Destroy(spawnObject);
-        }, spawnTime);
+			TimerExtension.CreateEventTimer(() =>
+			{
+			    Revive();
+			    PhotonNetwork.Destroy(spawnObject);
+			}, spawnTime);
 
-        photonView.RPC("_Dead", RpcTarget.All,spawnObject.transform.position);
+			photonView.RPC("_Dead", RpcTarget.All,spawnObject.transform.position);
+		}
     }
     
     [PunRPC]
