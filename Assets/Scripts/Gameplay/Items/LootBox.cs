@@ -73,10 +73,12 @@ public class LootBox : Interactable
     private void _OnStateChange(State s) {
         switch (s) {
         case State.Normal:
+            cc.enabled = true;
             spriteRenderer.sprite = sprite_Normal;
             break;
         
         case State.Looted:
+            cc.enabled = false;
             spriteRenderer.sprite = sprite_Looted;
             break;
         }

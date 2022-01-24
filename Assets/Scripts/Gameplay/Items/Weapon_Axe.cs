@@ -31,7 +31,7 @@ public class Weapon_Axe : Weapon
     public override WeaponUseResult Use()
     {
         if (TryMeleeAttack(hitBox)) {
-            PlayUseMotion();
+            // PlayUseMotion();
             base.PlayUseSound();
             return base.Use();
         } else {

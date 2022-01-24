@@ -111,6 +111,8 @@ public class PlayerInventory : MonoBehaviourPunCallbacks
 
             weapons[curWeaponIdx] = defaultFist;
         }
+
+        onWeaponChange.Invoke();
     }
 
     public void SetWeaponAt(GameObject newWeapon, int idx = -1) {
@@ -143,7 +145,7 @@ public class PlayerInventory : MonoBehaviourPunCallbacks
         newWeapon.transform.parent = weaponHolder;
         newWeapon.transform.position = weaponHolder.position;
         newWeapon.transform.localPosition = Vector3.zero;
-        newWeapon.transform.rotation = weaponHolder.rotation;
+        // newWeapon.transform.rotation = weaponHolder.rotation;
 
         onWeaponChange.Invoke();
     }
