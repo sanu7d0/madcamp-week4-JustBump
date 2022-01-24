@@ -530,11 +530,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-<<<<<<< HEAD
---- !u!1 &447952764
-=======
 --- !u!1 &233627577
->>>>>>> 131edc5e9aeab9f6ba11e0f436316b397ee37bed
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -542,45 +538,23 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-<<<<<<< HEAD
-  - component: {fileID: 447952765}
-  m_Layer: 0
-  m_Name: Spawn0
-=======
   - component: {fileID: 233627581}
   - component: {fileID: 233627580}
   - component: {fileID: 233627579}
   - component: {fileID: 233627578}
   m_Layer: 5
   m_Name: MissionGaugeCanvas
->>>>>>> 131edc5e9aeab9f6ba11e0f436316b397ee37bed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
-<<<<<<< HEAD
---- !u!4 &447952765
-Transform:
-=======
 --- !u!114 &233627578
 MonoBehaviour:
->>>>>>> 131edc5e9aeab9f6ba11e0f436316b397ee37bed
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-<<<<<<< HEAD
-  m_GameObject: {fileID: 447952764}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 6.1399994, y: -6.02, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 743587431}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-=======
   m_GameObject: {fileID: 233627577}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -656,7 +630,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
->>>>>>> 131edc5e9aeab9f6ba11e0f436316b397ee37bed
 --- !u!1 &462619705
 GameObject:
   m_ObjectHideFlags: 0
@@ -1280,7 +1253,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 447952765}
   - {fileID: 730872129}
   - {fileID: 1547810346}
   - {fileID: 1451756664}
