@@ -11,7 +11,7 @@ public class MissionInteract : Interactable
     public float minCoolTime;
     public float maxCoolTime;
     public GameObject prfGaugeBar;
-    private GameObject canvas;
+    public GameObject canvas;
     private enum State {
         progress,
         idle

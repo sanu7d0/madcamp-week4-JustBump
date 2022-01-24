@@ -17,9 +17,12 @@ public class PlayerManager: MonoBehaviourPunCallbacks, IBumpable, IPlayer
     private IPlayer lastBumperPlayer;
     private GameManager gameManager;
     private GameObject nameInstance;
+    [SerializeField] private int spawnTime = 5;
     [SerializeField] [Range(0.01f, 0.1f)] float shakeRange = 0.05f;
     [SerializeField] [Range(0.1f, 1f)] float duration = 0.5f;
     [SerializeField] private GameObject nameField;
+    [SerializeField] private int spawnNum;
+    [SerializeField] private GameObject spawnImage;
 
     public UnityEvent onDead;
 
@@ -88,7 +91,7 @@ public class PlayerManager: MonoBehaviourPunCallbacks, IBumpable, IPlayer
             return;
 		}
         isDead = false;
-        gameObject.transform.position = GameObject.Find("Spawn0").transform.position;
+        
         gameObject.SetActive(true);
         nameInstance.GetComponent<TextMeshProUGUI>().color = Color.black;
 
@@ -101,9 +104,19 @@ public class PlayerManager: MonoBehaviourPunCallbacks, IBumpable, IPlayer
     public void Dead() { 
         photonView.RPC("_Dead", RpcTarget.All);
 
+        int randomSpawn = UnityEngine.Random.Range(0, spawnNum);
+        Transform spawnLoc = GameObject.Find("Spawn" + randomSpawn).transform;
+        GameObject spawnObject = PhotonNetwork.Instantiate(spawnImage.name, spawnLoc.position , Quaternion.identity); // TODO Photon  
+        spawnObject.SetActive(true);
         TimerExtension.CreateEventTimer(() => {
-            Revive();
-		 }, 5);
+            gameObject.transform.position = spawnLoc.position;
+        }, 2);
+     
+        TimerExtension.CreateEventTimer(() =>
+        {
+            PhotonNetwork.Destroy(spawnObject);
+          Revive();
+        }, spawnTime);
     }
     
     [PunRPC]
@@ -131,6 +144,9 @@ public class PlayerManager: MonoBehaviourPunCallbacks, IBumpable, IPlayer
         TimerExtension.CreateEventTimer(() => { 
 			gameObject.SetActive(false);
 		}, 2);
+
+
+      
     }
 
 
