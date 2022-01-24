@@ -5,7 +5,7 @@ using Photon.Pun;
 
 public abstract class Interactable : MonoBehaviourPunCallbacks
 {
-    [SerializeField] private Collider2D cc;
+    [SerializeField] protected Collider2D cc;
 
     protected virtual void Awake() {
         // cc = GetComponent<Collider2D>();
