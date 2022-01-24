@@ -28,4 +28,19 @@ public class FieldItem : Interactable
         interactor.PickUpItem(itemObject);
         PhotonNetwork.Destroy(gameObject);
     }
+
+    public override void Interact()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override void StopInteract()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override void FinishInteract()
+    {
+        throw new System.NotImplementedException();
+    }
 }

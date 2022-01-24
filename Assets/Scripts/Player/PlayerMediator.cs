@@ -57,4 +57,8 @@ public class PlayerMediator : MonoBehaviour
     public void AddScore(int score) {
         playerManager.AddScore(score);
     }
+
+    public void AddForce(Vector2 force) {
+        playerManager.BumpSelf(force);
+    }
 }

@@ -133,6 +133,7 @@ public class PlayerManager: MonoBehaviourPunCallbacks, IBumpable, IPlayer
 		}, 2);
     }
 
+
     public void BumpSelf(Vector2 force, IPlayer lastBumperPlayer) {
         photonView.RPC("_BumpSelf", RpcTarget.All, new object[] { lastBumperPlayer.id, lastBumperPlayer.score, lastBumperPlayer.isDead, force } );
     }
@@ -156,6 +157,17 @@ public class PlayerManager: MonoBehaviourPunCallbacks, IBumpable, IPlayer
 		}
     }
 
+    public void BumpSelf(Vector2 force)
+    {
+        photonView.RPC("__BumpSelf", RpcTarget.All, new object[] { force });
+    }
+
+    [PunRPC]
+    private void __BumpSelf(Vector2 force)
+    {
+        rb.AddForce(force, ForceMode2D.Impulse);
+        onBumped.Invoke();
+    }
 
     public void BumpExplosionSelf(float explosionForce, Vector2 explosionPosition, float explosionRadius) {
         photonView.RPC("_BumpExplosionSelf", RpcTarget.All, new object[] { explosionForce, explosionPosition, explosionRadius } );
