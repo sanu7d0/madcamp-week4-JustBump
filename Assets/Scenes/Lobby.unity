@@ -189,7 +189,7 @@ SpriteRenderer:
   m_Size: {x: 40.942863, y: 23.890001}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &47171963
@@ -26640,6 +26640,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4403635116185647629, guid: 413718d4ed09542d0a8e8a6aeac21bce, type: 3}
+      propertyPath: candidateCharacter
+      value: 
+      objectReference: {fileID: 8244888473971866204, guid: bfb07513116d34b4f8e54f6436c7d1de, type: 3}
     - target: {fileID: 4403635116857698938, guid: 413718d4ed09542d0a8e8a6aeac21bce, type: 3}
       propertyPath: m_Name
       value: Lobby UI Manager
@@ -26744,6 +26748,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4403635117730917413, guid: 413718d4ed09542d0a8e8a6aeac21bce, type: 3}
+      propertyPath: candidateCharacter
+      value: 
+      objectReference: {fileID: 1973436953225210006, guid: 850a9c28398d0c74db2786c8e0fb0606, type: 3}
     - target: {fileID: 4403635117754926420, guid: 413718d4ed09542d0a8e8a6aeac21bce, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -26760,6 +26768,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4403635117754926423, guid: 413718d4ed09542d0a8e8a6aeac21bce, type: 3}
+      propertyPath: candidateCharacter
+      value: 
+      objectReference: {fileID: 8244888473971866204, guid: 4337ea34e1c75cc4d8461a241e69d98e, type: 3}
     - target: {fileID: 4403635118099365124, guid: 413718d4ed09542d0a8e8a6aeac21bce, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -26796,5 +26808,9 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4403635118244265757, guid: 413718d4ed09542d0a8e8a6aeac21bce, type: 3}
+      propertyPath: candidateCharacter
+      value: 
+      objectReference: {fileID: 8244888473971866204, guid: 59e2a629150b7374c901f2df8d0f4c43, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 413718d4ed09542d0a8e8a6aeac21bce, type: 3}
