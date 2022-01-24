@@ -20,6 +20,8 @@ public class PlayerManager: MonoBehaviourPunCallbacks, IBumpable, IPlayer
     [SerializeField] [Range(0.01f, 0.1f)] float shakeRange = 0.05f;
     [SerializeField] [Range(0.1f, 1f)] float duration = 0.5f;
     [SerializeField] private GameObject nameField;
+    [SerializeField] private int spawnNum;
+    [SerializeField] private GameObject spawnImage;
 
     public UnityEvent onDead;
 
@@ -77,18 +79,20 @@ public class PlayerManager: MonoBehaviourPunCallbacks, IBumpable, IPlayer
 		}
     }
 
-    public void Revive() {
-        photonView.RPC("_Revive", RpcTarget.All);
+    public void Revive(Transform spawnLoc, GameObject spawnObject) {
+        photonView.RPC("_Revive", RpcTarget.All, spawnLoc, spawnObject);
     }
     
     [PunRPC]
-    private void _Revive() { 
+    private void _Revive(Transform spawnLoc, GameObject spawnObject) { 
         if(!isDead) {
             Debug.Log("Can not Revive Because live");
             return;
 		}
         isDead = false;
-        gameObject.transform.position = GameObject.Find("Spawn0").transform.position;
+        
+        gameObject.transform.position = spawnLoc.position;
+        Destroy(spawnObject); // TODO Photon
         gameObject.SetActive(true);
         nameInstance.GetComponent<TextMeshProUGUI>().color = Color.black;
 
@@ -101,8 +105,12 @@ public class PlayerManager: MonoBehaviourPunCallbacks, IBumpable, IPlayer
     public void Dead() { 
         photonView.RPC("_Dead", RpcTarget.All);
 
+        int randomSpawn = UnityEngine.Random.Range(0, spawnNum);
+        Transform spawnLoc = GameObject.Find("Spawn" + spawnNum).transform;
+        GameObject spawnObject = Instantiate(spawnImage, spawnLoc); // TODO Photon
+
         TimerExtension.CreateEventTimer(() => {
-            Revive();
+            Revive(spawnLoc, spawnObject);
 		 }, 5);
     }
     

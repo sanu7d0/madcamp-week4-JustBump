@@ -11,7 +11,7 @@ public class MissionInteract : Interactable
     public float minCoolTime;
     public float maxCoolTime;
     public GameObject prfGaugeBar;
-    private GameObject canvas;
+    public GameObject canvas;
     private enum State {
         progress,
         idle
@@ -28,7 +28,7 @@ public class MissionInteract : Interactable
     protected override void Awake()
     {
         base.Awake();
-        canvas = GameObject.Find("Canvas");
+        // canvas = GameObject.Find("Canvas");
         state = State.idle;
     }
 

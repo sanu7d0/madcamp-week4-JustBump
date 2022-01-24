@@ -18,6 +18,7 @@ sealed public class GameManager : Singleton<GameManager>
 		new Players();
     [SerializeField] private int missionNum;
     [SerializeField] private int lootBoxNum;
+    [SerializeField] private int spawnNum;
 
     public UnityEvent<Players> onChangePlayer;
     public int bigScore = 0;
@@ -69,7 +70,8 @@ sealed public class GameManager : Singleton<GameManager>
         isPlaying = true;
 
         GameObject player;
-        GameObject spawnGo = GameObject.Find("Spawn0");
+        int randomSpawn = UnityEngine.Random.Range(0, spawnNum);
+        GameObject spawnGo = GameObject.Find("Spawn" + randomSpawn);
         Vector3 spawn;
         if(spawnGo == null) {
             spawn = new Vector3(8, -5, 0);
