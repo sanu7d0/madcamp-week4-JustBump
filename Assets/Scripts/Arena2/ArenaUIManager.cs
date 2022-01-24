@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 using Players = System.Collections.Generic.SortedDictionary<int, IPlayer>;
-
+using UnityEngine.SceneManagement;
 
 public class ArenaUIManager : Singleton<ArenaUIManager>
 {
@@ -37,6 +37,9 @@ public class ArenaUIManager : Singleton<ArenaUIManager>
     // Start is called before the first frame update
     void Start()
     {
+        if(SceneManager.GetActiveScene().name == "Lobby") {
+            return;
+        }
         gameEndUI.SetActive(false);
     }
     

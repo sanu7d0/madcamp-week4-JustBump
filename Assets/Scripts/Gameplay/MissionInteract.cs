@@ -28,7 +28,7 @@ public class MissionInteract : Interactable
     protected override void Awake()
     {
         base.Awake();
-        this.canvas = GameObject.Find("Canvas");
+        canvas = GameObject.Find("MissionGaugeCanvas");
         state = State.idle;
     }
 
@@ -54,12 +54,12 @@ public class MissionInteract : Interactable
     {
         this.playerMediator = playerMediator;
         totalTime = Random.Range(minTotalTime, maxTotalTime);
-        photonView.RPC("_Interact", RpcTarget.All);
+        photonView.RPC("_Interact", RpcTarget.All, totalTime);
         Invoke("FinishInteract", totalTime);
     }
     
     [PunRPC]
-    public void _Interact() { 
+    public void _Interact(float totalTime) { 
         StopInteract();
         state = State.progress;
 	    gaugeBarObject = Instantiate(prfGaugeBar, canvas.transform);
@@ -87,9 +87,6 @@ public class MissionInteract : Interactable
     [PunRPC] 
     public void _FinishInteract() { 
         if (state == State.progress) {
-            FinishInteract();
-            // Destroy(this.gameObject);
-            Debug.LogError("HERE!!!!!!!");
             gameObject.SetActive(false);
             float coolTime = Random.Range(minCoolTime, maxCoolTime);
             Invoke("recreate_mission", coolTime);
