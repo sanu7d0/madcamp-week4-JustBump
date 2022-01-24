@@ -40,7 +40,6 @@ public class PlayerInventory : MonoBehaviourPunCallbacks
         weapons = new Weapon[2];
         for (int i = 0; i < weapons.Length; i++) {
             weapons[i] = defaultFist;
-            Debug.Log($"Weapon {i} is Weapon_Fist: {weapons[i] is Weapon_Fist}");
         }
 
         onWeaponChange = new UnityEvent();
@@ -62,11 +61,9 @@ public class PlayerInventory : MonoBehaviourPunCallbacks
         for (int i = 0; i < weapons.Length; i++) {
             if (weapons[i] is Weapon_Fist) {
                 // nothing
-                Debug.Log($"Weapon {i} is already default");
             } else {
                 PhotonNetwork.Destroy(weapons[i].GetComponent<PhotonView>());
                 weapons[i] = defaultFist;
-                Debug.Log($"Weapon {i} set to default");
             }
         }
         

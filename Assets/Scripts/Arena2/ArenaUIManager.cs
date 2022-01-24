@@ -11,7 +11,6 @@ using UnityEngine.SceneManagement;
 
 public class ArenaUIManager : Singleton<ArenaUIManager>
 {
-
     [SerializeField] TMP_Text text_timer;
     [SerializeField] TMP_Text text_score;
     [SerializeField] TMP_Text text_ping;
@@ -34,7 +33,6 @@ public class ArenaUIManager : Singleton<ArenaUIManager>
         gameManager.onChangePlayer.AddListener(OnChangeScorePanel);
     }
 
-    // Start is called before the first frame update
     void Start()
     {
         if(SceneManager.GetActiveScene().name == "Lobby") {

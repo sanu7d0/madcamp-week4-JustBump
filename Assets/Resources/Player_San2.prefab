@@ -400,6 +400,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   appleBullet: {fileID: 2194892889725062679, guid: 37c6aae4a55769e42b9c9d016aba66ec, type: 3}
+  weaponHolder: {fileID: 7480119121531464510}
   shootPosition: {fileID: 5407413067054279749}
   shootCoolTime: 0.3
 --- !u!114 &7143443165932468450

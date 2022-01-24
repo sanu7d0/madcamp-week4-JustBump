@@ -5,7 +5,7 @@ using UnityEngine;
 public class Weapon_Fork : Weapon
 {
     private Collider2D hitBox;
-    private Quaternion originalRotation;
+    private Vector3 originalPosition;
 
     private enum State {
         Normal,
@@ -17,21 +17,21 @@ public class Weapon_Fork : Weapon
     {
         base.Start();
         hitBox = GetComponentInChildren<Collider2D>();
-        originalRotation = transform.localRotation;
+        originalPosition = transform.localPosition;
     }
 
-    /*void Update() {
+    void Update() {
         switch (state) {
         case State.Motion:
             HandleMotion();
             break;
         }
-    }*/
+    }
 
     public override WeaponUseResult Use()
     {
         if (TryMeleeAttack(hitBox)) {
-            // PlayUseMotion();
+            PlayUseMotion();
             base.PlayUseSound();
             return base.Use();
         } else {
@@ -40,17 +40,19 @@ public class Weapon_Fork : Weapon
     }
 
     protected override void PlayUseMotion() {
-
+        transform.localPosition = originalPosition;
+        transform.localPosition += Vector3.right * 1f;
+        state = State.Motion;
     }
 
     private void HandleMotion() {
         // Rotate back to original rotation
-        if (transform.localRotation.z >= originalRotation.z) {
-            transform.localRotation = originalRotation;
+        if (transform.localPosition.x <= originalPosition.x) {
+            transform.localPosition = originalPosition;
             state = State.Normal;
         } else {
-            transform.localRotation = 
-                Quaternion.Lerp(transform.localRotation, originalRotation, 5 * Time.deltaTime);
+            transform.localPosition = 
+                Vector3.Lerp(transform.localPosition, originalPosition, 5 * Time.deltaTime);
         }
     }
 }

@@ -41,8 +41,6 @@ public class Weapon_Axe : Weapon
 
     protected override void PlayUseMotion()
     {
-        // base.PlayUseMotion();
-
         transform.localRotation = originalRotation;
         transform.Rotate(0, 0, -70f);
         state = State.Motion;

@@ -5,6 +5,7 @@ using UnityEngine.Events;
 
 public class LauncherUIManager : Singleton<LauncherUIManager>
 {
+    [SerializeField] Texture2D cursorTexture;
 
     [SerializeField]
     private GameObject controlPanel;
@@ -16,6 +17,8 @@ public class LauncherUIManager : Singleton<LauncherUIManager>
     protected override void Awake()
     {
         base.Awake();
+
+        Cursor.SetCursor(cursorTexture, Vector2.zero, CursorMode.Auto);
     }
 
     public void OnControlPanel() { 

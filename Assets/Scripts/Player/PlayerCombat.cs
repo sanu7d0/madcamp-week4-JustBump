@@ -9,6 +9,7 @@ public class PlayerCombat : MonoBehaviourPunCallbacks
     private PlayerInventory playerInventory;
 
     public GameObject appleBullet;
+    [SerializeField] private Transform weaponHolder;
     [SerializeField] public Transform shootPosition;
     [SerializeField] public float shootCoolTime;
     private float lastShootTime;
@@ -27,6 +28,13 @@ public class PlayerCombat : MonoBehaviourPunCallbacks
 
         // Shoots
         lastShootTime = 0;
+    }
+
+    void Update() {
+        Vector2 lookDir = (Camera.main.ScreenToWorldPoint(playerController.mousePos)
+            - transform.position).normalized;
+        
+        weaponHolder.transform.up = lookDir;
     }
 
     private void TryAttack() {
