@@ -31,10 +31,12 @@ public class PlayerCombat : MonoBehaviourPunCallbacks
     }
 
     void Update() {
-        Vector2 lookDir = (Camera.main.ScreenToWorldPoint(playerController.mousePos)
-            - transform.position).normalized;
-        
-        weaponHolder.transform.up = lookDir;
+        if (photonView.IsMine) {
+            Vector2 lookDir = (Camera.main.ScreenToWorldPoint(playerController.mousePos)
+                - transform.position).normalized;
+            
+            weaponHolder.transform.up = lookDir;
+        }
     }
 
     private void TryAttack() {
