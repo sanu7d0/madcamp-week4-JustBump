@@ -14,6 +14,7 @@ public class LauncherUIManager : Singleton<LauncherUIManager>
     private GameObject progressLabel;
 
     [SerializeField] private Image backlights;
+    [SerializeField] private Image backlights_far;
     [SerializeField] private float backlightRotSpeed;
 
     public UnityEvent onConnectButtonClickedListener;
@@ -23,10 +24,13 @@ public class LauncherUIManager : Singleton<LauncherUIManager>
         base.Awake();
 
         Cursor.SetCursor(cursorTexture, Vector2.zero, CursorMode.Auto);
+
+        OnControlPanel();
     }
 
     void Update() {
         backlights.transform.Rotate(Vector3.forward, backlightRotSpeed * Time.deltaTime);
+        backlights_far.transform.Rotate(Vector3.forward, -backlightRotSpeed * 0.3f * Time.deltaTime);
     }
 
     public void OnControlPanel() { 

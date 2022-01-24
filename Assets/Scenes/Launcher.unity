@@ -378,10 +378,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 513233764500335539, guid: 2c752bfe5b0db4253a3c707ecc2c20f4, type: 3}
-      propertyPath: backlightRotSpeed
-      value: 5
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2c752bfe5b0db4253a3c707ecc2c20f4, type: 3}
 --- !u!1001 &5923204198832040556
