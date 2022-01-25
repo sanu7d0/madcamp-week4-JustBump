@@ -1918,7 +1918,9 @@ MonoBehaviour:
   text_timer: {fileID: 4888008213461257352}
   text_score: {fileID: 9018425543202677577}
   text_ping: {fileID: 5152401093279656538}
-  weaponIcons: []
+  weaponIcons:
+  - {fileID: 5005868961847219890}
+  - {fileID: 5669016433377992512}
   scorePanel: {fileID: 3606266441392988668}
   winnerText: {fileID: 6848370800445014346}
   gameEndUI: {fileID: 5750675078618933173}
