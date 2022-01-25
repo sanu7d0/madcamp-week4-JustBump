@@ -495,8 +495,6 @@ GameObject:
   - component: {fileID: 7992145676908410474}
   - component: {fileID: 7992145676908410486}
   - component: {fileID: 7992145676908410487}
-  - component: {fileID: 7992145676908410472}
-  - component: {fileID: 7992145676908410473}
   m_Layer: 5
   m_Name: Character3
   m_TagString: Untagged
@@ -562,48 +560,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &7992145676908410472
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7992145676908410475}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Delegates:
-  - eventID: 4
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 0}
-          m_TargetAssemblyTypeName: LobbyUIManager, Assembly-CSharp
-          m_MethodName: OnCharacterClicked
-          m_Mode: 0
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
---- !u!114 &7992145676908410473
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7992145676908410475}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec294e532f3fa4e1fafc3d6c064c7513, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  candidateCharacter: {fileID: 8244888473971866204, guid: 4337ea34e1c75cc4d8461a241e69d98e, type: 3}
 --- !u!1 &7992145676948610845
 GameObject:
   m_ObjectHideFlags: 0
@@ -691,8 +647,6 @@ GameObject:
   - component: {fileID: 7992145677358009380}
   - component: {fileID: 7992145677358009376}
   - component: {fileID: 7992145677358009377}
-  - component: {fileID: 7992145677358009378}
-  - component: {fileID: 7992145677358009379}
   m_Layer: 5
   m_Name: Character2
   m_TagString: Untagged
@@ -758,48 +712,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &7992145677358009378
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7992145677358009381}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Delegates:
-  - eventID: 4
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 0}
-          m_TargetAssemblyTypeName: LobbyUIManager, Assembly-CSharp
-          m_MethodName: OnCharacterClicked
-          m_Mode: 0
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
---- !u!114 &7992145677358009379
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7992145677358009381}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec294e532f3fa4e1fafc3d6c064c7513, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  candidateCharacter: {fileID: 8244888473971866204, guid: 59e2a629150b7374c901f2df8d0f4c43, type: 3}
 --- !u!1 &7992145677554878773
 GameObject:
   m_ObjectHideFlags: 0
@@ -811,8 +723,6 @@ GameObject:
   - component: {fileID: 7992145677554878772}
   - component: {fileID: 7992145677554878768}
   - component: {fileID: 7992145677554878769}
-  - component: {fileID: 7992145677554878770}
-  - component: {fileID: 7992145677554878771}
   m_Layer: 5
   m_Name: Character1
   m_TagString: Untagged
@@ -878,48 +788,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &7992145677554878770
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7992145677554878773}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Delegates:
-  - eventID: 4
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 0}
-          m_TargetAssemblyTypeName: LobbyUIManager, Assembly-CSharp
-          m_MethodName: OnCharacterClicked
-          m_Mode: 0
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
---- !u!114 &7992145677554878771
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7992145677554878773}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec294e532f3fa4e1fafc3d6c064c7513, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  candidateCharacter: {fileID: 8244888473971866204, guid: bfb07513116d34b4f8e54f6436c7d1de, type: 3}
 --- !u!1 &7992145678031736968
 GameObject:
   m_ObjectHideFlags: 0

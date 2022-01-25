@@ -26,7 +26,16 @@ public class LobbyUIManager : Singleton<LobbyUIManager>
     public void OnCharacterClicked(BaseEventData data)
     {
         PointerEventData ped = (PointerEventData)data;
-        string candidatedCharacterName = ped.pointerCurrentRaycast.gameObject.GetComponent<CandidateCharacter>().candidateCharacter.name;
+        
+        string candidatedCharacterName;
+        if (ped.pointerCurrentRaycast.gameObject.
+            TryGetComponent<CandidateCharacter>(out CandidateCharacter character)) {
+            candidatedCharacterName = character.candidateCharacter.name;
+        } else {
+            candidatedCharacterName = 
+                ped.pointerCurrentRaycast.gameObject.transform.parent.GetComponent<CandidateCharacter>()
+                    .candidateCharacter.name;
+        }
         onCharacterClickedListener.Invoke(candidatedCharacterName);
         
         selectGroup.SetActive(false);
