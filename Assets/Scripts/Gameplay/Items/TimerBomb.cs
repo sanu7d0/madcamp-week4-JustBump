@@ -53,8 +53,8 @@ public class TimerBomb : MonoBehaviourPunCallbacks
 			    PhotonNetwork.Destroy(explosion);
         }, 1);
 
-        // PlayeExplosionSound();
-        
+
+        PlayeExplosionSound();
 		PhotonNetwork.Destroy(gameObject);
     }
 
@@ -62,8 +62,8 @@ public class TimerBomb : MonoBehaviourPunCallbacks
         photonView.RPC("_PlayeExplosionSound", RpcTarget.All, explosionSound.name);
     }
     [PunRPC]
-    private void _PlayeExplosionSound(string clipName) {
-        GetComponent<AudioSource>().PlayOneShot(AudioManager.Instance.GetAudioClip(clipName));
+    public void _PlayeExplosionSound(string sound) {
+        AudioManager.Instance.PlayExplosionSound();
     }
 
     private Vector2 ExplosionPower(float power, float distance, Vector2 vector) {

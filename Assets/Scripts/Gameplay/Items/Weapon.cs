@@ -58,7 +58,6 @@ public abstract class Weapon : MonoBehaviourPunCallbacks, IPunObservable
 
     [PunRPC]
     public void _PlayUseSound(string clipName) {
-        Debug.Log("Hello");
         audioSource.PlayOneShot(AudioManager.Instance.GetAudioClip(clipName));
     }
 
