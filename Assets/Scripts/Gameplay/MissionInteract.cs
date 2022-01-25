@@ -34,7 +34,7 @@ public class MissionInteract : Interactable
     private void Start()
     {
 		if (gaugeBar != null)
-		    gaugeBar.position = Camera.main.WorldToScreenPoint(new Vector3(transform.position.x, transform.position.y + height, 0));
+		    gaugeBar.position = new Vector3(transform.position.x, transform.position.y + height, 0);
     }
 
     protected override void OnTriggerEnter2D(Collider2D other)
@@ -64,7 +64,7 @@ public class MissionInteract : Interactable
         state = State.progress;
 	    gaugeBarObject = Instantiate(prfGaugeBar, canvas.transform);
         gaugeBar = gaugeBarObject.GetComponent<RectTransform>();
-        Vector3 _gaugeBarPos = Camera.main.WorldToScreenPoint(new Vector3(transform.position.x, transform.position.y + height, 0));
+        Vector3 _gaugeBarPos = new Vector3(transform.position.x, transform.position.y + height, 0);
         gaugeBar.position = _gaugeBarPos;
         gaugeBar.GetComponent<GaugeMove>().InitGauge(totalTime);
     }
