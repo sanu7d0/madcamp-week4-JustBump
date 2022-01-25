@@ -92,7 +92,7 @@ public class PlayerInventory : MonoBehaviourPunCallbacks
         if (currentWeapon is not Weapon_Fist) {
             currentWeapon.gameObject.SetActive(true);
         }
-
+            
         onWeaponChange.Invoke();
     }
 

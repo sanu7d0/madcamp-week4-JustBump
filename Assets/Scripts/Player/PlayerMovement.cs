@@ -135,6 +135,13 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
 
     public void StartFalling() {
         if (PhotonNetwork.IsMasterClient) { 
+			state = State.Falling;
+			rb.velocity = Vector2.zero;
+
+			 anim.SetBool("isWalking", false);
+			 anim.SetBool("isRolling", false);
+
+			playerMediator.InvokeOnFall();
 			photonView.RPC("_StartFalling", RpcTarget.All);
 		}
     }
@@ -143,14 +150,11 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
         // Already falling
         if (state == State.Falling)
             return;
-        
-        state = State.Falling;
-        rb.velocity = Vector2.zero;
-
+		
+		 state = State.Falling;
+         rb.velocity = Vector2.zero;
          anim.SetBool("isWalking", false);
          anim.SetBool("isRolling", false);
-
-        playerMediator.InvokeOnFall();
     }
 
     private void HandleFalling() {
