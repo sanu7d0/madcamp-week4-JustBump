@@ -70,4 +70,8 @@ public class PlayerMediator : MonoBehaviour
     public void InitSpeed() {
         playerMovement.InitSpeed();
     }
+
+    public bool getSpeedIncrease() {
+        return playerMovement.getSpeedIncreaseStatus();
+    }
 }

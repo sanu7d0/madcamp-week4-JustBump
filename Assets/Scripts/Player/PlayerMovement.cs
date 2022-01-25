@@ -26,6 +26,7 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
         Falling,
         Bumping
     }
+    private bool speedIncrease;
 
     void Awake() {
         rb = GetComponent<Rigidbody2D>();
@@ -34,6 +35,7 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
         anim = GetComponent<Animator>();
 
         isJumping = false;
+        speedIncrease = false;
     }
 
     public override void OnEnable()
@@ -159,7 +161,8 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
     }
     
     [PunRPC]
-    public void _IncreaseSpeed(float _speed) { 
+    public void _IncreaseSpeed(float _speed) {
+        speedIncrease = true;
         speed += _speed;
     }
 
@@ -169,6 +172,11 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
     
     [PunRPC]
     public void _InitSpeed() {
+        speedIncrease = false;
         speed = defaultSpeed;
+    }
+
+    public bool getSpeedIncreaseStatus() {
+        return speedIncrease;
     }
 }

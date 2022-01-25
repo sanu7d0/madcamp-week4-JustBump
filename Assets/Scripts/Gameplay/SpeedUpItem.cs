@@ -42,14 +42,31 @@ public class SpeedUpItem: Interactable
     {
 
         var interactor = other.GetComponent<PlayerMediator>();
-        if (PhotonNetwork.IsMasterClient && interactor is PlayerMediator) {
-            interactor.IncreaseSpeed(speed);
+        if (PhotonNetwork.IsMasterClient && interactor is PlayerMediator && !interactor.getSpeedIncrease()) {
+		    interactor.IncreaseSpeed(speed);
+
+            photonView.RPC("_actvieFalse", RpcTarget.All);
             TimerExtension.CreateEventTimer(() =>
             {
 				interactor.InitSpeed();
             }, duration);
-		    PhotonNetwork.Destroy(gameObject);
+
+            TimerExtension.CreateEventTimer(() =>
+            {
+				photonView.RPC("_activeTrue", RpcTarget.All);
+            }, (5 + Random.value * 10));
+
 		}
+    }
+
+    [PunRPC]
+    void _activeTrue() {
+        gameObject.SetActive(true);
+    }
+
+    [PunRPC]
+    void _actvieFalse() {
+        gameObject.SetActive(false);
     }
 
 }
