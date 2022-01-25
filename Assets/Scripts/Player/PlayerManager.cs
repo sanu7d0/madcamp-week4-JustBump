@@ -133,6 +133,7 @@ public class PlayerManager: MonoBehaviourPunCallbacks, IBumpable, IPlayer
 					gameManager.IncrementScore(lastBumperPlayer, 3);
 			}
 			gameManager.InvokeOnchangePlayer();
+		    gameManager.InvokeOnDead(lastBumperPlayer, this);
 		}
 
         if(nameInstance != null) { 
@@ -148,15 +149,15 @@ public class PlayerManager: MonoBehaviourPunCallbacks, IBumpable, IPlayer
 
 
     public void BumpSelf(Vector2 force, IPlayer lastBumperPlayer) {
-        photonView.RPC("_BumpSelf", RpcTarget.All, new object[] { lastBumperPlayer.id, lastBumperPlayer.score, lastBumperPlayer.isDead, force } );
+        photonView.RPC("_BumpSelf", RpcTarget.All, new object[] { lastBumperPlayer.id, lastBumperPlayer.score, lastBumperPlayer.isDead, lastBumperPlayer.nickname, force } );
     }
     
     [PunRPC]
-    private void _BumpSelf(int id, int score, bool isDead, Vector2 force) {
+    private void _BumpSelf(int id, int score, bool isDead, string nickname, Vector2 force) {
         rb.AddForce(force, ForceMode2D.Impulse);
         onBumped.Invoke();
 
-	    lastBumperPlayer = new ConcretePlayer(){ id = id, isDead = isDead, score = score };
+	    lastBumperPlayer = new ConcretePlayer(){ id = id, isDead = isDead, score = score, nickname = nickname };
 
         if(cancellableTimer != null) { 
 			cancellableTimer.Stop();

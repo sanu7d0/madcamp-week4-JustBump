@@ -10,7 +10,8 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
     private PlayerController playerController;
     private Vector2 lastMoveDir;
     Animator anim;
-    [SerializeField] private float speed;
+    [SerializeField] private float defaultSpeed;
+    private float speed;
     [SerializeField] private float rollingImpulse;
     [SerializeField] private float rollingTime;
     private bool isJumping;
@@ -41,6 +42,7 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
         rb.velocity = Vector2.zero;
         transform.rotation = Quaternion.identity;
         transform.localScale = Vector3.one;
+        speed = defaultSpeed;
     }
 
     void jump() {
@@ -150,5 +152,23 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
     private void HandleFalling() {
         transform.localScale *= (1 - Time.deltaTime);
         transform.Rotate(0, 0, Time.deltaTime * 100f); // rotate speed
+    }
+
+    public void IncreaseSpeed(float _speed) {
+        photonView.RPC("_IncreaseSpeed", RpcTarget.All, _speed);
+    }
+    
+    [PunRPC]
+    public void _IncreaseSpeed(float _speed) { 
+        speed += _speed;
+    }
+
+    public void InitSpeed() {
+        photonView.RPC("_InitSpeed", RpcTarget.All);
+    }
+    
+    [PunRPC]
+    public void _InitSpeed() {
+        speed = defaultSpeed;
     }
 }
