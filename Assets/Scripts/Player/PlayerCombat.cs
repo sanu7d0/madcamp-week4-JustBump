@@ -43,6 +43,8 @@ public class PlayerCombat : MonoBehaviourPunCallbacks
         Weapon currentWeapon = playerInventory.currentWeapon;
         
         WeaponUseResult result = WeaponUseResult.Normal;
+        float delayTime = 0f;
+
         switch (currentWeapon.GetWeaponType()) {
         case WeaponCategory.Melee:
             result = currentWeapon.Use();
@@ -56,12 +58,13 @@ public class PlayerCombat : MonoBehaviourPunCallbacks
             result = currentWeapon.Use(
                 shootPosition.position, 
                 Camera.main.ScreenToWorldPoint(playerController.mousePos));
+            delayTime = 1.5f;
             break;
         }
 
         // If all used, drop it
         if (result == WeaponUseResult.AllUsed) {
-            playerInventory.DropCurrentWeapon();
+            playerInventory.DropCurrentWeapon(delayTime);
         }
         
     }
