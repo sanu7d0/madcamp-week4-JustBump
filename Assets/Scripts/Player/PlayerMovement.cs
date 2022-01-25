@@ -13,6 +13,10 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
     [SerializeField] private float speed;
     [SerializeField] private float rollingImpulse;
     [SerializeField] private float rollingTime;
+    private bool isJumping;
+    private float jumpingCurTime;
+    [SerializeField] private float jumpingTotalTime;
+    [SerializeField] private float jumpingSpeed;
 
     private State state;
     private enum State {
@@ -27,6 +31,8 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
         playerController = GetComponent<PlayerController>();
         playerMediator = GetComponent<PlayerMediator>();
         anim = GetComponent<Animator>();
+
+        isJumping = false;
     }
 
     public override void OnEnable()
@@ -37,8 +43,27 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
         transform.localScale = Vector3.one;
     }
 
+    void jump() {
+        Debug.Log("JUMPING!!!");
+        jumpingCurTime = Time.time;
+
+        isJumping = true;
+    }
+
+    private void Update() {
+        // if (isJumping) {
+        //     float jumpingTime = Time.time - jumpingCurTime;
+        //     if (jumpingTime >= jumpingTotalTime) {
+        //         isJumping = false;
+        //     }
+        //     transform.SetPositionAndRotation(new Vector3(transform.position.x + jumpingSpeed * Mathf.Cos(50) * jumpingTime, transform.position.y + -1 * (float)0.5 * (float)9.8 * jumpingTime * jumpingTime + jumpingTime * (jumpingSpeed * Mathf.Sin(50)), 0), Quaternion.identity);
+        //     // transform.position = new Vector3(transform.position.x + jumpingSpeed * Mathf.Cos(50) * jumpingTime, transform.position.y + -1 * (float)0.5 * (float)9.8 * jumpingTime * jumpingTime + jumpingTime * (jumpingSpeed * Mathf.Sin(50)), 0);
+        // }
+    }
+
     void Start() {
         playerController.onRoll.AddListener(TryRoll);
+        playerController.onJump.AddListener(jump);
 
         playerMediator.AddListenerToOnBumped(() => {
             state = State.Bumping;

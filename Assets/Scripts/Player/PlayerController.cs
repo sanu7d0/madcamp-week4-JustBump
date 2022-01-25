@@ -18,6 +18,8 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
     public UnityEvent onDrop;
 
+    public UnityEvent onJump;
+
     public Vector2 moveDir { 
         get; private set;
     }
@@ -46,6 +48,14 @@ public class PlayerController : MonoBehaviourPunCallbacks
             return;
 		}
         onShoot.Invoke();
+    }
+
+    void OnJump(InputValue input) {
+        if (!CanControl())
+        {
+            return;
+        }
+        onJump.Invoke();
     }
     
 
