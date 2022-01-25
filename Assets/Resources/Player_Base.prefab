@@ -372,6 +372,9 @@ MonoBehaviour:
   onDrop:
     m_PersistentCalls:
       m_Calls: []
+  onJump:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &7653847611745656730
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -387,6 +390,8 @@ MonoBehaviour:
   speed: 250
   rollingImpulse: 4.5
   rollingTime: 0.35
+  jumpingTotalTime: 0.2
+  jumpingSpeed: 1
 --- !u!114 &1527859615770454813
 MonoBehaviour:
   m_ObjectHideFlags: 0
