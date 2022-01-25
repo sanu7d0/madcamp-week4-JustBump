@@ -7,11 +7,6 @@ public abstract class Interactable : MonoBehaviourPunCallbacks
 {
     [SerializeField] protected Collider2D cc;
 
-    protected virtual void Awake() {
-        // cc = GetComponent<Collider2D>();
-        // cc.isTrigger = true;
-    }
-
     protected virtual void OnTriggerEnter2D(Collider2D other) {
         if (other.tag == "Player") {
             other.GetComponent<PlayerMediator>().AddNewInteractable(this);
@@ -21,7 +16,6 @@ public abstract class Interactable : MonoBehaviourPunCallbacks
     protected virtual void OnTriggerExit2D(Collider2D other) {
         if (other.tag == "Player") {
             other.GetComponent<PlayerMediator>().RemoveInteractable(this);
-            StopInteract();
         }
     }
 

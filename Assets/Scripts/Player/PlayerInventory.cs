@@ -101,7 +101,8 @@ public class PlayerInventory : MonoBehaviourPunCallbacks
     private void _DropCurrentWeapon() {
         if (currentWeapon is not Weapon_Fist) {
             if (currentWeapon.weaponDurability > 0) {
-                currentWeapon.WeaponToFieldDrop(transform.position);
+                currentWeapon.transform.parent = null;
+                currentWeapon.GetComponent<WeaponInteraction>().enabled = true;
             } else {
                 // If durability = 0, destroy
                 if (photonView.IsMine) {
@@ -129,7 +130,8 @@ public class PlayerInventory : MonoBehaviourPunCallbacks
         // If not weapon empty
         if (oldWeapon is not Weapon_Fist) {
             if (oldWeapon.weaponDurability > 0) {
-                oldWeapon.WeaponToFieldDrop(transform.position);
+                oldWeapon.gameObject.transform.parent = null;
+                currentWeapon.GetComponent<WeaponInteraction>().enabled = true;
             } else {
                 // If durability = 0, destroy
                 if (photonView.IsMine) {

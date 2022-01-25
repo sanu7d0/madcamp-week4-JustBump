@@ -448,7 +448,7 @@ MonoBehaviour:
   shakeRange: 0.05
   duration: 0.5
   nameField: {fileID: 6559818071731903151, guid: 16f01ec0065b34b8080fd9fff20723c2, type: 3}
-  spawnNum: 5
+  spawnNum: 4
   spawnImage: {fileID: 4554817803931594215, guid: ae4354cadd353324e970e9d10fc4151c, type: 3}
   onDead:
     m_PersistentCalls:

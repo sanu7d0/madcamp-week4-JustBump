@@ -154,6 +154,8 @@ GameObject:
   - component: {fileID: 5958294273590070175}
   - component: {fileID: -231416754895881007}
   - component: {fileID: 1626441351164258800}
+  - component: {fileID: 5679117272121552946}
+  - component: {fileID: -4050848754815692560}
   m_Layer: 0
   m_Name: Fork
   m_TagString: Untagged
@@ -196,7 +198,8 @@ MonoBehaviour:
   Synchronization: 3
   OwnershipTransfer: 0
   observableSearch: 2
-  ObservedComponents: []
+  ObservedComponents:
+  - {fileID: -231416754895881007}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -213,7 +216,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weapon: {fileID: 11400000, guid: b861efda5086c2f47a017c7bd071a081, type: 2}
-  emptyFieldDrop: {fileID: 781654957273517497, guid: bce69776621f75346b1112fd27e6b617, type: 3}
+  weaponDurability: 0
 --- !u!82 &1626441351164258800
 AudioSource:
   m_ObjectHideFlags: 0
@@ -310,3 +313,32 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &5679117272121552946
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5191502054817757635}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59e54c0b39f03df4886285159effceef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cc: {fileID: -4050848754815692560}
+--- !u!58 &-4050848754815692560
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5191502054817757635}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5

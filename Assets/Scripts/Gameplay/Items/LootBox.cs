@@ -21,10 +21,8 @@ public class LootBox : Interactable
 
     private UnityEvent<State> onStateChange;
 
-    protected override void Awake()
+    private void Awake()
     {
-        base.Awake();
-
         spriteRenderer = GetComponent<SpriteRenderer>();
 
         onStateChange ??= new UnityEvent<State>();
@@ -61,9 +59,6 @@ public class LootBox : Interactable
         
         GameObject newItem =
             PhotonNetwork.Instantiate(spitItem.name, spitPosition, Quaternion.identity);
-        
-        FieldItem fi = newItem.GetComponent<FieldItem>();
-        fi.InitItem();
     }
 
     private void OnStateChange(State s) {

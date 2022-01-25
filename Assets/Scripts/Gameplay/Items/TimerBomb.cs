@@ -13,13 +13,8 @@ public class TimerBomb : MonoBehaviourPunCallbacks
     [SerializeField] private float speed;
     [SerializeField] private float distance;
     [SerializeField] private GameObject explosionPrefab;
+    [SerializeField] private AudioClip explosionSound;
     public LayerMask isLayer;
-
-    private AudioSource audioSource;
-
-    private void Start() {
-        audioSource = GetComponent<AudioSource>();
-    }
 
     public void InitBomb(float power, float explosionRadius, float delayTimeInSec, IPlayer thrower, Vector2 direction) {
         this.power = power;
@@ -51,8 +46,6 @@ public class TimerBomb : MonoBehaviourPunCallbacks
                 // Rigidbody2DExtension.AddExplosionForce(targetRb, power, transform.position, explosionRadius);
             }
         }
-        
-    
 
         var explosion = PhotonNetwork.Instantiate(explosionPrefab.name, transform.position, Quaternion.identity);
         TimerExtension.CreateEventTimer(() =>
@@ -60,17 +53,17 @@ public class TimerBomb : MonoBehaviourPunCallbacks
 			    PhotonNetwork.Destroy(explosion);
         }, 1);
 
-        PlayeExplosionSound();
+        // PlayeExplosionSound();
         
 		PhotonNetwork.Destroy(gameObject);
     }
 
     private void PlayeExplosionSound() {
-        photonView.RPC("_PlayeExplosionSound", RpcTarget.All);
+        photonView.RPC("_PlayeExplosionSound", RpcTarget.All, explosionSound.name);
     }
     [PunRPC]
-    private void _PlayeExplosionSound() {
-        audioSource.Play();
+    private void _PlayeExplosionSound(string clipName) {
+        GetComponent<AudioSource>().PlayOneShot(AudioManager.Instance.GetAudioClip(clipName));
     }
 
     private Vector2 ExplosionPower(float power, float distance, Vector2 vector) {

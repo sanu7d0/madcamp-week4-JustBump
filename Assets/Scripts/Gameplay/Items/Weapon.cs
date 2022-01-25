@@ -4,63 +4,46 @@ using Photon.Pun;
 public enum WeaponUseResult {
     Normal,
     AllUsed,
-    NoHit
+    NoHit,
+    Field
 }
 
 [RequireComponent (typeof (AudioSource))]
-public abstract class Weapon : MonoBehaviourPunCallbacks
+public abstract class Weapon : MonoBehaviourPunCallbacks, IPunObservable
 {   
-    [SerializeField] protected WeaponObject weapon;
-    [SerializeField] protected GameObject emptyFieldDrop;
     protected AudioSource audioSource;
+    [SerializeField] protected WeaponObject weapon;
 
     protected float lastUseTime = 0;
 
-    public int weaponDurability {
-        get { return weapon.durability; }
-    }
+    [SerializeField]
+    public int weaponDurability;
 
     public Sprite weaponSprite {
         get { return weapon.sprite; }
     }
 
+
     protected virtual void Start() {
-        weapon = weapon.GetClone();
         audioSource = GetComponent<AudioSource>();
+        weapon = weapon.GetClone();
+        weaponDurability = weapon.durability;
     }
 
     public virtual WeaponUseResult Use() {
-        weapon.durability -= 1;
-        if (weapon.durability <= 0) {
+        weaponDurability -= 1;
+        if (weaponDurability <= 0) {
             return WeaponUseResult.AllUsed;
         }
         return WeaponUseResult.Normal;
     }
 
     public virtual WeaponUseResult Use(Vector3 originPosition, Vector3 targetPosition) {
-        weapon.durability -= 1;
-        if (weapon.durability <= 0) {
+        weaponDurability -= 1;
+        if (weaponDurability <= 0) {
             return WeaponUseResult.AllUsed;
         }
         return WeaponUseResult.Normal;
-    }
-
-    public virtual void WeaponToFieldDrop(Vector3 pos) {
-        photonView.RPC("_WeaponToFieldDrop", RpcTarget.All, pos);
-    } 
-
-    [PunRPC]
-    protected virtual void _WeaponToFieldDrop(Vector3 pos) {
-        GameObject emptyDrop = 
-            PhotonNetwork.Instantiate(emptyFieldDrop.name, pos, Quaternion.identity);
-        emptyDrop.name = weapon.name;
-        emptyDrop.GetComponent<SpriteRenderer>().sprite = weapon.sprite;
-        FieldItem fi = emptyDrop.GetComponent<FieldItem>();
-        fi.itemPrefab = gameObject;
-        fi.itemObject = gameObject;
-        fi.durability = weapon.durability;
-
-        gameObject.SetActive(false);
     }
 
     public virtual WeaponCategory GetWeaponType() {
@@ -70,11 +53,11 @@ public abstract class Weapon : MonoBehaviourPunCallbacks
     protected abstract void PlayUseMotion();
 
     protected virtual void PlayUseSound() {
-        photonView.RPC("_PlayUseSound", RpcTarget.All);
+        photonView.RPC("_PlayUseSound", RpcTarget.All, weapon.GetRandomUseSound().name);
     }
     [PunRPC]
-    protected virtual void _PlayUseSound() {
-        audioSource.PlayOneShot(weapon.GetRandomUseSound());
+    protected virtual void _PlayUseSound(string clipName) {
+        audioSource.PlayOneShot(AudioManager.Instance.GetAudioClip(clipName));
     }
 
     protected bool TryMeleeAttack(Collider2D hitBox) {
@@ -117,5 +100,14 @@ public abstract class Weapon : MonoBehaviourPunCallbacks
         }
 
         return attacked;
+    }
+
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if(stream.IsWriting){
+            stream.SendNext(this.weaponDurability);
+        } else {
+            this.weaponDurability = (int)stream.ReceiveNext();
+        }
     }
 }
