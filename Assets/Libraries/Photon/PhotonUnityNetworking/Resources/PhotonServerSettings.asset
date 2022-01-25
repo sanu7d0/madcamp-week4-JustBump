@@ -73,6 +73,8 @@ MonoBehaviour:
   - _DropCurrentWeapon
   - DropWeaponAt
   - __BumpSelf
+  - _IncreaseSpeed
+  - _InitSpeed
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

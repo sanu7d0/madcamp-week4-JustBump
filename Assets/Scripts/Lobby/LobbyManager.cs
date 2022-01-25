@@ -22,15 +22,13 @@ public class LobbyManager : SingletonP<LobbyManager>
 
     void Start()
     {
-        lobbyUIManager.ShowCharacterSelectPanel();
         lobbyUIManager.onClickedLeaveButtonListener.AddListener(() => {
             LeaveRoom();
 		});
         lobbyUIManager.onCharacterClickedListener.AddListener((name) =>
         {
             selectedCharacterName = name;
-            InstanciateCharacter(name);
-            lobbyUIManager.ShowLeaveButton();
+            InstantiateCharacter(name);
         });
 
         if (roomManager.CanStartGame())
@@ -93,7 +91,7 @@ public class LobbyManager : SingletonP<LobbyManager>
         PhotonNetwork.LoadLevel("Room");
     }
 
-    void InstanciateCharacter(string name) {
+    void InstantiateCharacter(string name) {
         Debug.Log("InstanciateLobbyCharacter");
 
         if (name is null)

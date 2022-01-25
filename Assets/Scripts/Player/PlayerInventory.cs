@@ -6,23 +6,25 @@ using Photon.Pun;
 
 public class PlayerInventory : MonoBehaviourPunCallbacks
 {
-    private PlayerController playerController;
 
     [SerializeField] private Transform weaponHolder;
     [SerializeField] private GameObject defaultFistPrefab;
 
+    private PlayerController playerController;
     // Tuple<Weapon, bool> -> bool = Is weapon occupied?
-    public Weapon[] weapons {
-        get; private set;
-    }
     private int curWeaponIdx;
-    public Weapon currentWeapon {
-        get { return weapons[curWeaponIdx]; }
-    }
 
     private Weapon_Fist defaultFist;
 
+    public Weapon[] weapons {
+        get; private set;
+    }
+    public Weapon currentWeapon {
+        get { return weapons[curWeaponIdx]; }
+    }
     public UnityEvent onWeaponChange;
+    
+    private Quaternion holderOriginalRotation;
 
 
     void Awake() {
@@ -41,6 +43,7 @@ public class PlayerInventory : MonoBehaviourPunCallbacks
         for (int i = 0; i < weapons.Length; i++) {
             weapons[i] = defaultFist;
         }
+        holderOriginalRotation = weaponHolder.localRotation;
 
         onWeaponChange = new UnityEvent();
     }
@@ -93,8 +96,10 @@ public class PlayerInventory : MonoBehaviourPunCallbacks
         onWeaponChange.Invoke();
     }
 
-    public void DropCurrentWeapon() {
-        photonView.RPC("_DropCurrentWeapon", RpcTarget.All);
+    public void DropCurrentWeapon(float delayTime = 0f) {
+        TimerExtension.CreateEventTimer(() => {
+            photonView.RPC("_DropCurrentWeapon", RpcTarget.All);
+        }, delayTime);
     }
     
     [PunRPC]
@@ -148,6 +153,8 @@ public class PlayerInventory : MonoBehaviourPunCallbacks
         newWeapon.transform.position = weaponHolder.position;
         newWeapon.transform.localPosition = Vector3.zero;
         // newWeapon.transform.rotation = weaponHolder.rotation;
+        newWeapon.transform.localRotation = 
+            holderOriginalRotation * Quaternion.Euler(0f, 0f, 90f);
 
         onWeaponChange.Invoke();
     }
