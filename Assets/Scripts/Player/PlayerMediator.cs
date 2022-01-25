@@ -61,4 +61,13 @@ public class PlayerMediator : MonoBehaviour
     public void AddForce(Vector2 force) {
         playerManager.BumpSelf(force);
     }
+
+    public void IncreaseSpeed(float speed)
+    {
+        playerMovement.IncreaseSpeed(speed);
+    }
+
+    public void InitSpeed() {
+        playerMovement.InitSpeed();
+    }
 }

@@ -26,11 +26,13 @@ public class Obstaclnteract : Interactable
     {
 
         var interactor = other.GetComponent<PlayerMediator>();
-        if(interactor is PlayerMediator) { 
-			var playerPosition = interactor.transform.position;
-			var opstaclePosition = transform.position;
-			Vector2 force = (playerPosition - opstaclePosition).normalized *power;
-			interactor.AddForce(force);
+        if(interactor is PlayerMediator) {
+            if (PhotonNetwork.IsMasterClient) { 
+				var playerPosition = interactor.transform.position;
+				var opstaclePosition = transform.position;
+				Vector2 force = (playerPosition - opstaclePosition).normalized *power;
+				interactor.AddForce(force);
+		    }
 		}
     }
 
@@ -64,7 +66,7 @@ public class Obstaclnteract : Interactable
     // Update is called once per frame
     void Update()
     {
-        if (photonView.IsMine) { 
+        if (PhotonNetwork.IsMasterClient) { 
 			Vector3 v = pos;
 			if(direction == Direction.Horizontal) { 
 					v.x += delta * Mathf.Sin(Time.time * speed);
