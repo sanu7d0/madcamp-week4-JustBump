@@ -134,6 +134,10 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
     }
 
     public void StartFalling() {
+        if(state == State.Falling) {
+            return;
+		}
+
         if (PhotonNetwork.IsMasterClient) { 
 			state = State.Falling;
 			rb.velocity = Vector2.zero;
