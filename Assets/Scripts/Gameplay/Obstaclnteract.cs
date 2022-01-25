@@ -64,14 +64,15 @@ public class Obstaclnteract : Interactable
     // Update is called once per frame
     void Update()
     {
-        Vector3 v = pos;
-        if(direction == Direction.Horizontal) { 
-			v.x += delta * Mathf.Sin(Time.time * speed);
+        if (photonView.IsMine) { 
+			Vector3 v = pos;
+			if(direction == Direction.Horizontal) { 
+					v.x += delta * Mathf.Sin(Time.time * speed);
+				}
+			if(direction == Direction.Vertical) { 
+					v.y += delta * Mathf.Sin(Time.time * speed);
+				}
+			transform.position = v;
 		}
-        if(direction == Direction.Vertical) { 
-			v.y += delta * Mathf.Sin(Time.time * speed);
-		}
-
-		transform.position = v;
     }
 }
