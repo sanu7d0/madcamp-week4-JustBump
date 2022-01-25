@@ -94,6 +94,9 @@ public class ArenaUIManager : Singleton<ArenaUIManager>
 
     void Update()
     {
+        if (SceneManager.GetActiveScene().name == "Lobby") {
+            return;
+        }
         if (gameManager.isPlaying)
         {
             text_timer?.SetText($"TIMER {Mathf.Round(gameManager.gameElapsedTime)} / {gameManager.gameLimitTime}");
@@ -110,6 +113,9 @@ public class ArenaUIManager : Singleton<ArenaUIManager>
     }
 
     public void UpdateWeapons() {
+        if(SceneManager.GetActiveScene().name == "Lobby") {
+            return;
+		}
         Weapon[] weapons = myPlayer.weapons;
         for (int i = 0; i < weapons.Length; i++) {
             weaponIcons[i].sprite = weapons[i].weaponSprite;
