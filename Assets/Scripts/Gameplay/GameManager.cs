@@ -42,7 +42,7 @@ sealed public class GameManager : Singleton<GameManager>
         private set;
     }
 
-    public bool DEBUG_OfflineMode;
+    public bool DEBUG_OfflineMode = false;
 
     protected override void Awake() {
 	    base.Awake();
