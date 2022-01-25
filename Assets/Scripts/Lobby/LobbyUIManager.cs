@@ -8,25 +8,15 @@ using UnityEngine.EventSystems;
 
 public class LobbyUIManager : Singleton<LobbyUIManager>
 {
-    [SerializeField]
-    public GameObject characterSelectPannel;
-    [SerializeField]
-    public GameObject leaveButton;
-    [SerializeField] private TMP_Text selectText;
-    [SerializeField] 
-    public UnityEvent onClickedLeaveButtonListener;
+    [SerializeField] private GameObject selectGroup;
+    [SerializeField] private GameObject readyGroup;
+    [SerializeField]  public UnityEvent onClickedLeaveButtonListener;
     public UnityEvent<string> onCharacterClickedListener;
 
-    public void ShowLeaveButton() { 
-        characterSelectPannel.SetActive(false);
-        selectText.gameObject.SetActive(false);
-        leaveButton.SetActive(true);
-    }
 
-    public void ShowCharacterSelectPanel() {
-        characterSelectPannel.SetActive(true);
-        selectText.gameObject.SetActive(true);
-        leaveButton.SetActive(false);
+    void Start() {
+        selectGroup.SetActive(true);
+        readyGroup.SetActive(false);
     }
 
     public void onClickedLeaveButton() {
@@ -38,6 +28,9 @@ public class LobbyUIManager : Singleton<LobbyUIManager>
         PointerEventData ped = (PointerEventData)data;
         string candidatedCharacterName = ped.pointerCurrentRaycast.gameObject.GetComponent<CandidateCharacter>().candidateCharacter.name;
         onCharacterClickedListener.Invoke(candidatedCharacterName);
+        
+        selectGroup.SetActive(false);
+        readyGroup.SetActive(true);
     }
 
     public void appendChild(GameObject childObject) {
