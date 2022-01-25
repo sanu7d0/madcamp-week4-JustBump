@@ -149,7 +149,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e2a63b3d0aac47fea4d6761418f0540, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  arenaName: TempArena
+  arenaName: Arena
   LimitTime: 15
 --- !u!114 &3767676445158165385
 MonoBehaviour:

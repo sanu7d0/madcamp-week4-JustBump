@@ -33,7 +33,7 @@ public class SpeedUpItem: Interactable
     // Start is called before the first frame update
     void Start()
     {
-        
+        // this.transform.localScale = Vector3.one * 0.3f;
     }
 
     // Update is called once per frame

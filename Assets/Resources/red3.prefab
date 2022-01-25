@@ -177,7 +177,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cc: {fileID: 6804074209624312811}
-  speed: 100
+  speed: 150
   duration: 10
 --- !u!61 &6804074209624312811
 BoxCollider2D:
