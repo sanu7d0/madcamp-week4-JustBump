@@ -55,8 +55,10 @@ public abstract class Weapon : MonoBehaviourPunCallbacks, IPunObservable
     protected virtual void PlayUseSound() {
         photonView.RPC("_PlayUseSound", RpcTarget.All, weapon.GetRandomUseSound().name);
     }
+
     [PunRPC]
-    protected virtual void _PlayUseSound(string clipName) {
+    public void _PlayUseSound(string clipName) {
+        Debug.Log("Hello");
         audioSource.PlayOneShot(AudioManager.Instance.GetAudioClip(clipName));
     }
 
