@@ -75,6 +75,8 @@ MonoBehaviour:
   - __BumpSelf
   - _IncreaseSpeed
   - _InitSpeed
+  - _activeTrue
+  - _actvieFalse
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
