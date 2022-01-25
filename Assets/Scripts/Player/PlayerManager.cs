@@ -33,6 +33,7 @@ public class PlayerManager: MonoBehaviourPunCallbacks, IBumpable, IPlayer
     public int id { get; set; }
     public string nickname { get; set; }
     private EventTimer cancellableTimer;
+    public bool isDeading = false;
 
     void Awake()
     {
@@ -71,17 +72,20 @@ public class PlayerManager: MonoBehaviourPunCallbacks, IBumpable, IPlayer
 
     void Update()
     {
-        if(nameInstance != null) { 
-			nameInstance.transform.position = new Vector3(
-			    transform.position.x,
-			    transform.position.y + 0.2f,
-			    -1
-			);
-		}
+        if (nameInstance != null)
+        {
+            nameInstance.transform.position = new Vector3(
+                transform.position.x,
+                transform.position.y + 0.2f,
+                -1
+            );
+        }
     }
 
     public void Revive() {
-		photonView.RPC("_Revive", RpcTarget.All);
+        if (PhotonNetwork.IsMasterClient) { 
+			photonView.RPC("_Revive", RpcTarget.All);
+		}
     }
     
     [PunRPC]
@@ -103,11 +107,14 @@ public class PlayerManager: MonoBehaviourPunCallbacks, IBumpable, IPlayer
     }
 
     public void Dead() {
+        if (isDeading || isDead) {
+            return;
+        }
         if (PhotonNetwork.IsMasterClient) { 
 			int randomSpawn = UnityEngine.Random.Range(0, spawnNum);
 			Transform spawnLoc = GameObject.Find("Spawn" + randomSpawn).transform;
-			GameObject spawnObject = PhotonNetwork.Instantiate(spawnImage.name, spawnLoc.position , Quaternion.identity);   
-     
+			GameObject spawnObject = PhotonNetwork.Instantiate(spawnImage.name, spawnLoc.position , Quaternion.identity);
+            isDeading = true;
 			TimerExtension.CreateEventTimer(() =>
 			{
 			    Revive();
@@ -124,7 +131,7 @@ public class PlayerManager: MonoBehaviourPunCallbacks, IBumpable, IPlayer
             Debug.Log("Can not Die Because Dead");
             return;
 		}
-
+        isDeading = false;
 		isDead = true;
 
         if(gameManager != null) { 
