@@ -31,9 +31,8 @@ public class Weapon_Grenade : Weapon
             Debug.LogError("Failed to TryGetComponent TimerBomb");
         }
 
-        TimerExtension.CreateEventTimer(() => {
-            base.PlayUseSound();
-        }, explosionDelayTime);
+        audioSource.clip = weapon.GetRandomUseSound();
+        audioSource.PlayDelayed(explosionDelayTime-0.05f);
 
         return base.Use();
     }

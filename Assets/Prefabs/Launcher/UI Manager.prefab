@@ -589,7 +589,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'CONECTING...
+  m_text: 'CONNECTING...
 
 '
   m_isRightToLeft: 0

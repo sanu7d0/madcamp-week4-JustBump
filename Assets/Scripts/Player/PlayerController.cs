@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
     public UnityEvent onSwapWeapon;
 
-    public UnityEvent onDrop;
+    public UnityEvent<float> onDrop;
 
     public Vector2 moveDir { 
         get; private set;
@@ -89,7 +89,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
         if (!CanControl()) {
             return;
         }
-        onDrop.Invoke();
+        onDrop.Invoke(0f);
     }
     
     bool CanControl() { 

@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
@@ -10,16 +12,20 @@ public class LobbyUIManager : Singleton<LobbyUIManager>
     public GameObject characterSelectPannel;
     [SerializeField]
     public GameObject leaveButton;
+    [SerializeField] private TMP_Text selectText;
+    [SerializeField] 
     public UnityEvent onClickedLeaveButtonListener;
     public UnityEvent<string> onCharacterClickedListener;
 
     public void ShowLeaveButton() { 
         characterSelectPannel.SetActive(false);
+        selectText.gameObject.SetActive(false);
         leaveButton.SetActive(true);
     }
 
     public void ShowCharacterSelectPanel() {
         characterSelectPannel.SetActive(true);
+        selectText.gameObject.SetActive(true);
         leaveButton.SetActive(false);
     }
 
