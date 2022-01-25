@@ -35,6 +35,7 @@ public class LobbyUIManager : Singleton<LobbyUIManager>
             candidatedCharacterName = 
                 ped.pointerCurrentRaycast.gameObject.transform.parent.GetComponent<CandidateCharacter>()
                     .candidateCharacter.name;
+            Debug.Log($"Selected {candidatedCharacterName}");
         }
         onCharacterClickedListener.Invoke(candidatedCharacterName);
         

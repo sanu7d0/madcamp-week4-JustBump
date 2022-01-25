@@ -1922,7 +1922,7 @@ MonoBehaviour:
   scorePanel: {fileID: 3606266441392988668}
   winnerText: {fileID: 6848370800445014346}
   gameEndUI: {fileID: 5750675078618933173}
-  KillLogText: {fileID: 0}
+  KillLogText: {fileID: 1888000445099113333}
   onLeaveButton:
     m_PersistentCalls:
       m_Calls: []

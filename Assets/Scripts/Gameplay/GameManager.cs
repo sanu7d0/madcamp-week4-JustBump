@@ -164,6 +164,7 @@ sealed public class GameManager : Singleton<GameManager>
     }
 
     private void AttachMainCamera(GameObject target) {
+        Debug.Log(target);
         if (Camera.main.TryGetComponent<CameraController>(out CameraController cc)) {
             cc.targetTransform = target.transform;
         }
