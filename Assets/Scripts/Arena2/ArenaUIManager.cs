@@ -21,16 +21,20 @@ public class ArenaUIManager : Singleton<ArenaUIManager>
     private GameObject winnerText;
     [SerializeField]
     private GameObject gameEndUI;
+    [SerializeField]
+    private GameObject KillLogText;
     public UnityEvent onLeaveButton;
     private GameManager gameManager;
 
     public PlayerMediator myPlayer;
+    public EventTimer removeKillLogTimer;
 
     protected override void Awake()
     {
         base.Awake();
         gameManager = GameManager.Instance;
         gameManager.onChangePlayer.AddListener(OnChangeScorePanel);
+        gameManager.onDead.AddListener(OnDiedUser);
     }
 
     void Start()
@@ -39,6 +43,7 @@ public class ArenaUIManager : Singleton<ArenaUIManager>
             return;
         }
         gameEndUI.SetActive(false);
+        KillLogText.SetActive(false);
     }
     
     public void OnGameEnd(string winnerName) {
@@ -95,6 +100,13 @@ public class ArenaUIManager : Singleton<ArenaUIManager>
             text_score?.SetText($"SCORE {Mathf.Min(gameManager.bigScore, gameManager.gameGoalScore)} / {gameManager.gameGoalScore}");
             text_ping?.SetText($"PING {PhotonNetwork.GetPing()}");
         }
+        if (!gameManager.isPlaying) {
+            text_timer.gameObject.SetActive(false);
+            text_ping.gameObject.SetActive(false);
+            text_score.gameObject.SetActive(false);
+            scorePanel.SetActive(false);
+            KillLogText?.SetActive(false);
+		}
     }
 
     public void UpdateWeapons() {
@@ -102,5 +114,24 @@ public class ArenaUIManager : Singleton<ArenaUIManager>
         for (int i = 0; i < weapons.Length; i++) {
             weaponIcons[i].sprite = weapons[i].weaponSprite;
         }
+    }
+
+    public void OnDiedUser(IPlayer killer, IPlayer victim) {
+        if(removeKillLogTimer is not null) {
+            removeKillLogTimer.Stop();
+		}
+        if(killer is not IPlayer) {
+            KillLogText.GetComponent<TextMeshProUGUI>().text = $"{victim.nickname} died alone.";
+		} else { 
+            KillLogText.GetComponent<TextMeshProUGUI>().text = $"{killer.nickname} killed {victim.nickname}";
+		}
+        KillLogText.SetActive(true);
+        
+        removeKillLogTimer = TimerExtension.CreateEventTimer(() =>
+        {
+            removeKillLogTimer = null;
+            KillLogText.SetActive(false);
+            KillLogText.GetComponent<TextMeshProUGUI>().text = $"";
+        }, 3);
     }
 }

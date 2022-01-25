@@ -43,6 +43,7 @@ sealed public class GameManager : Singleton<GameManager>
     }
 
     public bool DEBUG_OfflineMode = false;
+    public UnityEvent<IPlayer, IPlayer> onDead;
 
     protected override void Awake() {
 	    base.Awake();
@@ -214,5 +215,9 @@ sealed public class GameManager : Singleton<GameManager>
 		}
         onChangePlayer.Invoke(players);
     }
-     
+
+    public void InvokeOnDead(IPlayer killer, IPlayer victime) {
+        onDead.Invoke(killer, victime);
+    }
+
 }   

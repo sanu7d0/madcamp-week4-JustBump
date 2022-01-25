@@ -4246,6 +4246,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1662619928888465093, guid: c6e31fe6c49174335b5adba555602b38, type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 1882358193438408395, guid: c6e31fe6c49174335b5adba555602b38, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -4277,6 +4281,14 @@ PrefabInstance:
     - target: {fileID: 1945456656813284020, guid: c6e31fe6c49174335b5adba555602b38, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2248182883456238841, guid: c6e31fe6c49174335b5adba555602b38, type: 3}
+      propertyPath: m_Name
+      value: Weapons
+      objectReference: {fileID: 0}
+    - target: {fileID: 2343795748079489529, guid: c6e31fe6c49174335b5adba555602b38, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 283
       objectReference: {fileID: 0}
     - target: {fileID: 3192727440045945113, guid: c6e31fe6c49174335b5adba555602b38, type: 3}
       propertyPath: m_AnchorMax.y
@@ -4398,6 +4410,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4627554603261268144, guid: c6e31fe6c49174335b5adba555602b38, type: 3}
+      propertyPath: KillLogText
+      value: 
+      objectReference: {fileID: 1954950710}
     - target: {fileID: 4627554603261268145, guid: c6e31fe6c49174335b5adba555602b38, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -4485,6 +4501,10 @@ PrefabInstance:
     - target: {fileID: 4627554603261268157, guid: c6e31fe6c49174335b5adba555602b38, type: 3}
       propertyPath: m_Name
       value: ArenaUIManger
+      objectReference: {fileID: 0}
+    - target: {fileID: 5886413202732139308, guid: c6e31fe6c49174335b5adba555602b38, type: 3}
+      propertyPath: m_Name
+      value: GameUI
       objectReference: {fileID: 0}
     - target: {fileID: 6543534294528708670, guid: c6e31fe6c49174335b5adba555602b38, type: 3}
       propertyPath: m_AnchorMax.y
@@ -4648,6 +4668,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c6e31fe6c49174335b5adba555602b38, type: 3}
+--- !u!1 &1954950710 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1888000445099113333, guid: c6e31fe6c49174335b5adba555602b38, type: 3}
+  m_PrefabInstance: {fileID: 1954950709}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1984168005
 GameObject:
   m_ObjectHideFlags: 0
