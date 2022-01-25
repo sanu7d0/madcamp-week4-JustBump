@@ -48,7 +48,7 @@ public class SpeedUpItem: Interactable
             {
 				interactor.InitSpeed();
             }, duration);
-			Destroy(gameObject);
+		    PhotonNetwork.Destroy(gameObject);
 		}
     }
 

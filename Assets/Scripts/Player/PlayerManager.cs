@@ -103,7 +103,7 @@ public class PlayerManager: MonoBehaviourPunCallbacks, IBumpable, IPlayer
     }
 
     public void Dead() {
-        if (photonView.IsMine) { 
+        if (PhotonNetwork.IsMasterClient) { 
 			int randomSpawn = UnityEngine.Random.Range(0, spawnNum);
 			Transform spawnLoc = GameObject.Find("Spawn" + randomSpawn).transform;
 			GameObject spawnObject = PhotonNetwork.Instantiate(spawnImage.name, spawnLoc.position , Quaternion.identity);   
