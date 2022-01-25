@@ -80,7 +80,7 @@ public class MissionInteract : Interactable
 
     public override void FinishInteract()
     {
-        playerMediator.AddScore(10);
+        playerMediator.AddScore(6);
         photonView.RPC("_FinishInteract", RpcTarget.All);
     }
     

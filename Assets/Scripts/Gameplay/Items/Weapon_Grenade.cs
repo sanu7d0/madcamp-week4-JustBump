@@ -31,8 +31,9 @@ public class Weapon_Grenade : Weapon
             Debug.LogError("Failed to TryGetComponent TimerBomb");
         }
 
-        audioSource.clip = weapon.GetRandomUseSound();
-        audioSource.PlayDelayed(explosionDelayTime-0.05f);
+        // audioSource.clip = weapon.GetRandomUseSound();
+
+        // audioSource.PlayDelayed(explosionDelayTime-0.05f);
 
         return base.Use();
     }
@@ -40,5 +41,10 @@ public class Weapon_Grenade : Weapon
     protected override void PlayUseMotion()
     {
         // base.PlayUseMotion();
+    }
+
+    IEnumerator CoPlayDelayedClip(float time) {
+        yield return new WaitForSeconds(time);
+        audioSource.PlayOneShot(weapon.GetRandomUseSound());
     }
 }
