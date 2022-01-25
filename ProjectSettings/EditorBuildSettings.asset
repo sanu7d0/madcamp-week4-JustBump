@@ -15,6 +15,6 @@ EditorBuildSettings:
     path: Assets/Scenes/Arena.unity
     guid: 460ceeafaa6454da6802f0e060fb92cf
   - enabled: 1
-    path: Assets/Scenes/TempArena.unity
+    path: Assets/Scenes/Arena.unity
     guid: e6c57a199b847404fa7b2a237452c6d1
   m_configObjects: {}
