@@ -7,6 +7,9 @@ sealed public class AudioManager : SingletonP<AudioManager>
     public AudioClip[] audioList;
     Dictionary<string, AudioClip> audioMap;
 
+    private void Start() {
+        DontDestroyOnLoad(transform.gameObject);
+    }
     protected override void Awake()
     {
         base.Awake();
