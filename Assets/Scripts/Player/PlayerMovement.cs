@@ -134,7 +134,9 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
     }
 
     public void StartFalling() {
-        photonView.RPC("_StartFalling", RpcTarget.All);
+        if (PhotonNetwork.IsMasterClient) { 
+			photonView.RPC("_StartFalling", RpcTarget.All);
+		}
     }
     [PunRPC]
     public void _StartFalling() {
