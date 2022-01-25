@@ -1,13 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class MissionInteract : Interactable
 {
-    public float totalTime;
-    public float coolTime;
+    public float minTotalTime;
+    public float maxTotalTime;
+    private float totalTime;
+    public float minCoolTime;
+    public float maxCoolTime;
     public GameObject prfGaugeBar;
-    private GameObject canvas;
+    public GameObject canvas;
     private enum State {
         progress,
         idle
@@ -16,23 +20,21 @@ public class MissionInteract : Interactable
 
     GameObject gaugeBarObject;
     RectTransform gaugeBar;
+    PlayerMediator playerMediator;
 
 
     public float height = 1.7f;
 
-    // Update is called once per frame
-    void Update()
+    private void Awake()
     {
-        if (gaugeBar != null)
-            gaugeBar.position = Camera.main.WorldToScreenPoint(new Vector3(transform.position.x, transform.position.y + height, 0));
-
+        canvas = GameObject.Find("MissionGaugeCanvas");
+        state = State.idle;
     }
 
-    protected override void Awake()
+    private void Start()
     {
-        base.Awake();
-        canvas = GameObject.Find("Canvas");
-        state = State.idle;
+		if (gaugeBar != null)
+		    gaugeBar.position = Camera.main.WorldToScreenPoint(new Vector3(transform.position.x, transform.position.y + height, 0));
     }
 
     protected override void OnTriggerEnter2D(Collider2D other)
@@ -44,28 +46,31 @@ public class MissionInteract : Interactable
     protected override void OnTriggerExit2D(Collider2D other)
     {
         base.OnTriggerExit2D(other);
+        StopInteract();
         // Debug.Log($"{other.name} exited {this.name}");
     }
 
     public override void Interact(PlayerMediator playerMediator)
     {
-        base.Interact(playerMediator);
+        this.playerMediator = playerMediator;
+        totalTime = Random.Range(minTotalTime, maxTotalTime);
+        photonView.RPC("_Interact", RpcTarget.All, totalTime);
+        Invoke("FinishInteract", totalTime);
+    }
+    
+    [PunRPC]
+    public void _Interact(float totalTime) { 
         StopInteract();
         state = State.progress;
-        gaugeBarObject = Instantiate(prfGaugeBar, canvas.transform);
+	    gaugeBarObject = Instantiate(prfGaugeBar, canvas.transform);
         gaugeBar = gaugeBarObject.GetComponent<RectTransform>();
         Vector3 _gaugeBarPos = Camera.main.WorldToScreenPoint(new Vector3(transform.position.x, transform.position.y + height, 0));
         gaugeBar.position = _gaugeBarPos;
         gaugeBar.GetComponent<GaugeMove>().InitGauge(totalTime);
-        
-        Debug.Log($"??? interacted with {this.name}");
-        
-        Invoke("FinishInteract", totalTime);
     }
 
     public override void StopInteract()
     {
-        base.StopInteract();
         if (state == State.progress) {
             Destroy(gaugeBarObject);
             CancelInvoke("FinishInteract");
@@ -75,16 +80,25 @@ public class MissionInteract : Interactable
 
     public override void FinishInteract()
     {
+        playerMediator.AddScore(10);
+        photonView.RPC("_FinishInteract", RpcTarget.All);
+    }
+    
+    [PunRPC] 
+    public void _FinishInteract() { 
         if (state == State.progress) {
-            base.FinishInteract();
-            // Destroy(this.gameObject);
-            this.gameObject.SetActive(false);
-
+            gameObject.SetActive(false);
+            float coolTime = Random.Range(minCoolTime, maxCoolTime);
             Invoke("recreate_mission", coolTime);
         }
     }
 
     public void recreate_mission() {
         this.gameObject.SetActive(true);
+    }
+
+    public override void Interact()
+    {
+        throw new System.NotImplementedException();
     }
 }

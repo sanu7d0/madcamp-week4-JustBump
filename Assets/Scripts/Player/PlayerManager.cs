@@ -11,14 +11,18 @@ using TMPro;
 public class PlayerManager: MonoBehaviourPunCallbacks, IBumpable, IPlayer
 {
     private Rigidbody2D rb;
+    private PlayerMediator playerMediator;
     private GameObject mainCamera;
     private Vector3 beforeCameraPos;
     private IPlayer lastBumperPlayer;
     private GameManager gameManager;
     private GameObject nameInstance;
+    [SerializeField] private int spawnTime = 5;
     [SerializeField] [Range(0.01f, 0.1f)] float shakeRange = 0.05f;
     [SerializeField] [Range(0.1f, 1f)] float duration = 0.5f;
     [SerializeField] private GameObject nameField;
+    [SerializeField] private int spawnNum;
+    [SerializeField] private GameObject spawnImage;
 
     public UnityEvent onDead;
 
@@ -33,6 +37,7 @@ public class PlayerManager: MonoBehaviourPunCallbacks, IBumpable, IPlayer
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        playerMediator = GetComponent<PlayerMediator>();
         gameManager = GameManager.Instance;
         isDead = false;
         score = 0;
@@ -50,17 +55,21 @@ public class PlayerManager: MonoBehaviourPunCallbacks, IBumpable, IPlayer
         base.OnEnable();
     }
 
-    private void Start()
+    void Start()
     {
         onDead.AddListener(Dead);
-        Debug.Log(gameManager);
-        if(gameManager != null) { 
-			gameManager.AddPlayer(this);
-			gameManager.InvokeOnchangePlayer();
-		}
+
+        gameManager?.AddPlayer(this);
+        gameManager?.InvokeOnchangePlayer();
+
+        if (photonView.IsMine) {
+            // Add listener to UI Manager
+            playerMediator.onWeaponChange.AddListener(ArenaUIManager.Instance.UpdateWeapons);
+            ArenaUIManager.Instance.myPlayer = playerMediator;
+        }
    }
 
-    private void Update()
+    void Update()
     {
         if(nameInstance != null) { 
 			nameInstance.transform.position = new Vector3(
@@ -72,7 +81,7 @@ public class PlayerManager: MonoBehaviourPunCallbacks, IBumpable, IPlayer
     }
 
     public void Revive() {
-        photonView.RPC("_Revive", RpcTarget.All);
+		photonView.RPC("_Revive", RpcTarget.All);
     }
     
     [PunRPC]
@@ -81,8 +90,9 @@ public class PlayerManager: MonoBehaviourPunCallbacks, IBumpable, IPlayer
             Debug.Log("Can not Revive Because live");
             return;
 		}
+
         isDead = false;
-        gameObject.transform.position = new Vector3(0, 0, 0);
+        lastBumperPlayer = null;
         gameObject.SetActive(true);
         nameInstance.GetComponent<TextMeshProUGUI>().color = Color.black;
 
@@ -92,21 +102,28 @@ public class PlayerManager: MonoBehaviourPunCallbacks, IBumpable, IPlayer
 		}
     }
 
-    public void Dead() { 
-        photonView.RPC("_Dead", RpcTarget.All);
+    public void Dead() {
+        if (photonView.IsMine) { 
+			int randomSpawn = UnityEngine.Random.Range(0, spawnNum);
+			Transform spawnLoc = GameObject.Find("Spawn" + randomSpawn).transform;
+			GameObject spawnObject = PhotonNetwork.Instantiate(spawnImage.name, spawnLoc.position , Quaternion.identity);   
+     
+			TimerExtension.CreateEventTimer(() =>
+			{
+			    Revive();
+			    PhotonNetwork.Destroy(spawnObject);
+			}, spawnTime);
 
-        TimerExtension.CreateEventTimer(() => {
-            Revive();
-		 }, 5);
+			photonView.RPC("_Dead", RpcTarget.All,spawnObject.transform.position);
+		}
     }
     
     [PunRPC]
-    private void _Dead() {
+    private void _Dead(Vector3 spawPosition) {
         if(isDead) {
             Debug.Log("Can not Die Because Dead");
             return;
 		}
-        Debug.Log("_Dead Start");
 
 		isDead = true;
 
@@ -124,8 +141,11 @@ public class PlayerManager: MonoBehaviourPunCallbacks, IBumpable, IPlayer
 
         TimerExtension.CreateEventTimer(() => { 
 			gameObject.SetActive(false);
+            gameObject.transform.position = spawPosition;
 		}, 2);
+
     }
+
 
     public void BumpSelf(Vector2 force, IPlayer lastBumperPlayer) {
         photonView.RPC("_BumpSelf", RpcTarget.All, new object[] { lastBumperPlayer.id, lastBumperPlayer.score, lastBumperPlayer.isDead, force } );
@@ -150,6 +170,17 @@ public class PlayerManager: MonoBehaviourPunCallbacks, IBumpable, IPlayer
 		}
     }
 
+    public void BumpSelf(Vector2 force)
+    {
+        photonView.RPC("__BumpSelf", RpcTarget.All, new object[] { force });
+    }
+
+    [PunRPC]
+    private void __BumpSelf(Vector2 force)
+    {
+        rb.AddForce(force, ForceMode2D.Impulse);
+        onBumped.Invoke();
+    }
 
     public void BumpExplosionSelf(float explosionForce, Vector2 explosionPosition, float explosionRadius) {
         photonView.RPC("_BumpExplosionSelf", RpcTarget.All, new object[] { explosionForce, explosionPosition, explosionRadius } );
@@ -185,13 +216,15 @@ public class PlayerManager: MonoBehaviourPunCallbacks, IBumpable, IPlayer
 	}
 
     public void AddScore(int score) {
-        // 자기의 점수를 ++
+        photonView.RPC("_AddScore", RpcTarget.All, new object[] { score });
+    }
+    [PunRPC]
+    public void _AddScore(int score) { 
         if(gameManager != null) { 
 			gameManager.IncrementScore(this, score);
 			gameManager.InvokeOnchangePlayer();
 		}
     }
-
     private void OnDestroy()
     {
         if(gameManager != null) { 

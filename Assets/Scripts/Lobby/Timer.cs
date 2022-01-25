@@ -17,7 +17,8 @@ public class Timer : MonoBehaviour
     private TMP_Text textView;
     
 
-    public void Destory() { 
+    public void Destory() {
+        Debug.Log("Destory");
         if(PhotonNetwork.IsMasterClient) { 
 			PhotonNetwork.Destroy(gameObject);
 		}
@@ -32,6 +33,7 @@ public class Timer : MonoBehaviour
     {
         LobbyUIManager.Instance.appendChild(gameObject);
         transform.position += new Vector3(0, 160, 0);
+        startTime = Time.time;
     }
 
 
@@ -47,9 +49,9 @@ public class Timer : MonoBehaviour
 		}
     
         if(elapsedTime < 0.1) { 
-			if(PhotonNetwork.IsMasterClient) { 
+			if(PhotonNetwork.IsMasterClient) {
+                Destroy(gameObject);
 			    PhotonNetwork.LoadLevel(arenaName);
-			    PhotonNetwork.Destroy(gameObject);
 			}
 		}
     }

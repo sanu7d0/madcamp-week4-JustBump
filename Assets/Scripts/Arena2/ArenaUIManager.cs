@@ -1,37 +1,49 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Events;
 using Players = System.Collections.Generic.SortedDictionary<int, IPlayer>;
-
+using UnityEngine.SceneManagement;
 
 public class ArenaUIManager : Singleton<ArenaUIManager>
 {
+    [SerializeField] TMP_Text text_timer;
+    [SerializeField] TMP_Text text_score;
+    [SerializeField] TMP_Text text_ping;
+    [SerializeField] Image[] weaponIcons;
     [SerializeField]
     private GameObject scorePanel;
     [SerializeField]
-    private GameObject scoreItemPrefab;
+    private GameObject winnerText;
+    [SerializeField]
+    private GameObject gameEndUI;
     public UnityEvent onLeaveButton;
     private GameManager gameManager;
+
+    public PlayerMediator myPlayer;
 
     protected override void Awake()
     {
         base.Awake();
-        for (int i = 0; i < 10; i++) {
-            var parentTansfrom = scorePanel.GetComponent<RectTransform>();
-            var childObject = Instantiate(scoreItemPrefab);
-            childObject.transform.SetParent(parentTansfrom, false);
-            childObject.transform.position += new Vector3(0, 10 * i, 0);
-        }
         gameManager = GameManager.Instance;
         gameManager.onChangePlayer.AddListener(OnChangeScorePanel);
     }
 
-    // Start is called before the first frame update
     void Start()
     {
-
+        if(SceneManager.GetActiveScene().name == "Lobby") {
+            return;
+        }
+        gameEndUI.SetActive(false);
+    }
+    
+    public void OnGameEnd(string winnerName) {
+        gameEndUI.SetActive(true);
+        winnerText.GetComponent<TextMeshProUGUI>().text = $"winner : {winnerName}";
     }
 
     public void OnClickLeaveButton() {
@@ -54,7 +66,7 @@ public class ArenaUIManager : Singleton<ArenaUIManager>
                 var textMesh = childObject.GetComponent<TextMeshProUGUI>();
                 textMesh.text = $"{nickname} : {score}";
                 if (dead) {
-                    textMesh.color = Color.gray;
+                    textMesh.color = Color.red;
 				} else { 
                     textMesh.color = Color.black;
 				}
@@ -73,4 +85,22 @@ public class ArenaUIManager : Singleton<ArenaUIManager>
 		}
         return sortedPlayers;
 	}
+
+
+    void Update()
+    {
+        if (gameManager.isPlaying)
+        {
+            text_timer?.SetText($"TIMER {Mathf.Round(gameManager.gameElapsedTime)} / {gameManager.gameLimitTime}");
+            text_score?.SetText($"SCORE {Mathf.Min(gameManager.bigScore, gameManager.gameGoalScore)} / {gameManager.gameGoalScore}");
+            text_ping?.SetText($"PING {PhotonNetwork.GetPing()}");
+        }
+    }
+
+    public void UpdateWeapons() {
+        Weapon[] weapons = myPlayer.weapons;
+        for (int i = 0; i < weapons.Length; i++) {
+            weaponIcons[i].sprite = weapons[i].weaponSprite;
+        }
+    }
 }

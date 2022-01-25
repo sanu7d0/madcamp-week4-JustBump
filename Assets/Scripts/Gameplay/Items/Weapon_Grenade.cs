@@ -14,11 +14,11 @@ public class Weapon_Grenade : Weapon
         base.Start();
     }
 
-    public override bool Use(Vector3 originPosition, Vector3 targetPosition)
+    public override WeaponUseResult Use(Vector3 originPosition, Vector3 targetPosition)
     {
         if (weapon.durability <= 0) {
             // Debug.Log($"Durability: {weapon.durability}");
-            return false;
+            return WeaponUseResult.AllUsed;
         }
 
         GameObject throwedGrenade 
@@ -31,16 +31,15 @@ public class Weapon_Grenade : Weapon
             Debug.LogError("Failed to TryGetComponent TimerBomb");
         }
 
+        TimerExtension.CreateEventTimer(() => {
+            base.PlayUseSound();
+        }, explosionDelayTime);
+
         return base.Use();
     }
 
     protected override void PlayUseMotion()
     {
         // base.PlayUseMotion();
-    }
-
-    protected override void AllUsed()
-    {
-        // base.AllUsed();
     }
 }

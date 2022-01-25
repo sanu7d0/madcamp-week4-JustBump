@@ -41,7 +41,8 @@ public class PlayerInteraction : MonoBehaviour
         // Find by id and remove it
         int id = interactable.GetInstanceID();
         bool found = false;
-        for (int i=0; i < interactables.Count; i++) {
+        
+        for (int i = interactables.Count - 1; i >= 0; i--) {
             if (interactables[i].Item2 == id) {
                 interactables.RemoveAt(i);
                 found = true;

@@ -45,4 +45,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timerPrefab: {fileID: 870827818428203120, guid: 42a050bce4d074ab2920086d8e6d86f9, type: 3}
-  MinStartGame: 1
+  MinStartGame: 3

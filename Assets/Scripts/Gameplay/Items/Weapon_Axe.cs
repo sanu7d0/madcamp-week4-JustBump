@@ -28,21 +28,19 @@ public class Weapon_Axe : Weapon
         }
     }
 
-    public override bool Use()
+    public override WeaponUseResult Use()
     {
         if (TryMeleeAttack(hitBox)) {
-            PlayUseMotion();
+            // PlayUseMotion();
             base.PlayUseSound();
             return base.Use();
         } else {
-            return false;
+            return WeaponUseResult.NoHit;
         }
     }
 
     protected override void PlayUseMotion()
     {
-        // base.PlayUseMotion();
-
         transform.localRotation = originalRotation;
         transform.Rotate(0, 0, -70f);
         state = State.Motion;
@@ -57,12 +55,5 @@ public class Weapon_Axe : Weapon
             transform.localRotation = 
                 Quaternion.Lerp(transform.localRotation, originalRotation, 5 * Time.deltaTime);
         }
-    }
-
-    protected override void AllUsed()
-    {
-        // Do Something
-
-        base.AllUsed();
     }
 }

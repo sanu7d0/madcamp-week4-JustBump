@@ -5,12 +5,7 @@ using Photon.Pun;
 
 public abstract class Interactable : MonoBehaviourPunCallbacks
 {
-    [SerializeField] private Collider2D cc;
-
-    protected virtual void Awake() {
-        // cc = GetComponent<Collider2D>();
-        // cc.isTrigger = true;
-    }
+    [SerializeField] protected Collider2D cc;
 
     protected virtual void OnTriggerEnter2D(Collider2D other) {
         if (other.tag == "Player") {
@@ -21,23 +16,15 @@ public abstract class Interactable : MonoBehaviourPunCallbacks
     protected virtual void OnTriggerExit2D(Collider2D other) {
         if (other.tag == "Player") {
             other.GetComponent<PlayerMediator>().RemoveInteractable(this);
-            StopInteract();
         }
     }
 
-    public virtual void Interact() {
+    public abstract void Interact();
 
-    }
+    public abstract void Interact(PlayerMediator interactor);
 
-    public virtual void Interact(PlayerMediator interactor) {
-        
-    }
+    public abstract void StopInteract();
 
-    public virtual void StopInteract() {
+    public abstract void FinishInteract();
 
-    }
-
-    public virtual void FinishInteract() {
-
-    }
 }

@@ -57,6 +57,22 @@ MonoBehaviour:
   - _TryRoll
   - _PlayUseSound
   - _SwapWeapon
+  - _OnStateChange
+  - _ChangeCurrentWeapon
+  - _AddScore
+  - _Interact
+  - _FinishInteract
+  - _DetonateBomt
+  - _ClearWeapon
+  - _SetWeaponAt
+  - _WeaponToFieldDrop
+  - _PlayeExplosionSound
+  - Init
+  - _Init
+  - _InitItem
+  - _DropCurrentWeapon
+  - DropWeaponAt
+  - __BumpSelf
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

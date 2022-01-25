@@ -1,89 +1,51 @@
+using System;
 using UnityEngine;
+using UnityEngine.Events;
 using Photon.Pun;
 
 public class PlayerCombat : MonoBehaviourPunCallbacks
 {
     private PlayerController playerController;
-
-    [SerializeField] private Transform weaponHolder;
-    public Transform[] weapons {
-        get; private set;
-    }
-    private int currentSelection;
-    private Weapon currentWeapon;
+    private PlayerInventory playerInventory;
 
     public GameObject appleBullet;
+    [SerializeField] private Transform weaponHolder;
     [SerializeField] public Transform shootPosition;
     [SerializeField] public float shootCoolTime;
     private float lastShootTime;
 
     void Awake() {
         playerController = GetComponent<PlayerController>();
+        playerInventory = GetComponent<PlayerInventory>();
 
         playerController.onAttack.AddListener(TryAttack);
-        playerController.onSwapWeapon.AddListener(SwapWeapon);
         playerController.onShoot.AddListener(TryShoot);
     }
 
-    void Start() {
-        // Weapons
-        weapons = new Transform[2];
-        currentSelection = 0;
-
-        weapons[0] = weaponHolder.GetChild(0); // ?? something // null 이면 대체 넣기
-        weapons[1] = weaponHolder.GetChild(1);
-
-        currentWeapon = weapons[currentSelection].GetComponent<Weapon>();
-        weapons[1].gameObject.SetActive(false);
+    public override void OnEnable()
+    {
+        base.OnEnable();
 
         // Shoots
         lastShootTime = 0;
     }
 
-    private void SwapWeapon() {
-        photonView.RPC("_SwapWeapon", RpcTarget.All);
-    }
-    [PunRPC]
-    private void _SwapWeapon() {
-        weapons[currentSelection].gameObject.SetActive(false);
-        
-        if (currentSelection == weapons.Length - 1) {
-            currentSelection = 0;
-        } else {
-            currentSelection += 1;
+    void Update() {
+        if (photonView.IsMine) {
+            Vector2 lookDir = (Camera.main.ScreenToWorldPoint(playerController.mousePos)
+                - transform.position).normalized;
+            
+            weaponHolder.transform.up = lookDir;
         }
-
-        weapons[currentSelection].gameObject.SetActive(true);
-        currentWeapon = weapons[currentSelection].GetComponent<Weapon>();
-    }
-
-    public void ChangeCurrentWeapon(GameObject newWeapon) {
-        // TODO: network-destroy??
-        Destroy(weapons[currentSelection].gameObject);
-        
-        weapons[currentSelection] = newWeapon.transform;
-
-        newWeapon.transform.parent = weaponHolder;
-        newWeapon.transform.SetSiblingIndex(currentSelection);
-        newWeapon.transform.position = weaponHolder.position;
-        newWeapon.transform.localPosition = Vector3.zero;
-        newWeapon.transform.rotation = weaponHolder.rotation;
-        // rotation
-
-        currentWeapon = newWeapon.GetComponent<Weapon>();
     }
 
     private void TryAttack() {
-        if (currentWeapon == null) {
-            Debug.LogError("No weapon to use");
-            return;
-        }
+        Weapon currentWeapon = playerInventory.currentWeapon;
         
+        WeaponUseResult result = WeaponUseResult.Normal;
         switch (currentWeapon.GetWeaponType()) {
         case WeaponCategory.Melee:
-            if (currentWeapon.Use()) {
-                // ...
-            }
+            result = currentWeapon.Use();
             break;
         
         case WeaponCategory.Range:
@@ -91,11 +53,15 @@ public class PlayerCombat : MonoBehaviourPunCallbacks
             break;
         
         case WeaponCategory.Throwable:
-            Debug.Log(currentWeapon.Use(shootPosition.position, Camera.main.ScreenToWorldPoint(playerController.mousePos)));
-            // if (currentWeapon.Use(Camera.main.ScreenToWorldPoint(playerController.mousePos))) {
-            //     // ...
-            // }
+            result = currentWeapon.Use(
+                shootPosition.position, 
+                Camera.main.ScreenToWorldPoint(playerController.mousePos));
             break;
+        }
+
+        // If all used, drop it
+        if (result == WeaponUseResult.AllUsed) {
+            playerInventory.DropCurrentWeapon();
         }
         
     }

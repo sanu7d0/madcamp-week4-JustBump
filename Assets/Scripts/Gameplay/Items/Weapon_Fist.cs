@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
-public class Weapon_Fist : Weapon
+// ** Dont inherit this Wepon_Fist class! **
+sealed public class Weapon_Fist : Weapon
 {
     private Collider2D hitBox;
 
@@ -13,21 +14,18 @@ public class Weapon_Fist : Weapon
         hitBox = GetComponentInChildren<Collider2D>();
     }
 
-    public override bool Use()
+    public override WeaponUseResult Use()
     {
         if (TryMeleeAttack(hitBox)) {
             base.PlayUseSound();
             return base.Use();
         } else {
-            return false;
+            return WeaponUseResult.NoHit;
         }
     }
 
-    protected override void AllUsed()
-    {
-        // Do Something
-
-        base.AllUsed();
+    protected override void PlayUseMotion() {
+        
     }
     
     /*void OnDrawGizmosSelected() {

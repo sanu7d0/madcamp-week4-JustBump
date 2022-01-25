@@ -14,7 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Grenade
   category: 2
-  power: 30
-  durability: 10
+  sprite: {fileID: 21300260, guid: 7810966f0f690954c87305933cabf2b0, type: 3}
+  power: 25
+  durability: 3
   coolTime: 1
-  useSounds: []
+  useSounds:
+  - {fileID: 8300000, guid: 562f7de651c8c7d4187c890aa0726060, type: 3}

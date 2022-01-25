@@ -96,6 +96,8 @@ GameObject:
   - component: {fileID: -4614128935904032867}
   - component: {fileID: 8222056656697116907}
   - component: {fileID: 7280433570260119196}
+  - component: {fileID: 4633183041525639074}
+  - component: {fileID: 5397532076069013228}
   m_Layer: 0
   m_Name: Grenade
   m_TagString: Weapon
@@ -228,6 +230,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weapon: {fileID: 11400000, guid: 32b7ccab8873f1742b6cf71844e8f408, type: 2}
+  weaponDurability: 0
   explosionRadius: 5
   explosionDelayTime: 1
   grenade_throwed: {fileID: 3807789984623135664, guid: a8066509adfc03241a767a75ad058ef6, type: 3}
@@ -249,7 +252,37 @@ MonoBehaviour:
   Synchronization: 3
   OwnershipTransfer: 0
   observableSearch: 2
-  ObservedComponents: []
+  ObservedComponents:
+  - {fileID: 8222056656697116907}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &4633183041525639074
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9172026964250369542}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59e54c0b39f03df4886285159effceef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cc: {fileID: 5397532076069013228}
+--- !u!58 &5397532076069013228
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9172026964250369542}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.7
