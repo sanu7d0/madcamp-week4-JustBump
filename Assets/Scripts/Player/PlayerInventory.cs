@@ -93,8 +93,10 @@ public class PlayerInventory : MonoBehaviourPunCallbacks
         onWeaponChange.Invoke();
     }
 
-    public void DropCurrentWeapon() {
-        photonView.RPC("_DropCurrentWeapon", RpcTarget.All);
+    public void DropCurrentWeapon(float delayTime = 0f) {
+        TimerExtension.CreateEventTimer(() => {
+            photonView.RPC("_DropCurrentWeapon", RpcTarget.All);
+        }, delayTime);
     }
     
     [PunRPC]
