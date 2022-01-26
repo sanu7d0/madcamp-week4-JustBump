@@ -227,6 +227,7 @@ MonoBehaviour:
   maxTotalTime: 10
   minCoolTime: 5
   maxCoolTime: 40
+  bonusScore: 7
   prfGaugeBar: {fileID: 466090407936486436, guid: 5a31d0286b9a76b47a6217b947bc31af, type: 3}
   canvas: {fileID: 2296175527437696202}
   height: 0.7

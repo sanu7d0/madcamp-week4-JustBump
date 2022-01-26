@@ -10,6 +10,7 @@ public class MissionInteract : Interactable
     private float totalTime;
     public float minCoolTime;
     public float maxCoolTime;
+    public int bonusScore;
     public GameObject prfGaugeBar;
     public GameObject canvas;
     private enum State {
@@ -80,7 +81,7 @@ public class MissionInteract : Interactable
 
     public override void FinishInteract()
     {
-        playerMediator.AddScore(6);
+        playerMediator.AddScore(bonusScore);
         photonView.RPC("_FinishInteract", RpcTarget.All);
     }
     

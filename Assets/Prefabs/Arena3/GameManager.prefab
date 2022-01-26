@@ -47,7 +47,7 @@ MonoBehaviour:
   defaultPlayerPrefab: {fileID: 1973436953225210006, guid: 850a9c28398d0c74db2786c8e0fb0606, type: 3}
   missionPrefab: {fileID: 4771700952456603950, guid: 64959008904bb44468808e36e31f0064, type: 3}
   lootBoxPrefab: {fileID: 4771700952456603950, guid: 5d41544017e5d3045af6e86f19ea3018, type: 3}
-  _gameGoalScore: 30
+  _gameGoalScore: 40
   missionNum: 4
   lootBoxNum: 3
   spawnNum: 7
