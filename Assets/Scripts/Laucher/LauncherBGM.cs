@@ -50,6 +50,13 @@ public class LauncherBGM : Singleton<LauncherBGM>
         }
     }
 
+    void Update() {
+        string currentSceneName = SceneManager.GetActiveScene().name;
+        if (currentSceneName == "Arena") {
+            Destroy(gameObject);
+        }
+    }
+
     public static void ReplaceMusic() {
         BGM.Stop();
         Destroy(BGM);
