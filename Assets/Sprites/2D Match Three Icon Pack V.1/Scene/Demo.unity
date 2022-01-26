@@ -301,6 +301,10 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6322248905727637784, guid: 3ceb4da396409d34da42d7dd2b063203, type: 3}
+      propertyPath: sceneViewId
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3ceb4da396409d34da42d7dd2b063203, type: 3}
 --- !u!1001 &453991173
