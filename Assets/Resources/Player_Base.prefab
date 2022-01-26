@@ -393,6 +393,7 @@ MonoBehaviour:
   rollingTime: 0.35
   jumpingTotalTime: 0.2
   jumpingSpeed: 1
+  fallingScream: {fileID: 8300000, guid: 6e1b1ecf9d894ec499d2f08c29aff65e, type: 3}
 --- !u!114 &1527859615770454813
 MonoBehaviour:
   m_ObjectHideFlags: 0
