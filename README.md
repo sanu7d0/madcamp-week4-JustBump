@@ -4,6 +4,9 @@
 [진성호](https://github.com/SeonghoJin)  
 [정강산](https://github.com/Sanu7D0)  
 
+![launcher](https://user-images.githubusercontent.com/68413811/151113328-dec5ed6a-1286-454d-9e5b-134df1d75483.gif)
+
+
 ## 게임 소개
 > 미션을 깨고 상대방을 밀쳐 떨어뜨려 점수를 얻는 멀티플레이어 게임 (2~8인)
 
@@ -13,6 +16,8 @@
 - F : 상호작용 (상자 열기 / 무기 줍기 / 미션 수행)
 - G : 무기 놓기
 - Tab : 무기 교체
+
+![lobby](https://user-images.githubusercontent.com/68413811/151113834-e7276a46-a4fa-44cf-b6d9-ab8c32d0d3b0.gif)
 
 ## 게임 시작 방법
 - 아무도 방을 만들지 않은 상태에서 방을 만든다면 본인이 방장이 되고 30초 후 자동으로 게임이 시작됩니다.
