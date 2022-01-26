@@ -21,7 +21,8 @@
 - G : 무기 놓기
 - Tab : 무기 교체
 
-![lobby](https://user-images.githubusercontent.com/68413811/151113834-e7276a46-a4fa-44cf-b6d9-ab8c32d0d3b0.gif)
+![lobby2](https://user-images.githubusercontent.com/68413811/151116427-0b75c0c2-893f-4b9b-b37b-3c818399625f.gif)
+
 
 ## 게임 시작 방법
 
@@ -46,6 +47,10 @@
 - 도끼 : 타격 범위가 좁지만 파워가 강함
 - 포크 : 타격 범위가 넓지만 파워는 떨어짐
 - 폭탄 : 폭탄을 들고 원하는 방향으로 마우스 좌클릭을 하면 폭탄이 던져지고 일정 시간 후 폭발
+![fork](https://user-images.githubusercontent.com/68413811/151116465-4861a40d-1ebe-41b4-892b-e495aed9b1b7.gif)
+![axe](https://user-images.githubusercontent.com/68413811/151116471-5a839b7a-0e10-4297-8af0-2a70be4c78d2.gif)
+![bomb](https://user-images.githubusercontent.com/68413811/151116493-c2537ce0-1974-47bd-a5ea-366d89fae452.gif)
+
 
 ## 느낀점
 - 정강산: Scene에서 저장을 생활화하자. 게임 구조는 간결하고 직관적으로... 하고 싶지만 힘들다. 유니티 깃헙 써야 한다. 
@@ -53,18 +58,15 @@
  
 ## IN Game
 
-<p align="true" width="300px">
-    <image src="./images/Launcher.png">
-</p>
 
-<p align="true" width="300px">
-    <image src="./images/Lobby.png">
-</p>
+Launcher            |  캐릭터 선택 화면             
+:-------------------------:|:-------------------------:
+<image src="./images/Launcher.png">  |  <image src="./images/Lobby.png">
 
-<p align="true" width="300px">
-    <image src="./images/Lobby_Wait_Fight.png">
-</p>
 
-<p align="true" width="300px">
-    <image src="./images/winner.png">
-</p>
+ 
+로비             |  게임 종료 화면             
+:-------------------------:|:-------------------------:
+<image src="./images/Lobby_Wait_Fight.png">  |  <image src="./images/winner.png">
+
+
