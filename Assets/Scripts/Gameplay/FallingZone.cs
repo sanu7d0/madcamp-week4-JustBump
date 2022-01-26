@@ -20,6 +20,7 @@ public class FallingZone : MonoBehaviour
             Contains2D(other.bounds.max)) {
             // Debug.Log($"{other.name} entered fully");
             other.transform.GetComponent<PlayerMediator>().StartFalling();
+            other.GetComponent<Collider2D>().enabled = false;
         }
     }
 

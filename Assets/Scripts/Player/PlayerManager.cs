@@ -97,6 +97,8 @@ public class PlayerManager: MonoBehaviourPunCallbacks, IBumpable, IPlayer
             return;
 		}
 
+        GetComponent<Collider2D>().enabled = true;
+
         isDead = false;
         lastBumperPlayer = null;
         gameObject.SetActive(true);
