@@ -163,8 +163,10 @@ public class PlayerManager: MonoBehaviourPunCallbacks, IBumpable, IPlayer
     private void _BumpSelf(int id, int score, bool isDead, string nickname, Vector2 force) {
         rb.AddForce(force, ForceMode2D.Impulse);
         onBumped.Invoke();
-
-	    lastBumperPlayer = new ConcretePlayer(){ id = id, isDead = isDead, score = score, nickname = nickname };
+            
+        if(id != this.id) { 
+		    lastBumperPlayer = new ConcretePlayer(){ id = id, isDead = isDead, score = score, nickname = nickname };
+		}
 
         if(cancellableTimer != null) { 
 			cancellableTimer.Stop();
