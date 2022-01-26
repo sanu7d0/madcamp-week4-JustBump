@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Weapon_Axe : Weapon
 {
-    private Collider2D hitBox;
+    [SerializeField] private Collider2D hitBox;
     private Quaternion originalRotation;
 
     private enum State {
@@ -16,7 +16,6 @@ public class Weapon_Axe : Weapon
     protected override void Start()
     {
         base.Start();
-        hitBox = GetComponentInChildren<Collider2D>();
         originalRotation = transform.localRotation;
     }
 

@@ -196,6 +196,7 @@ MonoBehaviour:
   weapon: {fileID: 11400000, guid: 555433045f30f334583efa007089a4fc, type: 2}
   effect: {fileID: 5751561215821011561}
   weaponDurability: 0
+  hitBox: {fileID: 8479402204670115471}
 --- !u!82 &6834892307878143021
 AudioSource:
   m_ObjectHideFlags: 0

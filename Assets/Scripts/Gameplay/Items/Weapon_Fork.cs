@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Weapon_Fork : Weapon
 {
-    private Collider2D hitBox;
+    [SerializeField] private Collider2D hitBox;
     private Vector3 originalPosition;
 
     private enum State {
@@ -16,7 +16,6 @@ public class Weapon_Fork : Weapon
     protected override void Start()
     {
         base.Start();
-        hitBox = GetComponentInChildren<Collider2D>();
         originalPosition = transform.localPosition;
     }
 

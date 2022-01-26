@@ -6,12 +6,11 @@ using Photon.Pun;
 // ** Dont inherit this Wepon_Fist class! **
 sealed public class Weapon_Fist : Weapon
 {
-    private Collider2D hitBox;
+    [SerializeField] private Collider2D hitBox;
 
     protected override void Start()
     {
         base.Start();
-        hitBox = GetComponentInChildren<Collider2D>();
     }
 
     public override WeaponUseResult Use()
