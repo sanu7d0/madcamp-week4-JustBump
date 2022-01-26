@@ -58,7 +58,9 @@ public class PlayerManager: MonoBehaviourPunCallbacks, IBumpable, IPlayer
 
     void Start()
     {
-        onDead.AddListener(Dead);
+        if (PhotonNetwork.IsMasterClient) { 
+			onDead.AddListener(Dead);
+		}
 
         gameManager?.AddPlayer(this);
         gameManager?.InvokeOnchangePlayer();
