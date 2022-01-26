@@ -58,18 +58,15 @@
  
 ## IN Game
 
-<p align="true" width="300px">
-    <image src="./images/Launcher.png">
-</p>
 
-<p align="true" width="300px">
-    <image src="./images/Lobby.png">
-</p>
+Launcher            |  캐릭터 선택 화면             
+:-------------------------:|:-------------------------:
+<image src="./images/Launcher.png">  |  <image src="./images/Lobby.png">
 
-<p align="true" width="300px">
-    <image src="./images/Lobby_Wait_Fight.png">
-</p>
 
-<p align="true" width="300px">
-    <image src="./images/winner.png">
-</p>
+ 
+로비             |  게임 종료 화면             
+:-------------------------:|:-------------------------:
+<image src="./images/Lobby_Wait_Fight.png">  |  <image src="./images/winner.png">
+
+
