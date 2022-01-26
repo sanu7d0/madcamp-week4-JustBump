@@ -12,7 +12,8 @@ public class RoomManager : SingletonP<RoomManager>
     [SerializeField]
     private GameObject timerPrefab;
     private GameObject timerInstance;
-    public int MinStartGame = 2;
+    [SerializeField]
+    public int MinStartGame;
     private LobbyUIManager lobbyUIManager;
 
     protected override void Awake()
@@ -33,6 +34,7 @@ public class RoomManager : SingletonP<RoomManager>
     }
     
     public int GetCurrentUser() {
+        Debug.Log(PhotonNetwork.CurrentRoom.PlayerCount);
         return PhotonNetwork.CurrentRoom.PlayerCount;
     }
 
