@@ -48,9 +48,9 @@ MonoBehaviour:
   missionPrefab: {fileID: 4771700952456603950, guid: 64959008904bb44468808e36e31f0064, type: 3}
   lootBoxPrefab: {fileID: 4771700952456603950, guid: 5d41544017e5d3045af6e86f19ea3018, type: 3}
   _gameGoalScore: 30
-  missionNum: 3
-  lootBoxNum: 2
-  spawnNum: 5
+  missionNum: 4
+  lootBoxNum: 3
+  spawnNum: 7
   onChangePlayer:
     m_PersistentCalls:
       m_Calls: []

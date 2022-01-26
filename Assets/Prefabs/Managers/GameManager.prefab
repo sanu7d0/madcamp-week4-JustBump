@@ -44,7 +44,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b22d21c227405a0469e8e9e2d0eca13b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPrefab: {fileID: 5208464320387103439, guid: 907d89b9cdd80924db7142551ba2996f, type: 3}
-  _gameGoalScore: 100
+  defaultPlayerPrefab: {fileID: 0}
+  missionPrefab: {fileID: 0}
+  lootBoxPrefab: {fileID: 0}
+  _gameGoalScore: 40
+  missionNum: 0
+  lootBoxNum: 0
+  spawnNum: 0
+  onChangePlayer:
+    m_PersistentCalls:
+      m_Calls: []
+  bigScore: 0
   _gameLimitTime: 100
   gameStartTime: 0
+  DEBUG_OfflineMode: 0
+  onDead:
+    m_PersistentCalls:
+      m_Calls: []

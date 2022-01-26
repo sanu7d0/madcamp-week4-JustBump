@@ -10493,7 +10493,7 @@ Transform:
   - {fileID: 1571271198}
   - {fileID: 545634084}
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &802238658
 GameObject:
@@ -76530,7 +76530,7 @@ RectTransform:
   m_Children:
   - {fileID: 2022105857}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -76909,7 +76909,7 @@ Transform:
   - {fileID: 1561429910}
   - {fileID: 1136114004}
   m_Father: {fileID: 0}
-  m_RootOrder: 20
+  m_RootOrder: 21
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1699175079
 GameObject:
@@ -79513,7 +79513,7 @@ Transform:
   - {fileID: 519420032}
   - {fileID: 861592730}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2085845918
 GameObject:
@@ -79698,7 +79698,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2118847726
 PrefabInstance:
@@ -80203,16 +80203,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5757667333481578497, guid: 5214096f3971e4824b24c0a2c56f593f, type: 3}
-      propertyPath: spawnNum
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 5757667333481578497, guid: 5214096f3971e4824b24c0a2c56f593f, type: 3}
-      propertyPath: lootBoxNum
+      propertyPath: _gameGoalScore
       value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 5757667333481578497, guid: 5214096f3971e4824b24c0a2c56f593f, type: 3}
-      propertyPath: missionNum
-      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5757667333481578503, guid: 5214096f3971e4824b24c0a2c56f593f, type: 3}
       propertyPath: m_Name

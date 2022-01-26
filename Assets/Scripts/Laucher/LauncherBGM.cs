@@ -41,7 +41,11 @@ public class LauncherBGM : Singleton<LauncherBGM>
     }
 
     private void CheckTurnOffMusic(Scene current, Scene next) {
+        Debug.Log($"{current} -> {next}");
         if (next.name != "Lanucher" && next.name != "Lobby") {
+            Destroy(gameObject);
+        }
+        if (next.name == "Arena") {
             Destroy(gameObject);
         }
     }
