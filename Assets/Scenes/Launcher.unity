@@ -214,6 +214,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 513233764045964500, guid: 2c752bfe5b0db4253a3c707ecc2c20f4, type: 3}
+      propertyPath: m_CharacterLimit
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 513233764500335532, guid: 2c752bfe5b0db4253a3c707ecc2c20f4, type: 3}
       propertyPath: m_Name
       value: UI Manager
