@@ -17,6 +17,16 @@ public class Launcher : MonoBehaviourPunCallbacks
     private bool isConnecting;
     private LauncherUIManager uiManager;
 
+    [System.Serializable]
+    public struct BgmType
+    {
+        public string name;
+        public AudioClip audio;
+    }
+
+    // Inspector 에표시할 배경음악 목록
+    public BgmType[] BGMList;
+
 
     void Awake()
     {
@@ -33,6 +43,10 @@ public class Launcher : MonoBehaviourPunCallbacks
         {
             Connect();
         });
+
+        if (!LauncherBGM.Instance.isPlayingMusic) {
+            LauncherBGM.Instance.StartPlaying(BGMList[0].audio);
+        }
     }
 
     public override void OnConnectedToMaster()

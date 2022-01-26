@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-public class AudioStart : MonoBehaviour
+public class LauncherBGM : Singleton<LauncherBGM>
 {
     [System.Serializable]
     public struct BgmType
@@ -17,22 +17,33 @@ public class AudioStart : MonoBehaviour
     private static AudioSource BGM;
     private string NowBGMname = "";
 
-    void Start()
+    public bool isPlayingMusic;
+
+    protected override void Awake()
     {
+        base.Awake();
+        isPlayingMusic = false;
+
         BGM = gameObject.AddComponent<AudioSource>();
         BGM.loop = true;
-        if (BGMList.Length > 0) PlayBGM(BGMList[0].name);
+
+        SceneManager.activeSceneChanged += CheckTurnOffMusic;
+
 
         DontDestroyOnLoad(gameObject);
     }
 
-    private void Update() {
-        
-        if (SceneManager.GetActiveScene().name != "Lobby" && SceneManager.GetActiveScene().name != "Launcher") {
+    public void StartPlaying(AudioClip clip)
+    {
+        isPlayingMusic = true;
+        BGM.clip = clip;
+        BGM.Play();
+    }
+
+    private void CheckTurnOffMusic(Scene current, Scene next) {
+        if (next.name != "Lanucher" && next.name != "Lobby") {
             Destroy(gameObject);
         }
-        
-
     }
 
     public static void ReplaceMusic() {
@@ -40,7 +51,7 @@ public class AudioStart : MonoBehaviour
         Destroy(BGM);
     }
 
-    public void PlayBGM(string name)
+    public void PlayBGM(AudioClip clip)
     {
         if (NowBGMname.Equals(name)) return;
 

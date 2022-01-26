@@ -9,8 +9,10 @@ public class PlayerInventory : MonoBehaviourPunCallbacks
 
     [SerializeField] private Transform weaponHolder;
     [SerializeField] private GameObject defaultFistPrefab;
+    [SerializeField] private AudioClip itemPickSound;
 
     private PlayerController playerController;
+    private AudioSource audioSource;
     // Tuple<Weapon, bool> -> bool = Is weapon occupied?
     private int curWeaponIdx;
 
@@ -29,6 +31,7 @@ public class PlayerInventory : MonoBehaviourPunCallbacks
 
     void Awake() {
         playerController = GetComponent<PlayerController>();
+        audioSource = GetComponent<AudioSource>();
 
         playerController.onSwapWeapon.AddListener(SwapWeapon);
         playerController.onDrop.AddListener(DropCurrentWeapon);
@@ -126,6 +129,7 @@ public class PlayerInventory : MonoBehaviourPunCallbacks
         if (idx == -1) {
             idx = curWeaponIdx;
         }
+        audioSource.PlayOneShot(itemPickSound);
         photonView.RPC("_SetWeaponAt", RpcTarget.All, newWeapon.GetComponent<PhotonView>().ViewID, idx);
     }
     [PunRPC]

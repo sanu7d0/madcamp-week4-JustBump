@@ -230,6 +230,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weapon: {fileID: 11400000, guid: 32b7ccab8873f1742b6cf71844e8f408, type: 2}
+  effect: {fileID: 0}
   weaponDurability: 0
   explosionRadius: 5
   explosionDelayTime: 1
