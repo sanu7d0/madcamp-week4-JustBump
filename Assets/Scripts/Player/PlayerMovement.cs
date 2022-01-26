@@ -15,6 +15,7 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
     private float speed;
     [SerializeField] private float rollingImpulse;
     [SerializeField] private float rollingTime;
+    [SerializeField] private AudioClip rollingSound;
     private bool isJumping;
     private float jumpingCurTime;
     [SerializeField] private float jumpingTotalTime;
@@ -126,6 +127,7 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
         state = State.Rolling;
         anim.SetBool("isRolling", true);
         rb.AddForce(lastMoveDir * rollingImpulse, ForceMode2D.Impulse);
+        audioSource.PlayOneShot(rollingSound);
 
         // Release Roll State after x sec
         TimerExtension.CreateEventTimer(() => {

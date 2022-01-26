@@ -44,6 +44,9 @@ public class ArenaUIManager : Singleton<ArenaUIManager>
         }
         gameEndUI.SetActive(false);
         KillLogText.SetActive(false);
+
+        Screen.SetResolution(1920, 1080, false);
+        Screen.orientation = ScreenOrientation.LandscapeLeft;
     }
     
     public void OnGameEnd(string winnerName) {

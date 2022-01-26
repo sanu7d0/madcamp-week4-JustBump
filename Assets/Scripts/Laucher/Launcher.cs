@@ -37,7 +37,8 @@ public class Launcher : MonoBehaviourPunCallbacks
     private void Start()
     {
         Debug.Log("Start");
-        Screen.SetResolution(1280, 1080, false);
+        Screen.SetResolution(1920, 1080, false);
+        Screen.orientation = ScreenOrientation.LandscapeLeft;
 
 		uiManager.OnControlPanel();
         uiManager.onConnectButtonClickedListener.AddListener(() =>

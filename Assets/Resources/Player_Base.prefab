@@ -391,6 +391,7 @@ MonoBehaviour:
   defaultSpeed: 250
   rollingImpulse: 4.5
   rollingTime: 0.35
+  rollingSound: {fileID: 8300000, guid: 8d66a5523873f7f4996760c99d055f10, type: 3}
   jumpingTotalTime: 0.2
   jumpingSpeed: 1
   fallingScream: {fileID: 8300000, guid: 6e1b1ecf9d894ec499d2f08c29aff65e, type: 3}

@@ -191,6 +191,17 @@
                 },
                 {
                     "name": "",
+                    "id": "3e5037a2-bfc1-4c83-be95-3e3806fee900",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard & Mouse",
+                    "action": "Roll",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "9ef2b18a-e7ad-4124-a824-944f839230fa",
                     "path": "<Keyboard>/g",
                     "interactions": "",
