@@ -15,9 +15,9 @@ MonoBehaviour:
   name: Fork
   category: 0
   sprite: {fileID: 21300080, guid: 7810966f0f690954c87305933cabf2b0, type: 3}
-  power: 12
+  power: 11
   durability: 10
-  coolTime: 0.5
+  coolTime: 0.3
   useSounds:
   - {fileID: 8300000, guid: da04b515ebb9df34ca4d4bc6512e1664, type: 3}
   - {fileID: 8300000, guid: f2501a2aed371f9478c4869b4cc8d3a2, type: 3}

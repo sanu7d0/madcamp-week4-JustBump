@@ -24,4 +24,8 @@ sealed public class AudioManager : SingletonP<AudioManager>
     public AudioClip GetAudioClip(string key) {
         return audioMap[key];
     }
+
+    public void PlayExplosionSound() {
+        GetComponent<AudioSource>().PlayOneShot(Instance.GetAudioClip("W_explosion1"));
+    }
 }

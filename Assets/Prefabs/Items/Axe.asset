@@ -15,9 +15,9 @@ MonoBehaviour:
   name: Axe
   category: 0
   sprite: {fileID: 21300000, guid: 9a574ea1bed619b449abc56d1abc4712, type: 2}
-  power: 15
+  power: 13
   durability: 10
-  coolTime: 0.5
+  coolTime: 0.4
   useSounds:
   - {fileID: 8300000, guid: da04b515ebb9df34ca4d4bc6512e1664, type: 3}
   - {fileID: 8300000, guid: f2501a2aed371f9478c4869b4cc8d3a2, type: 3}

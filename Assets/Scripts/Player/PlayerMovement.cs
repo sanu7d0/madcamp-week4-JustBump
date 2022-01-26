@@ -8,6 +8,7 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
     private Rigidbody2D rb;
     private PlayerMediator playerMediator;
     private PlayerController playerController;
+    private AudioSource audioSource;
     private Vector2 lastMoveDir;
     Animator anim;
     [SerializeField] private float defaultSpeed;
@@ -18,6 +19,7 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
     private float jumpingCurTime;
     [SerializeField] private float jumpingTotalTime;
     [SerializeField] private float jumpingSpeed;
+    [SerializeField] private AudioClip fallingScream;
 
     private State state;
     private enum State {
@@ -33,6 +35,7 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
         playerController = GetComponent<PlayerController>();
         playerMediator = GetComponent<PlayerMediator>();
         anim = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
 
         isJumping = false;
         speedIncrease = false;
@@ -134,7 +137,20 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
     }
 
     public void StartFalling() {
+        if(state == State.Falling) {
+            return;
+		}
+
         if (PhotonNetwork.IsMasterClient) { 
+			state = State.Falling;
+			rb.velocity = Vector2.zero;
+
+			anim.SetBool("isWalking", false);
+			anim.SetBool("isRolling", false);
+
+			playerMediator.InvokeOnFall();
+            audioSource.PlayOneShot(fallingScream);
+            
 			photonView.RPC("_StartFalling", RpcTarget.All);
 		}
     }
@@ -143,14 +159,11 @@ public class PlayerMovement : MonoBehaviourPunCallbacks
         // Already falling
         if (state == State.Falling)
             return;
-        
-        state = State.Falling;
+		
+		state = State.Falling;
         rb.velocity = Vector2.zero;
-
-         anim.SetBool("isWalking", false);
-         anim.SetBool("isRolling", false);
-
-        playerMediator.InvokeOnFall();
+        anim.SetBool("isWalking", false);
+        anim.SetBool("isRolling", false);
     }
 
     private void HandleFalling() {

@@ -14,9 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Fist
   category: 0
-  power: 5
+  sprite: {fileID: 0}
+  power: 8
   durability: 100000
-  coolTime: 0.5
+  coolTime: 0.2
   useSounds:
   - {fileID: 8300000, guid: dea99c02bda130c47a6b1c592d8578d1, type: 3}
   - {fileID: 8300000, guid: c407cfc99cc58004999352093f8954e5, type: 3}
