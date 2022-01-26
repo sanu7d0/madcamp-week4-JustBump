@@ -6,6 +6,10 @@ public class WeaponInteraction : Interactable
 {
     public override void Interact(PlayerMediator interactor)
     {
+        if (transform.parent != null) {
+            return;
+        }
+
         interactor.PickUpItem(gameObject);
         DisableInteraction();
     }
