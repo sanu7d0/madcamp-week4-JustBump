@@ -58,7 +58,6 @@ public class PlayerCombat : MonoBehaviourPunCallbacks
             result = currentWeapon.Use(
                 shootPosition.position, 
                 Camera.main.ScreenToWorldPoint(playerController.mousePos));
-            delayTime = 1.5f;
             break;
         }
 

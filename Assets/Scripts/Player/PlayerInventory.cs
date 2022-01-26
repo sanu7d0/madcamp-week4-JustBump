@@ -110,7 +110,7 @@ public class PlayerInventory : MonoBehaviourPunCallbacks
         if (currentWeapon is not Weapon_Fist) {
             if (currentWeapon.weaponDurability > 0) {
                 currentWeapon.transform.parent = null;
-                currentWeapon.GetComponent<WeaponInteraction>().enabled = true;
+                currentWeapon.GetComponent<WeaponInteraction>().EnableInteraction();
             } else {
                 // If durability = 0, destroy
                 if (photonView.IsMine) {
@@ -140,7 +140,7 @@ public class PlayerInventory : MonoBehaviourPunCallbacks
         if (oldWeapon is not Weapon_Fist) {
             if (oldWeapon.weaponDurability > 0) {
                 oldWeapon.gameObject.transform.parent = null;
-                currentWeapon.GetComponent<WeaponInteraction>().enabled = true;
+                currentWeapon.GetComponent<WeaponInteraction>().DisableInteraction();
             } else {
                 // If durability = 0, destroy
                 if (photonView.IsMine) {

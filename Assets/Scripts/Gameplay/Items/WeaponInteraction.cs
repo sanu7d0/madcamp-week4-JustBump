@@ -9,6 +9,16 @@ public class WeaponInteraction : Interactable
         interactor.PickUpItem(gameObject);
         this.enabled = false;
     }
+    
+    public void EnableInteraction() {
+        this.cc.enabled = true;
+        this.enabled = true;
+    }
+
+    public void DisableInteraction() {
+        this.cc.enabled = false;
+        this.enabled = false;
+    }
 
     public override void Interact()
     {
