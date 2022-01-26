@@ -13,6 +13,7 @@ public abstract class Weapon : MonoBehaviourPunCallbacks, IPunObservable
 {   
     protected AudioSource audioSource;
     [SerializeField] protected WeaponObject weapon;
+    [SerializeField] protected ParticleSystem effect;
 
     protected float lastUseTime = 0;
 
@@ -94,6 +95,8 @@ public abstract class Weapon : MonoBehaviourPunCallbacks, IPunObservable
                         bumpTarget.BumpSelf(force);
                     }
 
+                    EmitHitEffect();
+
                     attacked = true;
 				}
             }
@@ -101,6 +104,14 @@ public abstract class Weapon : MonoBehaviourPunCallbacks, IPunObservable
         }
 
         return attacked;
+    }
+
+    protected virtual void EmitHitEffect() {
+        photonView.RPC("_EmitHitEffect", RpcTarget.All);
+    }
+    [PunRPC]
+    public void _EmitHitEffect() {
+        effect.Emit(16);
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
