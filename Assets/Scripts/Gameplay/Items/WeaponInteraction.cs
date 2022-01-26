@@ -7,16 +7,16 @@ public class WeaponInteraction : Interactable
     public override void Interact(PlayerMediator interactor)
     {
         interactor.PickUpItem(gameObject);
-        this.enabled = false;
+        DisableInteraction();
     }
     
     public void EnableInteraction() {
-        this.cc.enabled = true;
+        cc.enabled = true;
         this.enabled = true;
     }
 
     public void DisableInteraction() {
-        this.cc.enabled = false;
+        cc.enabled = false;
         this.enabled = false;
     }
 
